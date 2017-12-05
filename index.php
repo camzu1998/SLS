@@ -26,10 +26,12 @@
                 <?php include"listaSezonow.php";?>
             </div>
             <div class="row">
-                <div class="four columns">
-                    <?php include"tabelki.php"; ?>
+                <div class="five columns" style="margin-top: 10px !important;">
+                    <ul>
+                    <?php include"tabelka.php"; ?>
+                    </ul>
                 </div>
-                <div class="eight columns">
+                <div class="seven columns">
                     <script src="js/zegar.js"></script>
                     <div id="zegar"></div>
                 </div>
