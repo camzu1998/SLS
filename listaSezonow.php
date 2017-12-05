@@ -16,7 +16,7 @@ if($polaczenie->connect_errno!=0){
     echo '<div class="menuSez">';
         echo '<a class="first" href="index.php?id='.$ID.'">'.$Nazwa.'</a>';
         echo '<div class="menuContent">';
-        for($i=0;$i<=$ileSez->num_rows;$i++){
+        for($i=0;$i<$ileSez->num_rows;$i++){
             $wiersz = $ileSez->fetch_assoc();
             $ID = $wiersz['ID'];
             $Nazwa = $wiersz['Data'];

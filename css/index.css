@@ -1,0 +1,39 @@
+.first {
+    background-color: #0066FF;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.menuSez {
+    position: relative;
+    display: inline-block;
+}
+
+.menuContent {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.menuContent a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.menuContent a:hover {background-color: #f1f1f1}
+
+.menuSez:hover .menuContent {
+    display: block;
+}
+
+.menuSez:hover .first {
+    background-color: #0033FF;
+}

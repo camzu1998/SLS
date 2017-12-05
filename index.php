@@ -9,6 +9,7 @@
         <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/skeleton.css">
+        <link rel="stylesheet" href="css/index.css">
         <script src="js/jquery-3.2.1.min.js"></script>
     </head>
     <body>
@@ -26,7 +27,7 @@
             </div>
             <div class="row">
                 <div class="four columns">
-                    <?php //include"tabelki.php"; ?>
+                    <?php include"tabelki.php"; ?>
                 </div>
                 <div class="eight columns">
                     <script src="js/zegar.js"></script>
