@@ -7,8 +7,8 @@ require_once "connect.php";
 if($polaczenie->connect_errno!=0){
     echo "Error: ".$polaczenie->connect_errno;
 } else {
-    $ileSez = $polaczenie->query("SELECT * FROM `sezony` WHERE `zakonczony` != 0;");
-    $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `zakonoczony` = 0;");
+    $ileSez = $polaczenie->query("SELECT * FROM `sezony` WHERE `Zakonczony` != 0;");
+    $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `Zakonczony` = 0;");
     $wiersz = $aktywny->fetch_assoc();
         $Nazwa = $wiersz['Data'];
         $ID = $wiersz['ID'];

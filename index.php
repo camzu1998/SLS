@@ -26,7 +26,7 @@
             </div>
             <div class="row">
                 <div class="four columns">
-                    <?php include"tabelki.php"; ?>
+                    <?php //include"tabelki.php"; ?>
                 </div>
                 <div class="eight columns">
                     <script src="js/zegar.js"></script>
