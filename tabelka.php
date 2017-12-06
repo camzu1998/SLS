@@ -6,7 +6,7 @@ require_once "connect.php";
 if($polaczenie->connect_errno!=0){
     echo "Error: ".$polaczenie->connect_errno;
 } else {
-    function wyswietlanie($Nazwa){
+    function wyswietlanie($Nazwa, $ID){
         /* ZMIENNE POMOCNICZE */
         $KIC = "Klasyfikacja indywidualna chłopców";
         $KID = "Klasyfikacja indywidualna dziewcząt";
@@ -16,7 +16,7 @@ if($polaczenie->connect_errno!=0){
         $KGIC = "Klasyfikacja generalna indywidualna chłopców";
         $KGID = "Klasyfikacja generalna indywidualna dziewcząt";
 
-        echo '<li><a href="">'.$KIC." ".$Nazwa.'</a></li>';
+        echo '<li><a href="kic.php?id="'.$ID.'>'.$KIC." ".$Nazwa.'</a></li>';
         echo '<li><a href="">'.$KID." ".$Nazwa.'</a></li>';
         echo '<li><a href="">'.$KD." ".$Nazwa.'</a></li>';
         echo '<li><a href="">'.$KDPK." ".$Nazwa.'</a></li>';
@@ -33,12 +33,12 @@ if($polaczenie->connect_errno!=0){
         $wiersz = $aktywny->fetch_assoc();
             $IdSez = $wiersz['ID'];
             $Nazwa = $wiersz['Data'];
-        wyswietlanie($Nazwa);
+        wyswietlanie($Nazwa,$IdSez);
     }else{
         $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `ID` = ".$IdSezonu.";");
         $wiersz = $aktywny->fetch_assoc();
             $IdSez = $wiersz['ID'];
             $Nazwa = $wiersz['Data'];
-        wyswietlanie($Nazwa);
+        wyswietlanie($Nazwa,$IdSez);
     }
 }
