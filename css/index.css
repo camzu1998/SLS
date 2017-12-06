@@ -37,3 +37,10 @@
 .menuSez:hover .first {
     background-color: #0033FF;
 }
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}

@@ -19,7 +19,7 @@
                     <img src="img.jpg" style="float:left;"/>
                     <h2>SZKOLNA LIGA STRZELECKA</h2>
                 </div>
-                <div class="six columns" style="text-align: right;"><a>Zaloguj się</a>|<a>Zarejestruj się</a> </div>
+                <div class="six columns" style="text-align: right;"><a onclick="">Zaloguj się</a></div>
             </div>
             <div class="row">
                 <!-- WYBÓR SEZONU -->
@@ -37,5 +37,8 @@
                 </div>
             </div>
         </div>
+        <footer>
+            Kamil Langer 2017 Wszelkie prawa zastrzeżone &copy; kamillanger4@gmail.com
+        </footer>
     </body>
 </html>
