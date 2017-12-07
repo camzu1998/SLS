@@ -33,8 +33,10 @@
                 </div>
                 <div class="seven columns">
                     <table>
-                        <tr><th>Miejsce</th><th>Imię i Nazwisko</th><th>Punkty</th><th>Nazwa szkoły</th><th></th></tr>
-                        <?php include"tabelaKIC.php"; ?>
+                        <thead><tr><th>Miejsce</th><th>Imię i Nazwisko</th><th>Punkty</th><th>Nazwa szkoły</th><th></th></tr></thead>
+                        <tbody>
+                            <?php include"tabelaKIC.php"; ?>
+                        </tbody>
                     </table>
                 </div>
             </div>
