@@ -16,7 +16,7 @@ if($polaczenie->connect_errno!=0){
         $KGIC = "Klasyfikacja generalna indywidualna chłopców";
         $KGID = "Klasyfikacja generalna indywidualna dziewcząt";
 
-        echo '<li><a href="kic.php?id="'.$ID.'>'.$KIC." ".$Nazwa.'</a></li>';
+        echo '<li><a href="kic.php?id='.$ID.'">'.$KIC." ".$Nazwa.'</a></li>';
         echo '<li><a href="">'.$KID." ".$Nazwa.'</a></li>';
         echo '<li><a href="">'.$KD." ".$Nazwa.'</a></li>';
         echo '<li><a href="">'.$KDPK." ".$Nazwa.'</a></li>';
@@ -27,18 +27,18 @@ if($polaczenie->connect_errno!=0){
 
     @$IdSezonu = @$_GET['id'];
 
-    if(@$IdSezonu == null){
+    if($IdSezonu == null){
         /*SPRAWDZENIE AKTUALNEGO SEZONU */
         $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `Zakonczony` = 0;");
         $wiersz = $aktywny->fetch_assoc();
-            $IdSez = $wiersz['ID'];
+            $ID = $wiersz['ID'];
             $Nazwa = $wiersz['Data'];
-        wyswietlanie($Nazwa,$IdSez);
+        wyswietlanie($Nazwa,$ID);
     }else{
         $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `ID` = ".$IdSezonu.";");
         $wiersz = $aktywny->fetch_assoc();
-            $IdSez = $wiersz['ID'];
+            $ID = $wiersz['ID'];
             $Nazwa = $wiersz['Data'];
-        wyswietlanie($Nazwa,$IdSez);
+        wyswietlanie($Nazwa,$ID);
     }
 }

@@ -23,7 +23,7 @@ if($polaczenie->connect_errno!=0){
                 $idZespolu = $wiersz['ID_druzyny'];
             /** MAMY DANE ZAWODNIKA **/
             $zapytanie3 = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw` =".$IDZaw." AND `ID_Rundy` =".@$IDRund[$i].";");
-            $wiersz = $zapytanie3->fetch_assoc();
+            @$wiersz = $zapytanie3->fetch_assoc();
                 $punkty = $wiersz['Suma'];
                 $ilosc_10 = $wiersz['Ilosc_10'];
             /** MAMY PUNKTY ZAWODNIKA **/
@@ -37,7 +37,10 @@ if($polaczenie->connect_errno!=0){
 
 
     }else{
-        header('Location: kic.php?id=2');
+        $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `Zakonczony` = 0;");
+        $wiersz = $aktywny->fetch_assoc();
+            $ID = $wiersz['ID'];
+        header('Location: kic.php?id='.$ID);
     }
 }
 ?>
