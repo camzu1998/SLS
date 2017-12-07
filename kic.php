@@ -15,10 +15,12 @@
     <body>
         <div class="container">
             <div class="row" style="margin-top:5px !important;">
-                <div class="six columns">
-                    <img src="img.jpg" style="float:left;"/>
-                    <h2>SZKOLNA LIGA STRZELECKA</h2>
-                </div>
+               <a href="index.php" style="text-decoration: none; color: white;">
+                    <div class="six columns">
+                        <img src="img.jpg" style="float:left;"/>
+                        <h2>SZKOLNA LIGA STRZELECKA</h2>
+                    </div>
+                </a>
                 <?php
                     if(!isset($_SESSION['zalogowany'])){
                         ?><div class="six columns" style="text-align: right;"><a onclick="document.getElementById('id01').style.display='block'">Zaloguj się</a></div><?php
