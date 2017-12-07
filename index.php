@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -13,7 +14,6 @@
         <link rel="stylesheet" href="css/loginpopup.css">
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/jquery.leanModal.min.js"></script>
-        <script src="js/facebookInitialize.js"></script>
         <script src="js/loginpopup.js"></script>
     </head>
     <body>
@@ -23,34 +23,36 @@
                     <img src="img.jpg" style="float:left;"/>
                     <h2>SZKOLNA LIGA STRZELECKA</h2>
                 </div>
-                <div class="six columns" style="text-align: right;"><a onclick="document.getElementById('id01').style.display='block'">Zaloguj się</a></div>
+                <?php
+                    if(!isset($_SESSION['zalogowany'])){
+                        ?><div class="six columns" style="text-align: right;"><a onclick="document.getElementById('id01').style.display='block'">Zaloguj się</a></div><?php
+                    }else{
+                        ?><div class="six columns" style="text-align: right;"> <?php
+                        echo '<span style="margin-left: 5px;"> Witaj '.$_SESSION['Imie'].' </span>';
+                        if($_SESSION['Admin'] != 0){
+                            echo '<a href="panelAdmin.php"> Panel Administracyjny </a>';
+                        }
+                        ?>
+                            <a href="logout.php" style="color: #CC0033; text-decoration: none;"> Wyloguj się </a>
+                        </div> <?php
+                    }
+                ?>
             </div>
             <div class="row">
                 <!-- WYBÓR SEZONU -->
                 <?php include"listaSezonow.php";?>
             </div>
             <div id="id01" class="modal">
-                <form class="modal-content animate" action="logowanie.php">
+                <form class="modal-content animate" action="logowanie.php" method="post">
                     <div class="imgcontainer">
                         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
                     </div>
                     <div class="kontener">
                         <label><b>Login</b></label>
-                        <input type="text" placeholder="Enter Username" name="uname" required>
+                        <input type="text" placeholder="Wpisz login" name="Login" required>
                         <label><b>Hasło</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required>
+                        <input type="password" placeholder="Wpisz hasło" name="Haslo" required>
                         <button type="submit">Zaloguj się</button>
-                        <fb:login-button
-                          scope="public_profile,email"
-                          onlogin="checkLoginState();">
-                        </fb:login-button>
-                        <script>
-                            function checkLoginState() {
-                                FB.getLoginStatus(function(response) {
-                                    statusChangeCallback(response);
-                                });
-                            }
-                        </script>
                     </div>
                     <div class="kontener" style="background-color:#f1f1f1">
                         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Anuluj</button>

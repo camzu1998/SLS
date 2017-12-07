@@ -19,7 +19,19 @@
                     <img src="img.jpg" style="float:left;"/>
                     <h2>SZKOLNA LIGA STRZELECKA</h2>
                 </div>
-                <div class="six columns" style="text-align: right;"><a onclick="">Zaloguj się</a></div>
+                <?php
+                    if(!isset($_SESSION['zalogowany'])){
+                        ?><div class="six columns" style="text-align: right;"><a onclick="document.getElementById('id01').style.display='block'">Zaloguj się</a></div><?php
+                    }else{ ?>
+                        <div class="six columns" style="text-align: right;"> <?php
+                            echo '<span style="margin-left: 5px;"> Witaj '.$_SESSION['Imie'].' </span>';
+                            if($_SESSION['Admin'] != 0){
+                                echo '<a href="panelAdmin.php"> Panel Administracyjny </a>';
+                            }?>
+                            <a href="logout.php" style="color: #CC0033; text-decoration: none;"> Wyloguj się </a>
+                        </div> <?php
+                    }
+                ?>
             </div>
             <div class="row">
                 <!-- WYBÓR SEZONU -->
