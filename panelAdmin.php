@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/skeleton.css">
         <link rel="stylesheet" href="css/index.css">
-        <link rel="stylesheet" href="css/loginpopup.css">
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/jquery.leanModal.min.js"></script>
         <script src="js/loginpopup.js"></script>
@@ -26,7 +25,8 @@
                     </div>
                 </a>
                 <?php
-                    if(!isset($_SESSION['zalogowany'])){
+                    if(!isset($_SESSION['zalogowany']) || $_SESSION['Admin'] == 0){
+                        header('Location: index.php');
                         ?><div class="six columns" style="text-align: right;"><a onclick="document.getElementById('id01').style.display='block'">Zaloguj się</a></div><?php
                     }else{
                         ?><div class="six columns" style="text-align: right;"> <?php
@@ -41,35 +41,25 @@
                 ?>
             </div>
             <div class="row">
-                <!-- WYBÓR SEZONU -->
-                <?php include"listaSezonow.php";?>
-            </div>
-            <div id="id01" class="modal">
-                <form class="modal-content animate" action="logowanie.php" method="post">
-                    <div class="imgcontainer">
-                        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    </div>
-                    <div class="kontener">
-                        <label><b>Login</b></label>
-                        <input type="text" placeholder="Wpisz login" name="Login" required>
-                        <label><b>Hasło</b></label>
-                        <input type="password" placeholder="Wpisz hasło" name="Haslo" required>
-                        <button type="submit">Zaloguj się</button>
-                    </div>
-                    <div class="kontener" style="background-color:#f1f1f1">
-                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Anuluj</button>
-                    </div>
-                </form>
+                <div class="four columns window">
+                    <span>Dodaj zawodnika</span>
+                </div>
+                <div class="four columns window">
+                    <span>Dodaj drużynę</span>
+                </div>
+                <div class="four columns window">
+                    <span>Zmień dane zawodnika</span>
+                </div>
             </div>
             <div class="row">
-                <div class="five columns" style="margin-top: 10px !important;">
-                    <ul>
-                        <?php include"tabelka.php"; ?>
-                    </ul>
+                <div class="four columns window">
+                    <span>Rozpocznij rundę</span>
                 </div>
-                <div class="seven columns">
-                    <script src="js/zegar.js"></script>
-                    <div id="zegar"></div>
+                <div class="four columns window">
+                    <span>Zakończ sezon</span>
+                </div>
+                <div class="four columns window">
+                    <span>Logi</span>
                 </div>
             </div>
         </div>
