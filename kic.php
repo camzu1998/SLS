@@ -15,7 +15,7 @@
     <body>
         <div class="container">
             <div class="row" style="margin-top:5px !important;">
-               <a href="index.php" style="text-decoration: none; color: white;">
+               <a href="index.php" style="text-decoration: none; color: black;">
                     <div class="six columns">
                         <img src="img.jpg" style="float:left;"/>
                         <h2>SZKOLNA LIGA STRZELECKA</h2>
