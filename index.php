@@ -10,7 +10,11 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/skeleton.css">
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/loginpopup.css">
         <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/jquery.leanModal.min.js"></script>
+        <script src="js/facebookInitialize.js"></script>
+        <script src="js/loginpopup.js"></script>
     </head>
     <body>
         <div class="container">
@@ -19,16 +23,44 @@
                     <img src="img.jpg" style="float:left;"/>
                     <h2>SZKOLNA LIGA STRZELECKA</h2>
                 </div>
-                <div class="six columns" style="text-align: right;"><a onclick="">Zaloguj się</a></div>
+                <div class="six columns" style="text-align: right;"><a onclick="document.getElementById('id01').style.display='block'">Zaloguj się</a></div>
             </div>
             <div class="row">
                 <!-- WYBÓR SEZONU -->
                 <?php include"listaSezonow.php";?>
             </div>
+            <div id="id01" class="modal">
+                <form class="modal-content animate" action="logowanie.php">
+                    <div class="imgcontainer">
+                        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                    </div>
+                    <div class="kontener">
+                        <label><b>Login</b></label>
+                        <input type="text" placeholder="Enter Username" name="uname" required>
+                        <label><b>Hasło</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required>
+                        <button type="submit">Zaloguj się</button>
+                        <fb:login-button
+                          scope="public_profile,email"
+                          onlogin="checkLoginState();">
+                        </fb:login-button>
+                        <script>
+                            function checkLoginState() {
+                                FB.getLoginStatus(function(response) {
+                                    statusChangeCallback(response);
+                                });
+                            }
+                        </script>
+                    </div>
+                    <div class="kontener" style="background-color:#f1f1f1">
+                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Anuluj</button>
+                    </div>
+                </form>
+            </div>
             <div class="row">
                 <div class="five columns" style="margin-top: 10px !important;">
                     <ul>
-                    <?php include"tabelka.php"; ?>
+                        <?php include"tabelka.php"; ?>
                     </ul>
                 </div>
                 <div class="seven columns">
