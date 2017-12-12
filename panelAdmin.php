@@ -11,16 +11,18 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/skeleton.css">
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/loginpopup.css">
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/jquery.leanModal.min.js"></script>
         <script src="js/loginpopup.js"></script>
+        <script src="js/adminContent.js"></script>
     </head>
     <body>
         <div class="container">
             <div class="row" style="margin-top:5px !important;">
                 <a href="index.php" style="text-decoration: none; color: black;">
                     <div class="six columns">
-                        <img src="img.jpg" style="float:left;"/>
+                        <img src="img.png" width="100px" style="float:left;"/>
                         <h2>SZKOLNA LIGA STRZELECKA</h2>
                     </div>
                 </a>
@@ -42,28 +44,37 @@
             </div>
             <div class="row">
                 <div class="four columns window">
-                    <a onclick="document.getElementById('dialogWindow').style.display = 'block';" >  Dodaj zawodnika </a>
+                    <a onclick="wyswietlaj('Dodaj zawodnika', `dodajzaw`);">  Dodaj zawodnika </a> <br>
+                    <a onclick="wyswietlaj('Dodaj zawodnika', `edytujzaw`);">  Edytuj zawodnika </a>
                 </div>
                 <div class="four columns window">
-                    <span>Dodaj drużynę</span>
+                    <span>Dodaj drużynę</span> <br>
+                    <span>Edytuj drużynę</span>
                 </div>
                 <div class="four columns window">
-                    <span>Zmień dane zawodnika</span>
+                    <span>Rozpocznij sezon</span> <br>
+                    <span>Zakończ sezon</span>
                 </div>
             </div>
             <div class="row">
                 <div class="four columns window">
-                    <span>Rozpocznij rundę</span>
+                    <span>Dodaj szkołę</span> <br>
+                    <span>Edytuj szkołę</span>
                 </div>
                 <div class="four columns window">
-                    <span>Zakończ sezon</span>
+                    <span>Rozpocznij rundę</span> <br>
+                    <span>Zakończ rundę</span>
                 </div>
                 <div class="four columns window">
                     <span>Logi</span>
                 </div>
             </div>
-            <div id="dialogWindow" class="window" style="display: none; position: absolute; z-index: 997; top: 0 !important; height: auto; background: white; line-height: normal;">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu laoreet ex. Nunc convallis dolor et lacus consequat, nec pulvinar dolor mattis. Fusce condimentum nulla a purus tempor, ac pretium metus imperdiet. Aenean sit amet fermentum elit, nec consequat massa. Maecenas vehicula augue nec egestas maximus. Curabitur pharetra eu tortor vel hendrerit. Nulla id metus laoreet, rutrum arcu ac, mollis quam. Maecenas vehicula convallis libero, sed ultrices libero convallis vel. Proin libero lorem, efficitur vitae erat sit amet, euismod consectetur ex. Nullam gravida purus eu sapien sollicitudin maximus. Donec iaculis lorem vitae massa suscipit volutpat. Praesent tempus nisi eget tempor condimentum. Curabitur ornare eros dolor, et pulvinar massa interdum vel.
+            <div id="dialogWindow" class="window" style="display: none; position: absolute; z-index: 997; top: 0 !important; height: auto; background: white; line-height: normal; width: 100%; padding:16px;">
+                <div id="title" style="float:left;"></div>
+                <span onclick="document.getElementById('dialogWindow').style.display='none'" class="close" title="Close">&times;</span>
+                <div id="content" style="text-align: center; margin-top:10px;">
+
+                </div>
             </div>
         </div>
         <footer>
