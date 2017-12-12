@@ -26,6 +26,18 @@
             $Plec = $_REQUEST['Plec'];
             mysqli_query($polaczenie, "INSERT INTO `zawodnicy` (`Imie Nazwisko`, `ID_Druzyny`, `Plec`) VALUES('".$ImieNazwisko."', '".$IDD."', '".$Plec."');");
             echo "Done";
+        }else if($tryb == "wczytajDodajDruz"){
+            echo include"dodajDruzyne.php";
+        }else if($tryb == "DodajDruz"){
+            //KONWERSJA LITER I ODCZYT IMIENIA I NAZWISKOA ZAWODNIKA
+            $szkola = mb_convert_case($_REQUEST['szkola'], MB_CASE_TITLE, "UTF-8");
+            $adres = mb_convert_case($_REQUEST['adres'], MB_CASE_TITLE, "UTF-8");
+            $nazwa = $_REQUEST['nazwa'];
+            $www = $_REQUEST['www'];
+            mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaSzkoly`, `AdresSzkoly`, `WWW`, `NazwaDruzyny`) VALUES('".$szkola."', '".$adres."', '".$www."', '".$nazwa."');");
+            echo "Done";
+        }else if($tryb == "wczytajDodajPkt"){
+
         }
     }
 ?>

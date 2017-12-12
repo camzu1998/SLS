@@ -20,5 +20,5 @@
             }
         ?>
     </select> <br>
-    <button onclick="wyslij();">Wyślij</button>
+    <button onclick="wyslijDZ();">Wyślij</button>
 </form>

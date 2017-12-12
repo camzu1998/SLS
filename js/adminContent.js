@@ -1,50 +1,44 @@
+function response(tryb){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('content').innerHTML = this.responseText;
+        }
+    }
+}
 function wyswietlaj(tytul, content){
     $('#dialogWindow').show();
     $('#title').text(tytul);
     if(content == "dodajzaw"){
-        $('#content').text("Dodaj Zawodnika");
-        var xmlhttp = new XMLHttpRequest();
         var tryb = "wczytajDodajZaw";
-        console.log("Stage 1");
-        xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb, true);
-        xmlhttp.send();
-        console.log("Otworzono");
-        xmlhttp.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                document.getElementById('content').innerHTML = this.responseText;
-                console.log(this.responseText);
-            }
-        }
-        console.log("Stage 3");
+    }else if(content == "dodajdruz"){
+        var tryb = "wczytajDodajDruz";
+    }else if(content == "dodajpkt"){
+        var tryb = "wczytajDodajPkt";
     }
+
+    response(tryb);
 }
-function wyslij(){
+function wyslijDZ(){
     var imie = $('#Imie').val();
     var nazwisko = $('#Nazwisko').val();
     var plec = $('#Plec').val();
     var druzyna = $('#Druzyna').val();
     var xmlhttp = new XMLHttpRequest();
     var tryb = "DodajZaw";
-    console.log("Stage 4");
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Imie="+imie+"&Nazwisko="+nazwisko+"&Plec="+plec+"&Druzyna="+druzyna, true);
     xmlhttp.send();
-    console.log("Otworzono");
-    xmlhttp.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            console.log(this.responseText);
-        }
-    }
-    console.log("Stage 6");
 }
-/**
-function zapis(nazwa) {
+function wyslijDD(){
+    var szkola = $('#Szkola').val();
+    var www = $('#WWW').val();
+    var adres = $('#Adres').val();
+    var nazwa = $('#Nazwa').val();
+
     var xmlhttp = new XMLHttpRequest();
-    var tryb = "zapis";
-    xmlhttp.open("GET", "dodajCBG.php?Nazwa=" + nazwa, true);
+    var tryb = "DodajDruz";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola+"&www="+www+"&adres="+adres+"&nazwa="+nazwa, true);
     xmlhttp.send();
-    console.log(xmlhttp.responseText);
-    xmlhttp.open("GET", "cojestGrane.php?Teraz=" + nazwa + "&Tryb="+tryb, true);
-    xmlhttp.send();
-    console.log("Wysłano");
 }
-**/

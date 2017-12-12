@@ -48,7 +48,7 @@
                     <a onclick="wyswietlaj('Dodaj zawodnika', `edytujzaw`);">  Edytuj zawodnika </a>
                 </div>
                 <div class="four columns window">
-                    <span>Dodaj drużynę</span> <br>
+                    <a onclick="wyswietlaj('Dodaj drużynę', `dodajdruz`);">  Dodaj drużynę </a> <br>
                     <span>Edytuj drużynę</span>
                 </div>
                 <div class="four columns window">
@@ -58,7 +58,7 @@
             </div>
             <div class="row">
                 <div class="four columns window">
-                    <span>Dodaj szkołę</span> <br>
+                    <a onclick="wyswietlaj('Dodaj punkty', `dodajpkt`);">  Dodaj punkty </a> <br>
                     <span>Edytuj szkołę</span>
                 </div>
                 <div class="four columns window">
