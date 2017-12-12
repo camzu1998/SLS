@@ -37,7 +37,16 @@
             mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaSzkoly`, `AdresSzkoly`, `WWW`, `NazwaDruzyny`) VALUES('".$szkola."', '".$adres."', '".$www."', '".$nazwa."');");
             echo "Done";
         }else if($tryb == "wczytajDodajPkt"){
-
+            echo include"dodajPkt.php";
+        }else if($tryb == "DodajPkt"){
+            //POBIERANIE ZMIENNYCH
+            $idZawodnika = $_GET['zawodnik'];
+            $Suma = $_GET['Suma'];
+            $Ilosc10 = $_GET['ilosc10'];
+            $nrRundy = $_GET['nrRundy'];
+            //DODANIE DO TABELI
+            mysqli_query($polaczenie, "INSERT INTO `punkty` (`ID_zaw`, `Suma`, `Ilosc_10`, `ID_Rundy`) VALUES('".$idZawodnika."', '".$Suma."', '".$Ilosc10."', '".$nrRundy."');");
+            echo "Done";
         }
     }
 ?>

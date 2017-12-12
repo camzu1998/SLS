@@ -15,6 +15,7 @@
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/jquery.leanModal.min.js"></script>
         <script src="js/loginpopup.js"></script>
+        <script src="js/w3.js"></script>
         <script src="js/adminContent.js"></script>
     </head>
     <body>
@@ -77,6 +78,7 @@
                 </div>
             </div>
         </div>
+        <div id="test"></div>
         <footer>
             Kamil Langer 2017 Wszelkie prawa zastrzeżone &copy; kamillanger4@gmail.com
         </footer>

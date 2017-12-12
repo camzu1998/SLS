@@ -42,3 +42,20 @@ function wyslijDD(){
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola+"&www="+www+"&adres="+adres+"&nazwa="+nazwa, true);
     xmlhttp.send();
 }
+function wyslijDP(){
+    var pkt = new Array(10);
+    for(var i=0; i<10;i++){
+        pkt[i] = $('#pkt'+i).val();
+    }
+    var suma = 0;
+    for(var x=0;x<10;x++){
+        suma += Number(pkt[x]);
+    }
+    var ilosc10 = $('#Ilosc10').val();
+    var nrRundy = $('#runda').val();
+    var zawodnik = $('#zawodnik').val();
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "DodajPkt";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Suma="+suma+"&ilosc10="+ilosc10+"&nrRundy="+nrRundy+"&zawodnik="+zawodnik, true);
+    xmlhttp.send();
+}
