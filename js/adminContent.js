@@ -65,8 +65,8 @@ function wyslijNR(){
     var nazwaSez = $('#sezon').val();
     var nazwaShl = $('#nazwaShl').val();
 
-    var xmlhttp = NEW XMLHttpRequest();
-    var tryb = "NoweaRunda";
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "NowaRunda";
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&NazwaSez="+nazwaSez+"&NazwaShl="+nazwaShl, true);
     xmlhttp.send();
 }
