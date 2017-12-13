@@ -15,7 +15,7 @@ if($polaczenie->connect_errno!=0){
         }
         /** MAMY ID WSZYSTKICH RUND **/
         $lp = 1;
-        $zapytanie2 = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `plec` = 'M';");
+        $zapytanie2 = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec` = 'M';");
         for($i=0;$i<$zapytanie2->num_rows;$i++){
             $wiersz = $zapytanie2->fetch_assoc();
                 $IDZaw = $wiersz['ID_zawodnika'];

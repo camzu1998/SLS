@@ -36,8 +36,13 @@
                 ?>
             </div>
             <div class="row">
-                <!-- WYBÓR SEZONU -->
-                <?php include"listaSezonow.php";?>
+                <div class="six columns">
+                    <!-- WYBÓR SEZONU -->
+                    <?php include"listaSezonow.php";?>
+                </div>
+                <div class="six columns">
+
+                </div>
             </div>
             <div class="row">
                 <div class="five columns" style="margin-top: 10px !important;">

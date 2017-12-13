@@ -47,6 +47,15 @@
             //DODANIE DO TABELI
             mysqli_query($polaczenie, "INSERT INTO `punkty` (`ID_zaw`, `Suma`, `Ilosc_10`, `ID_Rundy`) VALUES('".$idZawodnika."', '".$Suma."', '".$Ilosc10."', '".$nrRundy."');");
             echo "Done";
+        }else if($tryb == "wczytajNowaRunda"){
+            echo include"nowaRunda.php";
+        }else if($tryb == "NowaRunda"){
+            //POBIERANIE ZMIENNYCH
+            $nazwaShl = $_GET['NazwaShl'];
+            $idSez = $_GET['NazwaSez'];
+            //DODAWANIE DO TABELI
+            mysqli_query($polaczenie, "INSERT INTO `rundy` (`IdSezonu`, `NazwaShl`) VALUES('".$idSez."', '".$nazwaShl."');");
+            echo "Done";
         }
     }
 ?>

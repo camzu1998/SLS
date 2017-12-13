@@ -17,6 +17,8 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajDodajDruz";
     }else if(content == "dodajpkt"){
         var tryb = "wczytajDodajPkt";
+    }else if(content == "nowarunda"){
+        var tryb = "wczytajNowaRunda";
     }
 
     response(tryb);
@@ -57,5 +59,14 @@ function wyslijDP(){
     var xmlhttp = new XMLHttpRequest();
     var tryb = "DodajPkt";
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Suma="+suma+"&ilosc10="+ilosc10+"&nrRundy="+nrRundy+"&zawodnik="+zawodnik, true);
+    xmlhttp.send();
+}
+function wyslijNR(){
+    var nazwaSez = $('#sezon').val();
+    var nazwaShl = $('#nazwaShl').val();
+
+    var xmlhttp = NEW XMLHttpRequest();
+    var tryb = "NoweaRunda";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&NazwaSez="+nazwaSez+"&NazwaShl="+nazwaShl, true);
     xmlhttp.send();
 }
