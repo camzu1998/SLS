@@ -11,6 +11,10 @@
         if($tryb == "wczytajDodajZaw"){
             echo include"dodajZawodnika.php";
         }else if($tryb == "DodajZaw"){
+            //ZMIENNE DO LOGOW
+            $Data = date("Y.m.d H:i:s");
+            $IP = $_SERVER['REMOTE_ADDR'];
+            $ID = $_SESSION['ID'];
             //KONWERSJA LITER I ODCZYT IMIENIA I NAZWISKOA ZAWODNIKA
             $imies = $_REQUEST['Imie'];
             $imie = mb_convert_case($imies, MB_CASE_TITLE, "UTF-8");
@@ -25,6 +29,7 @@
             //RESZTA DANYCH
             $Plec = $_REQUEST['Plec'];
             mysqli_query($polaczenie, "INSERT INTO `zawodnicy` (`Imie Nazwisko`, `ID_Druzyny`, `Plec`) VALUES('".$ImieNazwisko."', '".$IDD."', '".$Plec."');");
+            mysqli_query($polaczenie, "INSERT INTO `logi` (`IP`, `ID_uzytkownika`, `Data`,  `Czynnosc`) VALUES('".$IP."')")
             echo "Done";
         }else if($tryb == "wczytajDodajDruz"){
             echo include"dodajDruzyne.php";
