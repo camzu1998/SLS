@@ -63,7 +63,7 @@
                     <span>Edytuj szkołę</span>
                 </div>
                 <div class="four columns window">
-                    <span>Rozpocznij rundę</span> <br>
+                    <a onclick="wyswietlaj('Nowa runda', `nowarunda`);">Rozpocznij rundę</a> <br>
                     <span>Zakończ rundę</span>
                 </div>
                 <div class="four columns window">
