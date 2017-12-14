@@ -63,6 +63,17 @@ function wyslijDP(){
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Suma="+suma+"&ilosc10="+ilosc10+"&nrRundy="+nrRundy+"&zawodnik="+zawodnik, true);
     xmlhttp.send();
 }
+function updateDP(){
+    var pkt = new Array(10);
+    for(var i=0; i<10;i++){
+        pkt[i] = $('#pkt'+i).val();
+    }
+    var suma = 0;
+    for(var x=0;x<10;x++){
+        suma += Number(pkt[x]);
+    }
+    $('#wynik').text("Suma: "+suma);
+}
 function wyslijNR(){
     var nazwaSez = $('#sezon').val();
     var nazwaShl = $('#nazwaShl').val();

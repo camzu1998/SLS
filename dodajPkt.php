@@ -37,10 +37,11 @@
     <span>Punkty:</span>
     <?php
     for($i=0;$i<10;$i++){
-        echo '<input type="number" name="pkt'.$i.'" id="pkt'.$i.'" value="0" style="width: 80px !important;" required/>';
+        echo '<input type="number" name="pkt'.$i.'" id="pkt'.$i.'" oninput="updateDP();" value="0" style="width: 80px !important;" required/>';
     }
     ?><br>
     <span>Ilosc10:</span>
     <input type="text" name="Ilosc10" id="Ilosc10" value="0" style="width: auto !important;" required/> <br>
+    <span id="wynik"></span>
     <button onclick="wyslijDP();">Wyślij</button>
 </form>
