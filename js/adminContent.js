@@ -19,6 +19,8 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajDodajPkt";
     }else if(content == "nowarunda"){
         var tryb = "wczytajNowaRunda";
+    }else if(content == "edytujzaw"){
+        var tryb = "wczytajEdytujZawodnika";
     }
 
     response(tryb);
@@ -69,4 +71,25 @@ function wyslijNR(){
     var tryb = "NowaRunda";
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&NazwaSez="+nazwaSez+"&NazwaShl="+nazwaShl, true);
     xmlhttp.send();
+}
+function wyslijEZ(){
+    var idZawodnika = $('#zawodnik').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "NowaRunda";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&NazwaSez="+nazwaSez+"&NazwaShl="+nazwaShl, true);
+    xmlhttp.send();
+}
+function refresh(){
+    var idZaw = $('#zawodnik').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "refresh";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDZaw="+idZaw, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('formularz').innerHTML = this.responseText;
+        }
+    }
 }
