@@ -58,6 +58,14 @@
             $nrRundy = $_GET['nrRundy'];
             //DODANIE DO TABELI
             mysqli_query($polaczenie, "INSERT INTO `punkty` (`ID_zaw`, `Suma`, `Ilosc_10`, `ID_Rundy`) VALUES('".$idZawodnika."', '".$Suma."', '".$Ilosc10."', '".$nrRundy."');");
+            $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika` = '".$idZawodnika."';");
+            $wiersz = $rezultat->fetch_assoc();
+                $idDruzyny = $wiersz['ID_druzyny'];
+            $rezultat = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny` = '".$idDruzyny."';");
+            $wiersz = $rezultat->fetch_assoc();
+                $SumaDruz = $wiersz['SumaPkt'];
+            $SumaDruz += $Suma;
+            mysqli_query($polaczenie, "UPDATE `druzyny` SET `SumaPkt`='".$SumaDruz."' WHERE `ID_druzyny`='".$idDruzyny."';");
             $czynnosc = "Dodawanie punktów";
             logi($czynnosc);
             echo "Done";
@@ -65,7 +73,7 @@
             echo include"nowaRunda.php";
         }else if($tryb == "NowaRunda"){
             //POBIERANIE ZMIENNYCH
-            $nazwaShl = $_GET['NazwaShl'];
+            $nazwaShl = mb_convert_case($_GET['NazwaShl'], MB_CASE_TITLE, "UTF-8");
             $idSez = $_GET['NazwaSez'];
             //DODAWANIE DO TABELI
             mysqli_query($polaczenie, "INSERT INTO `rundy` (`IdSezonu`, `NazwaShl`) VALUES('".$idSez."', '".$nazwaShl."');");
