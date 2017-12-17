@@ -32,6 +32,9 @@ if($polaczenie->connect_errno!=0){
             $wiersz = $zapytanie4->fetch_assoc();
                 $nazwaShl = $wiersz['NazwaSzkoly'];
             /** MAMY NAZWE SZKOLY **/
+            if($punkty == null){
+                $punkty = 0;
+            }
             echo "<tr><td>".$lp."</td><td>".$nazwa."</td><td>".$punkty."</td><td>".$nazwaShl."</td></tr>";
             $lp++;
         }
