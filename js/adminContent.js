@@ -85,10 +85,14 @@ function wyslijNR(){
 }
 function wyslijEZ(){
     var idZawodnika = $('#zawodnik').val();
-
+    var imie = $('#Imie').val();
+    var nazwisko = $('#Nazwisko').val();
+    var plec = $('#Plec').val();
+    var druzyna = $('#Druzyna').val();
     var xmlhttp = new XMLHttpRequest();
-    var tryb = "NowaRunda";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&NazwaSez="+nazwaSez+"&NazwaShl="+nazwaShl, true);
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "EdytujZawodnika";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Imie="+imie+"&Nazwisko="+nazwisko+"&Plec="+plec+"&Druzyna="+druzyna+"&IDZaw="+idZawodnika, true);
     xmlhttp.send();
 }
 function refresh(){
