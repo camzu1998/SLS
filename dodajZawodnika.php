@@ -8,17 +8,5 @@
     <input type="radio" name="Plec" id="Plec" value="M" checked/> <br>
     <span>Kobieta</span>
     <input type="radio" name="Plec" id="Plec" value="K"/> <br>
-    <span>Drużyna:</span>
-    <select name="druzyna" id="Druzyna" required>
-        <?php
-            $rezultat = $polaczenie->query("SELECT * FROM `druzyny` WHERE 1");
-            for($i=0;$i<$rezultat->num_rows;$i++){
-                $wiersz = $rezultat->fetch_assoc();
-                    $nazwa = $wiersz['NazwaDruzyny'];
-                    $szkola = $wiersz['NazwaSzkoly'];
-                echo '<option value="'.$nazwa.'">'.$nazwa.'('.$szkola.')</option>';
-            }
-        ?>
-    </select> <br>
     <button onclick="wyslijDZ();">Wyślij</button>
 </form>

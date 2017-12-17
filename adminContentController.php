@@ -26,14 +26,9 @@
             $nazwiskoS = $_REQUEST['Nazwisko'];
             $nazwisko = mb_convert_case($nazwiskoS, MB_CASE_TITLE, "UTF-8");
             $ImieNazwisko = $imie." ".$nazwisko;
-            //WYSZUKANIE ID DRUZYNY
-            $nazwaDruzyny = $_REQUEST['Druzyna'];
-            $rezultat = $polaczenie->query("SELECT * FROM `druzyny` WHERE `NazwaDruzyny`='".$nazwaDruzyny."';");
-            $wiersz = $rezultat->fetch_assoc();
-                $IDD = $wiersz['ID_druzyny'];
             //RESZTA DANYCH
             $Plec = $_REQUEST['Plec'];
-            mysqli_query($polaczenie, "INSERT INTO `zawodnicy` (`Imie Nazwisko`, `ID_Druzyny`, `Plec`) VALUES('".$ImieNazwisko."', '".$IDD."', '".$Plec."');");
+            mysqli_query($polaczenie, "INSERT INTO `zawodnicy` (`Imie Nazwisko`, `Plec`) VALUES('".$ImieNazwisko."', '".$Plec."');");
             $czynnosc = "Dodawanie zawodnika";
             echo "Done";
         }else if($tryb == "wczytajDodajDruz"){

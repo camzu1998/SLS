@@ -15,21 +15,4 @@ $druzyna = $wiersz['ID_druzyny'];
     <input type="radio" name="Plec" id="Plec" value="M" <?php if($plec == 'M'){ echo"checked"; } ?> /> <br>
     <span>Kobieta</span>
     <input type="radio" name="Plec" id="Plec" value="K" <?php if($plec == 'K'){ echo"checked"; } ?>/> <br>
-    <span>Drużyna:</span>
-    <select name="druzyna" id="Druzyna" required>
-        <?php
-        $rezultat = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny` = '".$druzyna."'");
-        $wiersz = $rezultat->fetch_assoc();
-            $nazwa = $wiersz['NazwaDruzyny'];
-            $szkola = $wiersz['NazwaSzkoly'];
-        echo '<option value="'.$nazwa.'">'.$nazwa.'('.$szkola.')</option>';
-        $rezultat = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny` != '".$druzyna."'");
-        for($i=0;$i<$rezultat->num_rows;$i++){
-            $wiersz = $rezultat->fetch_assoc();
-                $nazwa = $wiersz['NazwaDruzyny'];
-                $szkola = $wiersz['NazwaSzkoly'];
-            echo '<option value="'.$nazwa.'">'.$nazwa.'('.$szkola.')</option>';
-        }
-        ?>
-    </select>
 </form>
