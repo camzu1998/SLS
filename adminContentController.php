@@ -44,7 +44,12 @@
             $adres = mb_convert_case($_REQUEST['adres'], MB_CASE_TITLE, "UTF-8");
             $nazwa = $_REQUEST['nazwa'];
             $www = $_REQUEST['www'];
+            $konkurs = $_GET['konkurs'];
+
             mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaSzkoly`, `AdresSzkoly`, `WWW`, `NazwaDruzyny`) VALUES('".$szkola."', '".$adres."', '".$www."', '".$nazwa."');");
+            if($konkurs == 1){
+                mysqli_query($polaczenie, "UPDATE `druzyny` SET `konkurs`='1' WHERE `NazwaDruzyny` = '".$nazwa."';");
+            }
             $czynnosc = "Dodawanie drużyny";
         }else if($tryb == "wczytajDodajPkt"){
             echo include"dodajPkt.php";

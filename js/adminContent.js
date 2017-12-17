@@ -42,10 +42,11 @@ function wyslijDD(){
     var www = $('#WWW').val();
     var adres = $('#Adres').val();
     var nazwa = $('#Nazwa').val();
+    var konkurs = Number($('#konkurs').val());
 
     var xmlhttp = new XMLHttpRequest();
     var tryb = "DodajDruz";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola+"&www="+www+"&adres="+adres+"&nazwa="+nazwa, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola+"&www="+www+"&adres="+adres+"&nazwa="+nazwa+"&konkurs="+konkurs, true);
     xmlhttp.send();
 }
 function wyslijDP(){

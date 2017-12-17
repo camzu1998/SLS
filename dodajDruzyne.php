@@ -7,5 +7,10 @@
     <input type="text" name="Adres" id="Adres" style="width: auto !important;" required/> <br>
     <span>Nazwa drużyny:</span>
     <input type="text" name="Nazwa" id="Nazwa" style="width: auto !important;" required/> <br>
+    <span>Bierze udział w konkursie:</span><br>
+    <p>Tak</p>
+    <input type="radio" name="konkurs" id="konkurs" value="1" checked/> <br>
+    <p>Nie</p>
+    <input type="radio" name="konkurs" id="konkurs" value="0" /> <br>
     <button onclick="wyslijDD();">Wyślij</button>
 </form>
