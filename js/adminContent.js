@@ -134,3 +134,12 @@ function wyslijKD(){
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&druzyny="+idDruzyny+"&zawodnik1="+zawodnicy[1]+"&zawodnik2="+zawodnicy[2]+"&zawodnik3="+zawodnicy[3]+"&zawodnik4="+zawodnicy[4]+"&zawodnik5="+zawodnicy[5]+"&zawodnik6="+zawodnicy[6], true);
     xmlhttp.send();
 }
+function zakonczRunde(){
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "EndRound";
+    $('#dialogWindow').show();
+    $('#title').text("Zakończ rundę!");
+    $('#content').text("Pomyślnie zakończono rundę!");
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb, true);
+    xmlhttp.send();
+}
