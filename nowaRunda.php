@@ -12,6 +12,6 @@
     ?>
     </select><br>
     <span>Nazwa szkoły w której odbywa się runda:</span>
-    <input type="text" name="nazwaShl" id="nazwaShl" style="width= 200px !important;"/>
+    <input type="text" name="nazwaShl" id="nazwaShl" style="width= 200px !important;" required/>
     <button onclick="wyslijNR();">Rozpocznij nową rundę</button>
 </form>

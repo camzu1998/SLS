@@ -13,6 +13,7 @@ if($polaczenie->connect_errno!=0){
             $wiersz = $zapytanie1->fetch_assoc();
                 $IDRund[$i] = $wiersz['ID'];
         }
+        $id = 0;
         /** MAMY ID WSZYSTKICH RUND **/
         $lp = 1;
         $zapytanie2 = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec` = 'M';");
@@ -22,7 +23,7 @@ if($polaczenie->connect_errno!=0){
                 $nazwa = $wiersz['Imie Nazwisko'];
                 $idZespolu = $wiersz['ID_druzyny'];
             /** MAMY DANE ZAWODNIKA **/
-            $zapytanie3 = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw` =".$IDZaw." AND `ID_Rundy` =".@$IDRund[$i].";");
+            $zapytanie3 = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw` =".$IDZaw." AND `ID_Rundy` =".@$IDRund[$id].";");
             @$wiersz = $zapytanie3->fetch_assoc();
                 $punkty = $wiersz['Suma'];
                 $ilosc_10 = $wiersz['Ilosc_10'];
