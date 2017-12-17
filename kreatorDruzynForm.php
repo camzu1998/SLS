@@ -18,9 +18,9 @@ function zawodnicy($rezultat){
     <option style="display: none;"></option>
 <?php
     if($konkurs == 1){
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='M'");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='M' AND `ID_druzyny` = '0'");
     }else{
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE 1");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_druzyny` = '0'");
     }
     zawodnicy($rezultat);
 ?>
@@ -29,9 +29,9 @@ function zawodnicy($rezultat){
     <option style="display: none;"></option>
 <?php
     if($konkurs == 1){
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='M'");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='M' AND `ID_druzyny` = '0'");
     }else{
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE 1");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_druzyny` = '0'");
     }
     zawodnicy($rezultat);
 ?>
@@ -40,9 +40,9 @@ function zawodnicy($rezultat){
     <option style="display: none;"></option>
 <?php
     if($konkurs == 1){
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='M'");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='M' AND `ID_druzyny` = '0'");
     }else{
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE 1");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_druzyny` = '0'");
     }
     zawodnicy($rezultat);
 ?>
@@ -52,9 +52,9 @@ function zawodnicy($rezultat){
     <option style="display: none;"></option>
 <?php
     if($konkurs == 1){
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='K'");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='K' AND `ID_druzyny` = '0'");
     }else{
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE 1");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_druzyny` = '0'");
     }
     zawodnicy($rezultat);
 ?>
@@ -63,9 +63,9 @@ function zawodnicy($rezultat){
     <option style="display: none;"></option>
 <?php
     if($konkurs == 1){
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='K'");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='K' AND `ID_druzyny` = '0'");
     }else{
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE 1");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_druzyny` = '0'");
     }
     zawodnicy($rezultat);
 ?>
@@ -74,9 +74,9 @@ function zawodnicy($rezultat){
     <option style="display: none;"></option>
 <?php
     if($konkurs == 1){
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='K'");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='K' AND `ID_druzyny` = '0'");
     }else{
-        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE 1");
+        $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_druzyny` = '0'");
     }
     zawodnicy($rezultat);
 ?>
