@@ -67,7 +67,8 @@
                     <span>Zakończ rundę</span>
                 </div>
                 <div class="four columns window">
-                    <span>Logi</span>
+                    <span>Logi</span> <br>
+                    <a onclick="wyswietlaj('Kreator drużyn', `kreatordruzyn`);">Kreator drużyn</a>
                 </div>
             </div>
             <div id="dialogWindow" class="window" style="display: none; position: absolute; z-index: 997; top: 0 !important; height: auto; background: white; line-height: normal; width: 100%; padding:16px;">

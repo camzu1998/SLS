@@ -21,6 +21,8 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajNowaRunda";
     }else if(content == "edytujzaw"){
         var tryb = "wczytajEdytujZawodnika";
+    }else if(content == "kreatordruzyn"){
+        var tryb = "wczytajKreatorDruzyn";
     }
 
     response(tryb);
@@ -105,4 +107,30 @@ function refresh(){
             document.getElementById('formularz').innerHTML = this.responseText;
         }
     }
+}
+function refreshDruzyny(){
+    var idDruzyny = $('#druzyny').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "refreshDruzyny";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&druzyny="+idDruzyny, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('formularz').innerHTML = this.responseText;
+        }
+    }
+}
+function wyslijKD(){
+    var zawodnicy = new Array(7);
+    for(var i=1; i<7;i++){
+        zawodnicy[i] = $('#zawodnik'+i).val();
+        console.log(zawodnicy[i]);
+    }
+    var idDruzyny = $('#druzyny').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "KreatorDruzyn";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&druzyny="+idDruzyny+"&zawodnik1="+zawodnicy[1]+"&zawodnik2="+zawodnicy[2]+"&zawodnik3="+zawodnicy[3]+"&zawodnik4="+zawodnicy[4]+"&zawodnik5="+zawodnicy[5]+"&zawodnik6="+zawodnicy[6], true);
+    xmlhttp.send();
 }

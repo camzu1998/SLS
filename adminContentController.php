@@ -35,7 +35,6 @@
             $Plec = $_REQUEST['Plec'];
             mysqli_query($polaczenie, "INSERT INTO `zawodnicy` (`Imie Nazwisko`, `ID_Druzyny`, `Plec`) VALUES('".$ImieNazwisko."', '".$IDD."', '".$Plec."');");
             $czynnosc = "Dodawanie zawodnika";
-            logi($czynnosc);
             echo "Done";
         }else if($tryb == "wczytajDodajDruz"){
             echo include"dodajDruzyne.php";
@@ -47,7 +46,6 @@
             $www = $_REQUEST['www'];
             mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaSzkoly`, `AdresSzkoly`, `WWW`, `NazwaDruzyny`) VALUES('".$szkola."', '".$adres."', '".$www."', '".$nazwa."');");
             $czynnosc = "Dodawanie drużyny";
-            logi($czynnosc);
         }else if($tryb == "wczytajDodajPkt"){
             echo include"dodajPkt.php";
         }else if($tryb == "DodajPkt"){
@@ -67,7 +65,6 @@
             $SumaDruz += $Suma;
             mysqli_query($polaczenie, "UPDATE `druzyny` SET `SumaPkt`='".$SumaDruz."' WHERE `ID_druzyny`='".$idDruzyny."';");
             $czynnosc = "Dodawanie punktów";
-            logi($czynnosc);
             echo "Done";
         }else if($tryb == "wczytajNowaRunda"){
             echo include"nowaRunda.php";
@@ -78,7 +75,6 @@
             //DODAWANIE DO TABELI
             mysqli_query($polaczenie, "INSERT INTO `rundy` (`IdSezonu`, `NazwaShl`) VALUES('".$idSez."', '".$nazwaShl."');");
             $czynnosc = "Dodawanie rundy";
-            logi($czynnosc);
         }else if($tryb == "wczytajEdytujZawodnika"){
             echo include"edytujZawodnika1.php";
         }elseif($tryb == "refresh"){
@@ -95,9 +91,23 @@
                 $IDD = $wiersz['ID_druzyny'];
             //RESZTA DANYCH
             $Plec = $_REQUEST['Plec'];
-            mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `Imie Nazwisko`='".$ImieNazwisko."',`ID_Druzyny`='".$IDD."',`Plec`='".$Plec."' WHERE `ID_zawodnika`='".$Idzaw."';");
+            mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `Imie Nazwisko`='".$ImieNazwisko."',`ID_druzyny`='".$IDD."',`Plec`='".$Plec."' WHERE `ID_zawodnika`='".$Idzaw."';");
             $czynnosc ="Edycja zawodnika";
-            logi($czynnosc);
+        }else if($tryb == "wczytajKreatorDruzyn"){
+            echo include"kreatorDruzyn.php";
+        }else if($tryb == "refreshDruzyny"){
+            $IdDruzyny = $_GET['druzyny'];
+            echo include"kreatorDruzynForm.php";
+        }else if($tryb == "KreatorDruzyn"){
+            $idZaw1 = $_GET['zawodnik1'];
+            $idZaw2 = $_GET['zawodnik2'];
+            $idZaw3 = $_GET['zawodnik3'];
+            $idZaw4 = $_GET['zawodnik4'];
+            $idZaw5 = $_GET['zawodnik5'];
+            $idZaw6 = $_GET['zawodnik6'];
+            $IDD = $_GET['druzyny'];
+
+            mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `ID_druzyny`='".$IDD."' WHERE `ID_zawodnika` = '".$idZaw1."' OR `ID_zawodnika` = '".$idZaw2."' OR `ID_zawodnika` = '".$idZaw3."' OR `ID_zawodnika` = '".$idZaw4."' OR `ID_zawodnika` = '".$idZaw5."' OR `ID_zawodnika` = '".$idZaw6."';");
         }
     }
 ?>
