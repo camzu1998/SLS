@@ -6,7 +6,7 @@ require_once "connect.php";
 if($polaczenie->connect_errno!=0){
     echo "Error: ".$polaczenie->connect_errno;
 } else {
-    function wyswietlanie($Nazwa, $ID){
+    function wyswietlanie($Nazwa, $ID, $IDR){
         /* ZMIENNE POMOCNICZE */
         $KIC = "Klasyfikacja indywidualna chłopców";
         $KID = "Klasyfikacja indywidualna dziewcząt";
@@ -16,7 +16,7 @@ if($polaczenie->connect_errno!=0){
         $KGIC = "Klasyfikacja generalna indywidualna chłopców";
         $KGID = "Klasyfikacja generalna indywidualna dziewcząt";
 
-        echo '<li><a href="kic.php?id='.$ID.'">'.$KIC." ".$Nazwa.'</a></li>';
+        echo '<li><a href="kic.php?id='.$ID.'&runda='.$IDR.'">'.$KIC." ".$Nazwa.'</a></li>';
         echo '<li><a href="">'.$KID." ".$Nazwa.'</a></li>';
         echo '<li><a href="">'.$KD." ".$Nazwa.'</a></li>';
         echo '<li><a href="">'.$KDPK." ".$Nazwa.'</a></li>';
@@ -26,6 +26,9 @@ if($polaczenie->connect_errno!=0){
     }
 
     @$IdSezonu = @$_GET['id'];
+    $zapytanie = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC");
+    $wiersz = $zapytanie->fetch_assoc();
+        $IDR = $wiersz['ID'];
 
     if($IdSezonu == null){
         /*SPRAWDZENIE AKTUALNEGO SEZONU */
@@ -33,12 +36,14 @@ if($polaczenie->connect_errno!=0){
         $wiersz = $aktywny->fetch_assoc();
             $ID = $wiersz['ID'];
             $Nazwa = $wiersz['Data'];
-        wyswietlanie($Nazwa,$ID);
+        $_SESSION['wybranySezon'] = $ID;
+        wyswietlanie($Nazwa,$ID,$IDR);
     }else{
         $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `ID` = ".$IdSezonu.";");
         $wiersz = $aktywny->fetch_assoc();
             $ID = $wiersz['ID'];
             $Nazwa = $wiersz['Data'];
-        wyswietlanie($Nazwa,$ID);
+        $_SESSION['wybranySezon'] = $ID;
+        wyswietlanie($Nazwa,$ID,$IDR);
     }
 }

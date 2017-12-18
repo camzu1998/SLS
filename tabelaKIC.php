@@ -7,44 +7,33 @@ if($polaczenie->connect_errno!=0){
     echo "Error: ".$polaczenie->connect_errno;
 } else {
     @$IdSezonu = @$_GET['id'];
-    if($IdSezonu != null){
-        $zapytanie1 = $polaczenie->query("SELECT * FROM `rundy` WHERE `IdSezonu` = ".$IdSezonu.";");
-        for($i=0;$i<$zapytanie1->num_rows;$i++){
-            $wiersz = $zapytanie1->fetch_assoc();
-                $IDRund[$i] = $wiersz['ID'];
-        }
-        $id = 0;
-        /** MAMY ID WSZYSTKICH RUND **/
-        $lp = 1;
-        $zapytanie2 = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec` = 'M';");
-        for($i=0;$i<$zapytanie2->num_rows;$i++){
-            $wiersz = $zapytanie2->fetch_assoc();
-                $IDZaw = $wiersz['ID_zawodnika'];
+    @$IDRundy = @$_GET['runda'];
+    if(@$IdSezonu != null || @$IDRundy != null){
+        $lp=1;
+        $punkty = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_Rundy`='".$IDRundy."' ORDER BY `Suma` DESC;");
+        for($i=0;$i<$punkty->num_rows;$i++){
+            $wiersz = $punkty->fetch_assoc();
+                $IDZaw = $wiersz['ID_zaw'];
+                $Suma = $wiersz['Suma'];
+                $Ilosc10 = $wiersz['Ilosc_10'];
+            $zawodnik = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$IDZaw."';");
+            $wiersz = $zawodnik->fetch_assoc();
                 $nazwa = $wiersz['Imie Nazwisko'];
-                $idZespolu = $wiersz['ID_druzyny'];
-            /** MAMY DANE ZAWODNIKA **/
-            $zapytanie3 = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw` =".$IDZaw." AND `ID_Rundy` =".@$IDRund[$id].";");
-            @$wiersz = $zapytanie3->fetch_assoc();
-                $punkty = $wiersz['Suma'];
-                $ilosc_10 = $wiersz['Ilosc_10'];
-            /** MAMY PUNKTY ZAWODNIKA **/
-            $zapytanie4 = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny`=".$idZespolu.";");
-            $wiersz = $zapytanie4->fetch_assoc();
-                $nazwaShl = $wiersz['NazwaSzkoly'];
-            /** MAMY NAZWE SZKOLY **/
-            if($punkty == null){
-                $punkty = 0;
-            }
-            echo "<tr><td>".$lp."</td><td>".$nazwa."</td><td>".$punkty."</td><td>".$nazwaShl."</td></tr>";
+                $szkola = $wiersz['ID_szkoly'];
+            $szkoly = $polaczenie->query("SELECT * FROM `szkoly` WHERE `ID`='".$szkola."';");
+            $wiersz = $szkoly->fetch_assoc();
+                $nazwaSHL = $wiersz['NazwaSzkoly'];
+            echo "<tr><td>".$lp."</td><td>".$nazwa."</td><td>".$Suma."</td><td>".$nazwaSHL."</td></tr>";
             $lp++;
         }
-
-
     }else{
+        $runda = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC LIMIT 1");
+        $wiersz = $runda->fetch_assoc();
+            $IDRundy = $wiersz['ID'];
         $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `Zakonczony` = 0;");
         $wiersz = $aktywny->fetch_assoc();
             $ID = $wiersz['ID'];
-        header('Location: kic.php?id='.$ID);
+        header('Location: kic.php?id='.$ID.'&runda='.$IDRundy);
     }
 }
 ?>

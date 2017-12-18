@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="css/skeleton.css">
         <link rel="stylesheet" href="css/index.css">
         <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/tables.js"></script>
     </head>
     <body>
         <div class="container">
@@ -44,6 +45,14 @@
                 </div>
                 <div class="six columns">
                     <!-- wybór rundy -->
+                    <?php
+                    $zapytanie = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC");
+                    $wiersz = $zapytanie->fetch_assoc();
+                        $ID = $wiersz['ID'];
+                    echo '<input type="number" name="runda" id="runda" min="0" max="'.$ID.'" value="'.$ID.'"/>';
+
+                    ?>
+                    <a onclick="reload(<?php echo $_SESSION['wybranySezon']; ?>)">Wczytaj</a>
                 </div>
             </div>
             <div class="row">
@@ -55,7 +64,7 @@
                 <div class="seven columns">
                     <table>
                         <thead><tr><th>Miejsce</th><th>Imię i Nazwisko</th><th>Punkty</th><th>Nazwa szkoły</th><th></th></tr></thead>
-                        <tbody>
+                        <tbody id="tabeleczka">
                             <?php include"tabelaKIC.php"; ?>
                         </tbody>
                     </table>

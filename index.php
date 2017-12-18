@@ -40,7 +40,7 @@
                     }
                 ?>
             </div>
-            <div class="row">
+            <div class="row" style="margin-top:15px;">
                 <!-- WYBÓR SEZONU -->
                 <?php include"listaSezonow.php";?>
             </div>
