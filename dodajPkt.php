@@ -19,6 +19,7 @@
             $rezultat2 = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny`='".$idDruzyny."';");
             $wiersz2 = $rezultat2->fetch_assoc();
                 $nazwa = $wiersz2['NazwaDruzyny'];
+                $sumaPkt = $wiersz2['SumaPkt'];
             echo '<option value="'.$id.'">'.$imieNazwisko.'('.$nazwa.')</option>';
         }
         ?>
@@ -42,6 +43,8 @@
     ?><br>
     <span>Ilosc10:</span>
     <input type="text" name="Ilosc10" id="Ilosc10" value="0" style="width: auto !important;" required/> <br>
-    <span id="wynik"></span>
+    <input type="text" name="SumaPktDruz" id="SumaPktDruz" value="<?php echo $sumaPkt; ?>" style="display: none;"/> <br>
+    <span id="wynik"></span><br>
+    <span id="wynikDruzyny"></span>
     <button onclick="wyslijDP();">Wyślij</button>
 </form>

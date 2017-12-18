@@ -75,6 +75,9 @@ function updateDP(){
         suma += Number(pkt[x]);
     }
     $('#wynik').text("Suma: "+suma);
+    var sumaDruz = Number($('#SumaPktDruz').val());
+    sumaDruz += suma;
+    $('#wynikDruzyny').text("Suma pkt drużyny: "+sumaDruz);
 }
 function wyslijNR(){
     var nazwaSez = $('#sezon').val();
