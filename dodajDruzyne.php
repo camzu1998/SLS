@@ -1,10 +1,16 @@
 <form method="get"><br>
-    <span>Nazwa szkoły:</span>
-    <input type="text" name="Szkola" id="Szkola" style="width: auto !important;" required/> <br>
-    <span>WWW:</span>
-    <input type="text" name="WWW" id="WWW" style="width: auto !important;"/> <br>
-    <span>Adres:</span>
-    <input type="text" name="Adres" id="Adres" style="width: auto !important;" required/> <br>
+    <span>Wybierz szkołę:</span>
+    <select id="szkola" name="szkola">
+    <option style="display: hidden;"></option>
+    <?php
+        $rezultat = $polaczenie->query("SELECT * FROM `szkoly` WHERE 1");
+        for($i=0;$i<$rezultat->num_rows;$i++){
+            $wiersz = $rezultat->fetch_assoc();
+                $nazwaShl = $wiersz['NazwaSzkoly'];
+                $ID = $wiersz['ID'];
+            echo '<option value="'.$ID.'">'.$nazwaShl.'</option>';
+        }
+    ?>
     <span>Nazwa drużyny:</span>
     <input type="text" name="Nazwa" id="Nazwa" style="width: auto !important;" required/> <br>
     <span>Bierze udział w konkursie:</span><br>

@@ -26,9 +26,10 @@
             $nazwiskoS = $_REQUEST['Nazwisko'];
             $nazwisko = mb_convert_case($nazwiskoS, MB_CASE_TITLE, "UTF-8");
             $ImieNazwisko = $imie." ".$nazwisko;
+            $szkola = $_GET['szkola'];
             //RESZTA DANYCH
             $Plec = $_REQUEST['Plec'];
-            mysqli_query($polaczenie, "INSERT INTO `zawodnicy` (`Imie Nazwisko`, `Plec`) VALUES('".$ImieNazwisko."', '".$Plec."');");
+            mysqli_query($polaczenie, "INSERT INTO `zawodnicy` (`Imie Nazwisko`, `Plec`, `ID_szkoly`) VALUES('".$ImieNazwisko."', '".$Plec."', '".$szkola."');");
             $czynnosc = "Dodawanie zawodnika";
             echo "Done";
         }else if($tryb == "wczytajDodajDruz"){
@@ -36,8 +37,9 @@
         }else if($tryb == "DodajDruz"){
             $nazwa = $_REQUEST['nazwa'];
             $konkurs = $_GET['konkurs'];
+            $szkola = $_GET['szkola'];
 
-            mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaDruzyny`) VALUES('".$nazwa."');");
+            mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaDruzyny`, `ID_szkoly`) VALUES('".$nazwa."', '".$szkola."');");
             if($konkurs == 1){
                 mysqli_query($polaczenie, "UPDATE `druzyny` SET `konkurs`='1' WHERE `NazwaDruzyny` = '".$nazwa."';");
             }

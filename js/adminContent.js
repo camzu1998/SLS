@@ -33,18 +33,21 @@ function wyslijDZ(){
     var imie = $('#Imie').val();
     var nazwisko = $('#Nazwisko').val();
     var plec = $('#Plec').val();
+    var szkola = $('#szkola').val();
+
     var xmlhttp = new XMLHttpRequest();
     var tryb = "DodajZaw";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Imie="+imie+"&Nazwisko="+nazwisko+"&Plec="+plec, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Imie="+imie+"&Nazwisko="+nazwisko+"&Plec="+plec+"&szkola="+szkola, true);
     xmlhttp.send();
 }
 function wyslijDD(){
     var nazwa = $('#Nazwa').val();
     var konkurs = Number($('#konkurs').val());
+    var szkola = $('#szkola').val();
 
     var xmlhttp = new XMLHttpRequest();
     var tryb = "DodajDruz";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&nazwa="+nazwa+"&konkurs="+konkurs, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&nazwa="+nazwa+"&konkurs="+konkurs+"&szkola="+szkola, true);
     xmlhttp.send();
 }
 function wyslijDP(){
