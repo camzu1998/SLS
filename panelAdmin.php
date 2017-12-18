@@ -67,7 +67,7 @@
                     <a onclick="zakonczRunde();">Zakończ rundę</a>
                 </div>
                 <div class="four columns window">
-                    <a onclick="wyswietlaj('Dodaj szkołe', `dodajSzkole`);">Logi</a> <br>
+                    <a onclick="wyswietlaj('Dodaj szkołe', `dodajSzkole`);">Dodaj szkołe</a> <br>
                     <a onclick="wyswietlaj('Kreator drużyn', `kreatordruzyn`);">Kreator drużyn</a>
                 </div>
             </div>
