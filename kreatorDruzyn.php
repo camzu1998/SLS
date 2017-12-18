@@ -9,7 +9,10 @@
             $wiersz = $rezultat->fetch_assoc();
                 $id = $wiersz['ID_druzyny'];
                 $NazwaDruzyny = $wiersz['NazwaDruzyny'];
-                $NazwaSzkoly = $wiersz['NazwaSzkoly'];
+                $ID_szkoly = $wiersz['ID_szkoly'];
+            $rezultatSzkola = $polaczenie->query("SELECT * FROM `szkoly` WHERE `ID` = '".$ID_szkoly."';");
+            $wierszSzkola = $rezultatSzkola->fetch_assoc();
+                $NazwaSzkoly = $wierszSzkola['NazwaSzkoly'];
             echo '<option value='.$id.'>'.$NazwaDruzyny.'('.$NazwaSzkoly.')</option>';
         }
         ?>
