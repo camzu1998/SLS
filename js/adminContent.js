@@ -23,6 +23,8 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajEdytujZawodnika";
     }else if(content == "kreatordruzyn"){
         var tryb = "wczytajKreatorDruzyn";
+    }else if(content == "dodajSzkole"){
+        var tryb = "wczytajDodajSzkole";
     }
 
     response(tryb);
@@ -37,15 +39,12 @@ function wyslijDZ(){
     xmlhttp.send();
 }
 function wyslijDD(){
-    var szkola = $('#Szkola').val();
-    var www = $('#WWW').val();
-    var adres = $('#Adres').val();
     var nazwa = $('#Nazwa').val();
     var konkurs = Number($('#konkurs').val());
 
     var xmlhttp = new XMLHttpRequest();
     var tryb = "DodajDruz";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola+"&www="+www+"&adres="+adres+"&nazwa="+nazwa+"&konkurs="+konkurs, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&nazwa="+nazwa+"&konkurs="+konkurs, true);
     xmlhttp.send();
 }
 function wyslijDP(){
@@ -143,5 +142,15 @@ function zakonczRunde(){
     $('#title').text("Zakończ rundę!");
     $('#content').text("Pomyślnie zakończono rundę!");
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb, true);
+    xmlhttp.send();
+}
+function wyslijDS(){
+    var szkola = $('#Szkola').val();
+    var www = $('#WWW').val();
+    var adres = $('#Adres').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "DodajShl";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola+"&www="+www+"&adres="+adres, true);
     xmlhttp.send();
 }

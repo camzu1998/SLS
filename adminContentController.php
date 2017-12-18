@@ -34,14 +34,10 @@
         }else if($tryb == "wczytajDodajDruz"){
             echo include"dodajDruzyne.php";
         }else if($tryb == "DodajDruz"){
-            //KONWERSJA LITER I ODCZYT IMIENIA I NAZWISKOA ZAWODNIKA
-            $szkola = mb_convert_case($_REQUEST['szkola'], MB_CASE_TITLE, "UTF-8");
-            $adres = mb_convert_case($_REQUEST['adres'], MB_CASE_TITLE, "UTF-8");
             $nazwa = $_REQUEST['nazwa'];
-            $www = $_REQUEST['www'];
             $konkurs = $_GET['konkurs'];
 
-            mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaSzkoly`, `AdresSzkoly`, `WWW`, `NazwaDruzyny`) VALUES('".$szkola."', '".$adres."', '".$www."', '".$nazwa."');");
+            mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaDruzyny`) VALUES('".$nazwa."');");
             if($konkurs == 1){
                 mysqli_query($polaczenie, "UPDATE `druzyny` SET `konkurs`='1' WHERE `NazwaDruzyny` = '".$nazwa."';");
             }
@@ -110,6 +106,14 @@
             mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `ID_druzyny`='".$IDD."' WHERE `ID_zawodnika` = '".$idZaw1."' OR `ID_zawodnika` = '".$idZaw2."' OR `ID_zawodnika` = '".$idZaw3."' OR `ID_zawodnika` = '".$idZaw4."' OR `ID_zawodnika` = '".$idZaw5."' OR `ID_zawodnika` = '".$idZaw6."';");
         }else if($tryb == "EndRound"){
             mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `ID_druzyny`=0 WHERE 1");
+        }else if($tryb == "wczytajDodajSzkole"){
+            echo include"dodajSzkole.php";
+        }else if($tryb == "DodajShl"){
+            $nazwaShl = mb_convert_case($_GET['szkola'], MB_CASE_TITLE, "UTF-8");
+            $adres = mb_convert_case($_GET['adres'], MB_CASE_TITLE, "UTF-8");
+            $www = $_GET['www'];
+
+            mysqli_query($polaczenie, "INSERT INTO `szkoly` (`NazwaSzkoly`, `Adres`, `WWW`) VALUES('".$nazwaShl."','".$adres."','".$www."');");
         }
     }
 ?>
