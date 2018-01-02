@@ -32,12 +32,12 @@ function wyswietlaj(tytul, content){
 function wyslijDZ(){
     var imie = $('#Imie').val();
     var nazwisko = $('#Nazwisko').val();
-    var plec = $('#Plec').val();
+    var Plec = $( "input:checked" ).val();
     var szkola = $('#szkola').val();
 
     var xmlhttp = new XMLHttpRequest();
     var tryb = "DodajZaw";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Imie="+imie+"&Nazwisko="+nazwisko+"&Plec="+plec+"&szkola="+szkola, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Imie="+imie+"&Nazwisko="+nazwisko+"&Plec="+Plec+"&szkola="+szkola, true);
     xmlhttp.send();
 }
 function wyslijDD(){
@@ -93,10 +93,10 @@ function wyslijNR(){
 function wyslijEZ(){
     var idZawodnika = $('#zawodnik').val();
     var ImieNazwisko = $('#ImieNazwisko').val();
-    var plec = $('#Plec').val();
+    var Plec = $( "input:checked" ).val();
     var xmlhttp = new XMLHttpRequest();
     var tryb = "EdytujZawodnika";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&ImieNazwisko="+ImieNazwisko+"&Plec="+plec+"&IDZaw="+idZawodnika, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&ImieNazwisko="+ImieNazwisko+"&Plec="+Plec+"&IDZaw="+idZawodnika, true);
     xmlhttp.send();
 }
 function refresh(){

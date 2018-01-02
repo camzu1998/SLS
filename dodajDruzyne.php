@@ -11,6 +11,7 @@
             echo '<option value="'.$ID.'">'.$nazwaShl.'</option>';
         }
     ?>
+    </select>
     <span>Nazwa drużyny:</span>
     <input type="text" name="Nazwa" id="Nazwa" style="width: auto !important;" required/> <br>
     <span>Bierze udział w konkursie:</span><br>

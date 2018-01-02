@@ -16,21 +16,26 @@
             mysqli_query($polaczenie, "INSERT INTO `logi` (`IP`, `ID_uzytkownika`, `Data`,  `Czynnosc`) VALUES('".$IP."', '".$ID."', '".$Data."', '".$czynnosc."');");
         }
 
-        $tryb = $_REQUEST['Tryb'];
+        $tryb = $_GET['Tryb'];
         if($tryb == "wczytajDodajZaw"){
             echo include"dodajZawodnika.php";
         }else if($tryb == "DodajZaw"){
             //KONWERSJA LITER I ODCZYT IMIENIA I NAZWISKOA ZAWODNIKA
-            $imies = $_REQUEST['Imie'];
+            $imies = $_GET['Imie'];
             $imie = mb_convert_case($imies, MB_CASE_TITLE, "UTF-8");
-            $nazwiskoS = $_REQUEST['Nazwisko'];
+            $nazwiskoS = $_GET['Nazwisko'];
             $nazwisko = mb_convert_case($nazwiskoS, MB_CASE_TITLE, "UTF-8");
             $ImieNazwisko = $imie." ".$nazwisko;
+            $Plec = $_GET['Plec'];
             $szkola = $_GET['szkola'];
-            //RESZTA DANYCH
-            $Plec = $_REQUEST['Plec'];
-            mysqli_query($polaczenie, "INSERT INTO `zawodnicy` (`Imie Nazwisko`, `Plec`, `ID_szkoly`) VALUES('".$ImieNazwisko."', '".$Plec."', '".$szkola."');");
-            $czynnosc = "Dodawanie zawodnika";
+            //SPRAWDZANIE CZY JEST JUŻ W BAZIE
+            $check = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Imie Nazwisko`='".$ImieNazwisko."' AND `ID_szkoly`='".$szkola."';");
+            if($check->num_rows != 0){
+                echo '<script>alert("Taki zawodnik już istnieje");</script>';
+            }else{
+                mysqli_query($polaczenie, "INSERT INTO `zawodnicy` (`Imie Nazwisko`, `Plec`, `ID_szkoly`) VALUES('".$ImieNazwisko."', '".$Plec."', '".$szkola."');");
+                $czynnosc = "Dodawanie zawodnika";
+            }
             echo "Done";
         }else if($tryb == "wczytajDodajDruz"){
             echo include"dodajDruzyne.php";
@@ -38,12 +43,14 @@
             $nazwa = $_REQUEST['nazwa'];
             $konkurs = $_GET['konkurs'];
             $szkola = $_GET['szkola'];
-
-            mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaDruzyny`, `ID_szkoly`) VALUES('".$nazwa."', '".$szkola."');");
-            if($konkurs == 1){
-                mysqli_query($polaczenie, "UPDATE `druzyny` SET `konkurs`='1' WHERE `NazwaDruzyny` = '".$nazwa."';");
+            //SPRAWDZANIE CZY JEST JUŻ W BAZIE
+            $check = $polaczenie->query("SELECT * FROM `druzyny` WHERE `NazwaDruzyny`='".$nazwa."' AND `ID_szkoly`='".$szkola."';");
+            if($check->num_rows != 0){
+                echo '<script>alert("Taka drużyna już istnieje");</script>';
+            }else{
+                mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaDruzyny`, `ID_szkoly`, `konkurs`) VALUES('".$nazwa."', '".$szkola."', '".$konkurs."');");
+                $czynnosc = "Dodawanie drużyny";
             }
-            $czynnosc = "Dodawanie drużyny";
         }else if($tryb == "wczytajDodajPkt"){
             echo include"dodajPkt.php";
         }else if($tryb == "DodajPkt"){
@@ -114,8 +121,15 @@
             $nazwaShl = mb_convert_case($_GET['szkola'], MB_CASE_TITLE, "UTF-8");
             $adres = mb_convert_case($_GET['adres'], MB_CASE_TITLE, "UTF-8");
             $www = $_GET['www'];
-
-            mysqli_query($polaczenie, "INSERT INTO `szkoly` (`NazwaSzkoly`, `Adres`, `WWW`) VALUES('".$nazwaShl."','".$adres."','".$www."');");
+            //SPRAWDZANIE CZY JEST JUŻ W BAZIE
+            $check = $polaczenie->query("SELECT * FROM `szkoly` WHERE `NazwaSzkoly`='".$nazwaShl."' AND `Adres`='".$adres."' AND `WWW`='".$www."';");
+            if($check->num_rows != 0){
+                echo '<script>alert("Taki zawodnik już istnieje");</script>';
+            }else{
+                mysqli_query($polaczenie, "INSERT INTO `szkoly` (`NazwaSzkoly`, `Adres`, `WWW`) VALUES('".$nazwaShl."','".$adres."','".$www."');");
+                $czynnosc = "Dodawanie szkoły";
+            }
         }
+        //logi($czynnosc);
     }
 ?>
