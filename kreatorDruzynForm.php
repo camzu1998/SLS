@@ -63,6 +63,11 @@ function zawodnicy($rezultat){
 <br>
 <select name="zawodnik4" id="zawodnik4" class="Zawodnicy" required>
 <?php
+    $wiersz = $zawodnik->fetch_assoc();
+        $id1 = $wiersz['ID_zawodnika'];
+        $imieNazwisko1 = $wiersz['Imie Nazwisko'];
+    echo'<option value="'.$id1.'">'.$imieNazwisko1.'</option>';
+
     if($konkurs == 1){
         $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Plec`='K' AND `ID_druzyny` = '0'");
     }else{
