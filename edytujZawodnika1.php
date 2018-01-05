@@ -18,4 +18,5 @@
 
     </div>
     <button onclick="wyslijEZ();">Dalej</button>
+    <button onclick="wyslijUZ();" style="background-color: red;">Usuń</button>
 </form>

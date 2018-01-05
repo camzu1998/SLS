@@ -99,6 +99,13 @@ function wyslijEZ(){
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&ImieNazwisko="+ImieNazwisko+"&Plec="+Plec+"&IDZaw="+idZawodnika, true);
     xmlhttp.send();
 }
+function wyslijUZ(){
+    var idZawodnika = $('#zawodnik').val();
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "UsunZawodnika";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDZaw="+idZawodnika, true);
+    xmlhttp.send();
+}
 function refresh(){
     var idZaw = $('#zawodnik').val();
 

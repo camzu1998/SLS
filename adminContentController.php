@@ -82,7 +82,7 @@
             $czynnosc = "Dodawanie rundy";
         }else if($tryb == "wczytajEdytujZawodnika"){
             echo include"edytujZawodnika1.php";
-        }elseif($tryb == "refresh"){
+        }else if($tryb == "refresh"){
             $Idzaw = $_GET['IDZaw'];
             echo include"editPlayer.php";
         }else if($tryb == "EdytujZawodnika"){
@@ -98,6 +98,10 @@
             $Plec = $_REQUEST['Plec'];
             mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `Imie Nazwisko`='".$ImieNazwisko."',`ID_druzyny`='".$IDD."',`Plec`='".$Plec."' WHERE `ID_zawodnika`='".$Idzaw."';");
             $czynnosc ="Edycja zawodnika";
+        }else if($tryb == "UsunZawodnika"){
+            $Idzaw = $_GET['IDZaw'];
+            mysqli_query($polaczenie, "DELETE FROM `zawodnicy` WHERE `ID_zawodnika`='".$Idzaw."';");
+            $czynnosc ="Usunięcie zawodnika";
         }else if($tryb == "wczytajKreatorDruzyn"){
             echo include"kreatorDruzyn.php";
         }else if($tryb == "refreshDruzyny"){
