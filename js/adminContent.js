@@ -93,10 +93,11 @@ function wyslijNR(){
 function wyslijEZ(){
     var idZawodnika = $('#zawodnik').val();
     var ImieNazwisko = $('#ImieNazwisko').val();
+    var druzyna = $('#druzyna').val();
     var Plec = $( "input:checked" ).val();
     var xmlhttp = new XMLHttpRequest();
     var tryb = "EdytujZawodnika";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&ImieNazwisko="+ImieNazwisko+"&Plec="+Plec+"&IDZaw="+idZawodnika, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&ImieNazwisko="+ImieNazwisko+"&Plec="+Plec+"&IDZaw="+idZawodnika+"&druzyna="+druzyna, true);
     xmlhttp.send();
 }
 function wyslijUZ(){

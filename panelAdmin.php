@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="four columns window">
                     <a onclick="wyswietlaj('Dodaj punkty', `dodajpkt`);">  Dodaj punkty </a> <br>
-                    <span>Edytuj szkołę</span>
+                    <a onclick="wyswietlaj('Dodaj punkty', `dodajpkt`);"> Edytuj punkty</a>
                 </div>
                 <div class="four columns window">
                     <a onclick="wyswietlaj('Nowa runda', `nowarunda`);">Rozpocznij rundę</a> <br>
