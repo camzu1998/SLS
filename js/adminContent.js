@@ -51,6 +51,7 @@ function wyslijDD(){
     xmlhttp.send();
 }
 function wyslijDP(){
+    var ilosc10 = 0;
     var pkt = new Array(10);
     for(var i=0; i<10;i++){
         pkt[i] = $('#pkt'+i).val();
@@ -58,8 +59,11 @@ function wyslijDP(){
     var suma = 0;
     for(var x=0;x<10;x++){
         suma += Number(pkt[x]);
+        if(pkt[x] == 10){
+            ilosc10++;
+        }
     }
-    var ilosc10 = $('#Ilosc10').val();
+    //var ilosc10 = $('#Ilosc10').val();
     var nrRundy = $('#runda').val();
     var zawodnik = $('#zawodnik').val();
     var xmlhttp = new XMLHttpRequest();
@@ -68,6 +72,7 @@ function wyslijDP(){
     xmlhttp.send();
 }
 function updateDP(){
+    var ilosc10 = 0;
     var pkt = new Array(10);
     for(var i=0; i<10;i++){
         pkt[i] = $('#pkt'+i).val();
@@ -75,8 +80,11 @@ function updateDP(){
     var suma = 0;
     for(var x=0;x<10;x++){
         suma += Number(pkt[x]);
+        if(pkt[x] == 10){
+            ilosc10++;
+        }
     }
-    $('#wynik').text("Suma: "+suma);
+    $('#wynik').text("Suma: "+suma+' \n Ilość 10: '+ilosc10);
     var sumaDruz = Number($('#SumaPktDruz').val());
     sumaDruz += suma;
     $('#wynikDruzyny').text("Suma pkt drużyny: "+sumaDruz);
