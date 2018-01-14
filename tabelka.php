@@ -16,13 +16,33 @@ if($polaczenie->connect_errno!=0){
         $KGIC = "Klasyfikacja generalna indywidualna chłopców";
         $KGID = "Klasyfikacja generalna indywidualna dziewcząt";
 
-        echo '<li><a href="kic.php?id='.$ID.'&runda='.$IDR.'">'.$KIC." ".$Nazwa.'</a></li>';
-        echo '<li><a href="">'.$KID." ".$Nazwa.'</a></li>';
-        echo '<li><a href="">'.$KD." ".$Nazwa.'</a></li>';
-        echo '<li><a href="">'.$KDPK." ".$Nazwa.'</a></li>';
-        echo '<li><a href="">'.$KDG." ".$Nazwa.'</a></li>';
-        echo '<li><a href="">'.$KGIC." ".$Nazwa.'</a></li>';
-        echo '<li><a href="">'.$KGID." ".$Nazwa.'</a></li>';
+        echo '<div class="row">';
+            echo '<div class="four columns window">';
+                echo '<a href="kic.php?id='.$ID.'&runda='.$IDR.'">'.$KIC." ".$Nazwa.'</a>';
+            echo '</div>';
+            echo '<div class="four columns window">';
+                echo '<a href="">'.$KID." ".$Nazwa.'</a>';
+            echo '</div>';
+            echo '<div class="four columns window">';
+                echo '<a href="">'.$KD." ".$Nazwa.'</a>';
+            echo '</div>';
+        echo '</div>';
+        echo '<div class="row">';
+            echo '<div class="four columns window">';
+                echo '<a href="">'.$KDPK." ".$Nazwa.'</a>';
+            echo '</div>';
+            echo '<div class="four columns window">';
+                echo '<a href="">'.$KDG." ".$Nazwa.'</a>';
+            echo '</div>';
+            echo '<div class="four columns window" style="line-height: 50px;">';
+                echo '<a href="">'.$KGIC." ".$Nazwa.'</a></li>';
+            echo '</div>';
+        echo '</div>';
+        echo '<div class="row">';
+            echo '<div class="four columns window" style="line-height: 50px;">';
+                echo '<a href="">'.$KGID." ".$Nazwa.'</a>';
+            echo '</div>';
+        echo '</div>';
     }
 
     @$IdSezonu = @$_GET['id'];

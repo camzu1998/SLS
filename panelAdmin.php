@@ -68,7 +68,13 @@
                 </div>
                 <div class="four columns window">
                     <a onclick="wyswietlaj('Dodaj szkołe', `dodajSzkole`);">Dodaj szkołe</a> <br>
-                    <a onclick="wyswietlaj('Kreator drużyn', `kreatordruzyn`);">Kreator drużyn</a>
+                    <span>Edytuj szkołe</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="four columns window">
+                    <a onclick="wyswietlaj('Kreator drużyn', `kreatordruzyn`);">Kreator drużyn</a> <br>
+                    <span>Logi:</span>
                 </div>
             </div>
             <div id="dialogWindow" class="window" style="display: none; position: absolute; z-index: 997; top: 0 !important; height: auto; background: white; line-height: normal; width: 100%; padding:16px;">

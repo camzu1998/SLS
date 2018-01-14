@@ -62,15 +62,7 @@
                 </form>
             </div>
             <div class="row">
-                <div class="five columns" style="margin-top: 10px !important;">
-                    <ul>
-                        <?php include"tabelka.php"; ?>
-                    </ul>
-                </div>
-                <div class="seven columns">
-                    <script src="js/zegar.js"></script>
-                    <div id="zegar"></div>
-                </div>
+                <?php include"tabelka.php"; ?>
             </div>
         </div>
         <footer>
