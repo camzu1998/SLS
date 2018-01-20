@@ -54,7 +54,7 @@
                     echo '<input type="number" name="runda" id="runda" min="0" max="'.$ID.'" value="'.$ID.'"/>';
 
                     ?>
-                    <a onclick="reload(<?php echo $IDS; ?>,'KIC')">Wczytaj</a>
+                    <a onclick="reload(<?php echo $IDS; ?>,'KID')">Wczytaj</a>
                 </div>
             </div>
             <div class="row">
@@ -67,7 +67,7 @@
                     <table>
                         <thead><tr><th>Miejsce</th><th>Imię i Nazwisko</th><th>Punkty</th><th>Nazwa szkoły</th><th></th></tr></thead>
                         <tbody id="tabeleczka">
-                            <?php include"tabelaKIC.php"; ?>
+                            <?php include"tabelaKID.php"; ?>
                         </tbody>
                     </table>
                 </div>

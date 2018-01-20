@@ -16,7 +16,7 @@ if($polaczenie->connect_errno!=0){
                 $IDZaw = $wiersz['ID_zaw'];
                 $Suma = $wiersz['Suma'];
                 $Ilosc10 = $wiersz['Ilosc_10'];
-            $zawodnik = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$IDZaw."' AND `Plec`='M';");
+            $zawodnik = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$IDZaw."' AND `Plec`='K';");
             $wiersz = $zawodnik->fetch_assoc();
                 $nazwa = $wiersz['Imie Nazwisko'];
                 $szkola = $wiersz['ID_szkoly'];
@@ -35,7 +35,7 @@ if($polaczenie->connect_errno!=0){
         $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `Zakonczony` = 0;");
         $wiersz = $aktywny->fetch_assoc();
             $ID = $wiersz['ID'];
-        header('Location: kic.php?id='.$ID.'&runda='.$IDRundy);
+        header('Location: kid.php?id='.$ID.'&runda='.$IDRundy);
     }
 }
 ?>

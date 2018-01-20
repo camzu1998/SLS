@@ -18,7 +18,7 @@
     </head>
     <body>
         <div class="container">
-            <div class="row" style="margin-top:5px !important;">
+            <div class="row" style="margin-top:5px !important; margin-bottom: 5px !important;">
                 <a href="index.php" style="text-decoration: none; color: black;">
                     <div class="six columns">
                         <img src="img.png" width="100px" style="float:left;"/>
