@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="four columns window">
                     <a onclick="wyswietlaj('Dodaj punkty', `dodajpkt`);">  Dodaj punkty </a> <br>
-                    <a onclick="wyswietlaj('Dodaj punkty', `dodajpkt`);"> Edytuj punkty</a>
+                    <a onclick="wyswietlaj('Edytuj punkty', `edytujpkt`);"> Edytuj punkty</a>
                 </div>
                 <div class="four columns window">
                     <a onclick="wyswietlaj('Nowa runda', `nowarunda`);">Rozpocznij rundę</a> <br>
@@ -94,8 +94,26 @@
         <?php
         if(isset($_SESSION['ErrorPtsExist'])){
             ?> <script>openSnackbar('ErrorPtsExist');</script> <?php
+        }else if(isset($_SESSION['PtsDone'])){
+            ?> <script>openSnackbar('PtsDone');</script> <?php
+        }else if(isset($_SESSION['ZawodnikExist'])){
+            ?> <script>openSnackbar('ZawodnikExist');</script> <?php
+        }else if(isset($_SESSION['ZawodnikDone'])){
+            ?> <script>openSnackbar('ZawodnikDone');</script> <?php
+        }else if(isset($_SESSION['TeamExist'])){
+            ?> <script>openSnackbar('TeamExist');</script> <?php
+        }else if(isset($_SESSION['TeamDone'])){
+            ?> <script>openSnackbar('TeamDone');</script> <?php
+        }else if(isset($_SESSION['NowaRunda'])){
+            ?> <script>openSnackbar('NowaRunda');</script> <?php
         }
         unset($_SESSION['ErrorPtsExist']);
+        unset($_SESSION['PtsDone']);
+        unset($_SESSION['ZawodnikExist']);
+        unset($_SESSION['ZawodnikDone']);
+        unset($_SESSION['TeamExist']);
+        unset($_SESSION['TeamDone']);
+        unset($_SESSION['NowaRunda']);
         ?>
     </body>
 </html>

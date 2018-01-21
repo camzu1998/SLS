@@ -12,6 +12,16 @@
     ?>
     </select><br>
     <span>Nazwa szkoły w której odbywa się runda:</span>
-    <input type="text" name="nazwaShl" id="nazwaShl" style="width= 200px !important;" required/>
+    <!-- <input type="text" name="nazwaShl" id="nazwaShl" style="width= 200px !important;" required/> -->
+    <select name="nazwaShl" id="nazwaShl">
+        <?php
+        $szkoly = $polaczenie->query("SELECT * FROM `szkoly` WHERE 1");
+        for($i=0;$i<$szkoly->num_rows;$i++){
+            $wiersz = $szkoly->fetch_assoc();
+                $nazwa = $wiersz['NazwaSzkoly'];
+            echo '<option value="'.$nazwa.'">'.$nazwa.'</option>';
+        }
+        ?>
+    </select>
     <button onclick="wyslijNR();">Rozpocznij nową rundę</button>
 </form>
