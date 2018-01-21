@@ -12,11 +12,13 @@
         <link rel="stylesheet" href="css/skeleton.css">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/loginpopup.css">
+        <link rel="stylesheet" href="css/snackbar.css">
         <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/jquery.leanModal.min.js"></script>
         <script src="js/loginpopup.js"></script>
         <script src="js/w3.js"></script>
         <script src="js/adminContent.js"></script>
+        <script src="js/snackbarController.js"></script>
     </head>
     <body>
         <div class="container">
@@ -85,9 +87,15 @@
                 </div>
             </div>
         </div>
-        <div id="test"></div>
         <footer>
             Kamil Langer 2017 Wszelkie prawa zastrzeżone &copy; kamillanger4@gmail.com
         </footer>
+        <div id="snackbar"><span id="tekst"></span></div>
+        <?php
+        if(isset($_SESSION['ErrorPtsExist'])){
+            ?> <script>openSnackbar('ErrorPtsExist');</script> <?php
+        }
+        unset($_SESSION['ErrorPtsExist']);
+        ?>
     </body>
 </html>
