@@ -11,6 +11,12 @@ function openSnackbar(tekst){
     if(tekst == "TeamExist"){var content = "Drużyna już istnieje!";}
     if(tekst == "TeamDone"){var content = "Drużyna dodana pomyślnie!";}
     if(tekst == "NowaRunda"){var content = "Nowa runda dodana pomyślnie!";}
+    if(tekst == "PlayerDelete"){var content = "Zawodnik usunięty!";}
+    if(tekst == "EdycjaPkt"){var content = "Punkty uaktualnione!";}
+    if(tekst == "PlayerEdit"){var content = "Dane zawodnika uaktualnione!";}
+    if(tekst == "SchoolExist"){var content = "Taka szkoła już istnieje!";}
+    if(tekst == "SchoolDone"){var content = "Szkoła dodana!";}
+    if(tekst == "TeamCreator"){var content = "Skład drużyny zapisany!";}
     $("#tekst").text(content);
     snackbar();
 }

@@ -106,6 +106,18 @@
             ?> <script>openSnackbar('TeamDone');</script> <?php
         }else if(isset($_SESSION['NowaRunda'])){
             ?> <script>openSnackbar('NowaRunda');</script> <?php
+        }else if(isset($_SESSION['PlayerDelete'])){
+            ?> <script>openSnackbar('PlayerDelete');</script> <?php
+        }else if(isset($_SESSION['EdycjaPkt'])){
+            ?> <script>openSnackbar('EdycjaPkt');</script> <?php
+        }else if(isset($_SESSION['SchoolExist'])){
+            ?> <script>openSnackbar('SchoolExist');</script> <?php
+        }else if(isset($_SESSION['SchoolDone'])){
+            ?> <script>openSnackbar('SchoolDone');</script> <?php
+        }else if(isset($_SESSION['TeamCreator'])){
+            ?> <script>openSnackbar('TeamCreator');</script> <?php
+        }else if(isset($_SESSION['PlayerEdit'])){
+            ?> <script>openSnackbar('PlayerEdit');</script> <?php
         }
         unset($_SESSION['ErrorPtsExist']);
         unset($_SESSION['PtsDone']);
@@ -114,6 +126,12 @@
         unset($_SESSION['TeamExist']);
         unset($_SESSION['TeamDone']);
         unset($_SESSION['NowaRunda']);
+        unset($_SESSION['PlayerDelete']);
+        unset($_SESSION['EdycjaPkt']);
+        unset($_SESSION['SchoolExist']);
+        unset($_SESSION['SchoolDone']);
+        unset($_SESSION['TeamCreator']);
+        unset($_SESSION['PlayerEdit']);
         ?>
     </body>
 </html>

@@ -109,9 +109,12 @@
             $Plec = $_REQUEST['Plec'];
             mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `Imie Nazwisko`='".$ImieNazwisko."',`ID_druzyny`='".$IDD."',`Plec`='".$Plec."' WHERE `ID_zawodnika`='".$Idzaw."';");
             $czynnosc ="Edycja zawodnika";
+            $_SESSION['PlayerEdit']=1;
         }else if($tryb == "UsunZawodnika"){
-            $Idzaw = $_GET['IDZaw'];
-            mysqli_query($polaczenie, "DELETE FROM `zawodnicy` WHERE `ID_zawodnika`='".$Idzaw."';");
+            $IDZaw = $_GET['IDZaw'];
+            mysqli_query($polaczenie, "DELETE FROM `zawodnicy` WHERE `ID_zawodnika`='".$IDZaw."';");
+            mysqli_query($polaczenie, "DELETE FROM `punkty` WHERE `ID_zaw` ='".$IDZaw."';");
+            $_SESSION['PlayerDelete']=1;
             $czynnosc ="Usunięcie zawodnika";
         }else if($tryb == "wczytajKreatorDruzyn"){
             echo include"kreatorDruzyn.php";
@@ -132,6 +135,7 @@
             //ZAPISUJE NOWYCH DO TEJ DRUŻYNY
             mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `ID_druzyny`='".$IDD."' WHERE `ID_zawodnika` = '".$idZaw1."' OR `ID_zawodnika` = '".$idZaw2."' OR `ID_zawodnika` = '".$idZaw3."' OR `ID_zawodnika` = '".$idZaw4."' OR `ID_zawodnika` = '".$idZaw5."' OR `ID_zawodnika` = '".$idZaw6."';");
             $czynnosc ="Kreator drużyn";
+            $_SESSION['TeamCreator']=1;
 
         }else if($tryb == "EndRound"){
             mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `ID_druzyny`=0 WHERE 1");
@@ -144,10 +148,11 @@
             //SPRAWDZANIE CZY JEST JUŻ W BAZIE
             $check = $polaczenie->query("SELECT * FROM `szkoly` WHERE `NazwaSzkoly`='".$nazwaShl."' AND `Adres`='".$adres."' AND `WWW`='".$www."';");
             if($check->num_rows != 0){
-                echo '<script>alert("Taki zawodnik już istnieje");</script>';
+                $_SESSION['SchoolExist']=1;
             }else{
                 mysqli_query($polaczenie, "INSERT INTO `szkoly` (`NazwaSzkoly`, `Adres`, `WWW`) VALUES('".$nazwaShl."','".$adres."','".$www."');");
                 $czynnosc = "Dodawanie szkoły";
+                $_SESSION['SchoolDone']=1;
             }
         }else if($tryb == "wczytajEdytujPkt"){
             echo include"edytujPunkty.php";
@@ -162,6 +167,9 @@
             $zawodnik = $_GET['zawodnik'];
 
             mysqli_query($polaczenie, "UPDATE `punkty` SET `Suma`='".$Suma."', `Ilosc_10`='".$ilosc10."' WHERE `ID_zaw`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."';");
+
+            $czynnosc = "Edycja punktów zawodnika: ".$zawodnik;
+            $_SESSION['EdycjaPkt']=1;
         }
         @logi($czynnosc, $polaczenie);
     }
