@@ -74,6 +74,7 @@ function wyslijDP(){
     xmlhttp.send();
 }
 function updateDP(){
+    var sumaPkt = 0;
     var ilosc10 = 0;
     var pkt = new Array(10);
     for(var i=0; i<10;i++){
@@ -87,9 +88,20 @@ function updateDP(){
         }
     }
     $('#wynik').text("Suma: "+suma+' \n Ilość 10: '+ilosc10);
-    var sumaDruz = Number($('#SumaPktDruz').val());
-    sumaDruz += suma;
-    $('#wynikDruzyny').text("Suma pkt drużyny: "+sumaDruz);
+    var runda = $('#runda').val();
+    var zawodnik = $('#zawodnik').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "CheckTeamPts";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&runda="+runda+"&zawodnik="+zawodnik, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            sumaPkt = Number(this.responseText);
+            sumaPkt += suma;
+            $('#wynikDruzyny').text("Suma pkt drużyny: "+sumaPkt);
+        }
+    }
 }
 function wyslijNR(){
     var nazwaSez = $('#sezon').val();

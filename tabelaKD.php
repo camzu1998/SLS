@@ -10,7 +10,7 @@ if($polaczenie->connect_errno!=0){
     if(@$IdSezonu != null){
         $lp=1;
         $druzyny = $polaczenie->query("SELECT * FROM `druzyny` WHERE `SumaPkt` != 0 AND `konkurs`='1' ORDER BY `SumaPkt` DESC;");
-        for($i=0;$i<$druzyny->num_rows;$i++){
+        for($i=0;$i<@$druzyny->num_rows;$i++){
             $wiersz = $druzyny->fetch_assoc();
                 $nazwa = $wiersz['NazwaDruzyny'];
                 $SumaPkt = $wiersz['SumaPkt'];

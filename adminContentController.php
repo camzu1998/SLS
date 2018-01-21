@@ -55,20 +55,30 @@
             }
         }else if($tryb == "wczytajDodajPkt"){
             echo include"dodajPkt.php";
+        }else if($tryb == "CheckTeamPts"){
+            $nrRundy = $_GET['runda'];
+            $zawodnik = $_GET['zawodnik'];
+
+            $zawodnikInf = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$zawodnik."';");
+            $wiersz = $zawodnikInf->fetch_assoc();
+                $IDD = $wiersz['ID_druzyny'];
+            $druzyna = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_druzyny`='".$IDD."' AND `ID_rundy`='".$nrRundy."';");
+            if($druzyna->num_rows != 0){
+                $wiersz = $druzyna->fetch_assoc();
+                    $SumaPkt = $wiersz['SumaPkt'];
+            }else{
+                $SumaPkt = 0;
+            }
+            echo $SumaPkt;
         }else if($tryb == "DodajPkt"){
             //POBIERANIE ZMIENNYCH
             $idZawodnika = $_GET['zawodnik'];
             $Suma = $_GET['Suma'];
             $Ilosc10 = $_GET['ilosc10'];
             $nrRundy = $_GET['nrRundy'];
-            //DODANIE DO TABELI
             $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika` = '".$idZawodnika."';");
             $wiersz = $rezultat->fetch_assoc();
                 $idDruzyny = $wiersz['ID_druzyny'];
-            $rezultat = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny` = '".$idDruzyny."';");
-            $wiersz = $rezultat->fetch_assoc();
-                $SumaDruz = $wiersz['SumaPkt'];
-            $SumaDruz += $Suma;
             //SPRAWDZANIE CZY USER MA PKT W TEJ RUNDZIE
             $rezultatSecurityCheck = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw` = '".$idZawodnika."' AND `ID_Rundy` = '".$nrRundy."';");
             if($rezultatSecurityCheck->num_rows != 0){
@@ -77,8 +87,16 @@
             }else{
                 $_SESSION['PtsDone'] = 1;
                 mysqli_query($polaczenie, "INSERT INTO `punkty` (`ID_zaw`, `Suma`, `Ilosc_10`, `ID_Rundy`) VALUES('".$idZawodnika."', '".$Suma."', '".$Ilosc10."', '".$nrRundy."');");
-                mysqli_query($polaczenie, "UPDATE `druzyny` SET `SumaPkt`='".$SumaDruz."' WHERE `ID_druzyny`='".$idDruzyny."';");
-                $czynnosc = "Dodawanie punktów";
+                $rezultatDruz = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_druzyny`='".$idDruzyny."' AND `ID_rundy`='".$nrRundy."';");
+                if($rezultatDruz->num_rows != 0){
+                    $wierszDruz = $rezultatDruz->fetch_assoc();
+                        $sumapkt = $wierszDruz['SumaPkt'];
+                        $id = $wierszDruz['ID'];
+                    $sumadruz = $Suma + $sumapkt;
+                    mysqli_query($polaczenie, "UPDATE `pktdruzyny` SET `SumaPkt`='".$sumadruz."' WHERE `ID`='".$id."';");
+                }else{
+                    mysqli_query($polaczenie, "INSERT INTO `pktdruzyny` (`ID_druzyny`, `SumaPkt`, `ID_rundy`) VALUES ('".$idDruzyny."', '".$Suma."', '".$nrRundy."');");
+                }
             }
             echo "Done";
         }else if($tryb == "wczytajNowaRunda"){
