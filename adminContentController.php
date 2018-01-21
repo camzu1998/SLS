@@ -31,8 +31,9 @@
             //SPRAWDZANIE CZY JEST JUŻ W BAZIE
             $check = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `Imie Nazwisko`='".$ImieNazwisko."' AND `ID_szkoly`='".$szkola."';");
             if($check->num_rows != 0){
-                echo '<script>alert("Taki zawodnik już istnieje");</script>';
+                $_SESSION['ZawodnikExist'] = 1;
             }else{
+                $_SESSION['ZawodnikDone'] = 1;
                 mysqli_query($polaczenie, "INSERT INTO `zawodnicy` (`Imie Nazwisko`, `Plec`, `ID_szkoly`) VALUES('".$ImieNazwisko."', '".$Plec."', '".$szkola."');");
                 $czynnosc = "Dodawanie zawodnika";
             }
@@ -46,8 +47,9 @@
             //SPRAWDZANIE CZY JEST JUŻ W BAZIE
             $check = $polaczenie->query("SELECT * FROM `druzyny` WHERE `NazwaDruzyny`='".$nazwa."' AND `ID_szkoly`='".$szkola."';");
             if($check->num_rows != 0){
-                echo '<script>alert("Taka drużyna już istnieje");</script>';
+                $_SESSION['TeamExist'] =1;
             }else{
+                $_SESSION['TeamDone'] =1;
                 mysqli_query($polaczenie, "INSERT INTO `druzyny` (`NazwaDruzyny`, `ID_szkoly`, `konkurs`) VALUES('".$nazwa."', '".$szkola."', '".$konkurs."');");
                 $czynnosc = "Dodawanie drużyny";
             }
@@ -73,6 +75,7 @@
                 //Error
                 $_SESSION['ErrorPtsExist'] = 1;
             }else{
+                $_SESSION['PtsDone'] = 1;
                 mysqli_query($polaczenie, "INSERT INTO `punkty` (`ID_zaw`, `Suma`, `Ilosc_10`, `ID_Rundy`) VALUES('".$idZawodnika."', '".$Suma."', '".$Ilosc10."', '".$nrRundy."');");
                 mysqli_query($polaczenie, "UPDATE `druzyny` SET `SumaPkt`='".$SumaDruz."' WHERE `ID_druzyny`='".$idDruzyny."';");
                 $czynnosc = "Dodawanie punktów";
@@ -82,6 +85,7 @@
             echo include"nowaRunda.php";
         }else if($tryb == "NowaRunda"){
             //POBIERANIE ZMIENNYCH
+            $_SESSION['NowaRunda']=1;
             $nazwaShl = mb_convert_case($_GET['NazwaShl'], MB_CASE_TITLE, "UTF-8");
             $idSez = $_GET['NazwaSez'];
             //DODAWANIE DO TABELI
@@ -145,6 +149,19 @@
                 mysqli_query($polaczenie, "INSERT INTO `szkoly` (`NazwaSzkoly`, `Adres`, `WWW`) VALUES('".$nazwaShl."','".$adres."','".$www."');");
                 $czynnosc = "Dodawanie szkoły";
             }
+        }else if($tryb == "wczytajEdytujPkt"){
+            echo include"edytujPunkty.php";
+        }else if($tryb == "refreshEP"){
+            $IDZaw = $_GET['IDZaw'];
+            $NrRundy = $_GET['NrRundy'];
+            echo include"editPoints.php";
+        }else if($tryb == "EdytujPkt"){
+            $Suma = $_GET['Suma'];
+            $ilosc10 = $_GET['ilosc10'];
+            $nrRundy = $_GET['nrRundy'];
+            $zawodnik = $_GET['zawodnik'];
+
+            mysqli_query($polaczenie, "UPDATE `punkty` SET `Suma`='".$Suma."', `Ilosc_10`='".$ilosc10."' WHERE `ID_zaw`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."';");
         }
         @logi($czynnosc, $polaczenie);
     }

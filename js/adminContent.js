@@ -25,6 +25,8 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajKreatorDruzyn";
     }else if(content == "dodajSzkole"){
         var tryb = "wczytajDodajSzkole";
+    }else if(content == "edytujpkt"){
+        var tryb = "wczytajEdytujPkt";
     }
 
     response(tryb);
@@ -171,5 +173,30 @@ function wyslijDS(){
     var xmlhttp = new XMLHttpRequest();
     var tryb = "DodajShl";
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola+"&www="+www+"&adres="+adres, true);
+    xmlhttp.send();
+}
+function refreshEP(){
+    var idZaw = $('#zawodnik').val();
+    var nrRundy = $('#runda').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "refreshEP";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDZaw="+idZaw+"&NrRundy="+nrRundy, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('formularz').innerHTML = this.responseText;
+        }
+    }
+}
+function wyslijEP(){
+    var idZaw = $('#zawodnik').val();
+    var nrRundy = $('#runda').val();
+    var suma = $('#SumaPkt').val();
+    var ilosc10 = $('#ilosc10').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "EdytujPkt";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Suma="+suma+"&ilosc10="+ilosc10+"&nrRundy="+nrRundy+"&zawodnik="+idZaw, true);
     xmlhttp.send();
 }

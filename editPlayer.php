@@ -1,11 +1,11 @@
 <?php
-$idZaw = $_GET['IDZaw'];
-$rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika` = '".$idZaw."';");
-$wiersz = $rezultat->fetch_assoc();
-$imieNazwisko = $wiersz['Imie Nazwisko'];
-$plec = $wiersz['Plec'];
-$druzyna = $wiersz['ID_druzyny'];
-$ID_szkoly = $wiersz['ID_szkoly'];
+    $idZaw = $_GET['IDZaw'];
+    $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika` = '".$idZaw."';");
+    $wiersz = $rezultat->fetch_assoc();
+    $imieNazwisko = $wiersz['Imie Nazwisko'];
+    $plec = $wiersz['Plec'];
+    $druzyna = $wiersz['ID_druzyny'];
+    $ID_szkoly = $wiersz['ID_szkoly'];
 ?>
 
 <form method="get"><br>
