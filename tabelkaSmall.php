@@ -24,7 +24,7 @@ if($polaczenie->connect_errno!=0){
                 echo '<a href="kid.php?id='.$ID.'&runda='.$IDR.'">'.$KID." ".$Nazwa.'</a>';
             echo '</div>';
             echo '<div class="four columns window" style="line-height: 2em !important; font-size: 1.2em !important;">';
-                echo '<a href="">'.$KD." ".$Nazwa.'</a>';
+                echo '<a href="kd.php?id='.$ID.'">'.$KD." ".$Nazwa.'</a>';
             echo '</div>';
         echo '</div>';
         echo '<div class="row">';
