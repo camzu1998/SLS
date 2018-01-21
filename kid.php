@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="five columns" style="margin-top: 10px !important;">
                     <ul>
-                    <?php include"tabelka.php"; ?>
+                    <?php include"tabelkaSmall.php"; ?>
                     </ul>
                 </div>
                 <div class="seven columns">
