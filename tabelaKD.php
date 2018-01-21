@@ -7,14 +7,18 @@ if($polaczenie->connect_errno!=0){
     echo "Error: ".$polaczenie->connect_errno;
 } else {
     @$IdSezonu = @$_GET['id'];
-    if(@$IdSezonu != null){
+    @$IDRundy = @$_GET['runda'];
+    if(@$IdSezonu != null || @$IDRundy != null){
         $lp=1;
-        $druzyny = $polaczenie->query("SELECT * FROM `druzyny` WHERE `SumaPkt` != 0 AND `konkurs`='1' ORDER BY `SumaPkt` DESC;");
-        for($i=0;$i<@$druzyny->num_rows;$i++){
-            $wiersz = $druzyny->fetch_assoc();
-                $nazwa = $wiersz['NazwaDruzyny'];
+        $pktdruzyny = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_rundy`='".$IDRundy."' ORDER BY `SumaPkt` DESC");
+        for($i=0;$i<$pktdruzyny->num_rows;$i++){
+            $wiersz = $pktdruzyny->fetch_assoc();
+                $IDD = $wiersz['ID_druzyny'];
                 $SumaPkt = $wiersz['SumaPkt'];
-                $ID_shl = $wiersz['ID_szkoly'];
+            $druzyny = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny`='".$IDD."';");
+            $wierszDruz = $druzyny->fetch_assoc();
+                $nazwa = $wierszDruz['NazwaDruzyny'];
+                $ID_shl = $wierszDruz['ID_szkoly'];
             $szkola = $polaczenie->query("SELECT * FROM `szkoly` WHERE `ID`='".$ID_shl."';");
             $wierszShl = $szkola->fetch_assoc();
                 $nazwaSHL = $wierszShl['NazwaSzkoly'];
