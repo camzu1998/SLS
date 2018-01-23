@@ -124,11 +124,8 @@
             $Idzaw = $_REQUEST['IDZaw'];
             //KONWERSJA LITER I ODCZYT IMIENIA I NAZWISKOA ZAWODNIKA
             $ImieNazwisko = mb_convert_case($_REQUEST['ImieNazwisko'], MB_CASE_TITLE, "UTF-8");
-            //WYSZUKANIE ID DRUZYNY
-            $nazwaDruzyny = $_REQUEST['Druzyna'];
-            $rezultat = $polaczenie->query("SELECT * FROM `druzyny` WHERE `NazwaDruzyny`='".$nazwaDruzyny."';");
-            $wiersz = $rezultat->fetch_assoc();
-                $IDD = $wiersz['ID_druzyny'];
+            //IDD
+            $IDD = $_GET['druzyna'];
             //RESZTA DANYCH
             $Plec = $_REQUEST['Plec'];
             mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `Imie Nazwisko`='".$ImieNazwisko."',`ID_druzyny`='".$IDD."',`Plec`='".$Plec."' WHERE `ID_zawodnika`='".$Idzaw."';");
