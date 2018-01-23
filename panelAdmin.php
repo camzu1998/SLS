@@ -52,7 +52,7 @@
                 </div>
                 <div class="four columns window">
                     <a onclick="wyswietlaj('Dodaj drużynę', `dodajdruz`);">  Dodaj drużynę </a> <br>
-                    <span>Edytuj drużynę</span>
+                    <a onclick="wyswietlaj('Edytuj drużynę', `edytujdruz`);">  Edytuj drużynę </a>
                 </div>
                 <div class="four columns window">
                     <span>Rozpocznij sezon</span> <br>
@@ -120,6 +120,10 @@
             ?> <script>openSnackbar('PlayerEdit');</script> <?php
         }else if(isset($_SESSION['PtsDelete'])){
             ?> <script>openSnackbar('PtsDelete');</script> <?php
+        }else if(isset($_SESSION['TeamUpdate'])){
+            ?> <script>openSnackbar('TeamUpdate');</script> <?php
+        }else if(isset($_SESSION['TeamDelete'])){
+            ?> <script>openSnackbar('TeamDelete');</script> <?php
         }
         unset($_SESSION['ErrorPtsExist']);
         unset($_SESSION['PtsDone']);
@@ -135,6 +139,8 @@
         unset($_SESSION['TeamCreator']);
         unset($_SESSION['PlayerEdit']);
         unset($_SESSION['PtsDelete']);
+        unset($_SESSION['TeamUpdate']);
+        unset($_SESSION['TeamDelete']);
         ?>
     </body>
 </html>

@@ -206,6 +206,27 @@
             mysqli_query($polaczenie, "DELETE FROM `punkty` WHERE `ID_zaw` ='".$IdZaw."' AND `ID_Rundy`='".$IdRun."'");
             $_SESSION['PtsDelete'] = 1;
             $czynnosc = "Usuwanie pkt zawodnika: ".$zawodnik;
+        }else if($tryb == "wczytajEdytujDruz"){
+            echo include"edytujDruzyne.php";
+        }else if($tryb == "refreshED"){
+            $druzyna = $_GET['druzyna'];
+            echo include"editTeam.php";
+        }else if($tryb == "EdytujDruz"){
+            $druzyna = $_GET['druzyna'];
+            $nazwa = $_GET['nazwa'];
+            $konkurs = $_GET['konkurs'];
+            $szkola = $_GET['szkola'];
+
+            mysqli_query($polaczenie, "UPDATE `druzyny` SET `NazwaDruzyny`='".$nazwa."', `konkurs`='".$konkurs."', `ID_szkoly`='".$szkola."' WHERE `ID_druzyny` = '".$druzyna."' ;");
+            $_SESSION['TeamUpdate'] = 1;
+        }else if($tryb == "UsunDruz"){
+            $druzyna = $_GET['druzyna'];
+            //USUWANIE DRUZYNY
+            mysqli_query($polaczenie, "DELETE FROM `druzyny` WHERE `ID_druzyny` ='".$druzyna."';");
+            mysqli_query($polaczenie, "DELETE FROM `pktdruzyny` WHERE `ID_druzyny` ='".$druzyna."';");
+            mysqli_query($polaczenie, "DELETE FROM `gpd` WHERE `ID_druzyny` ='".$druzyna."'; ");
+            mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `ID_druzyny` ='0' WHERE `ID_druzyny` ='".$druzyna."';");
+            $_SESSION['TeamDelete'] = 1;
         }
         @logi($czynnosc, $polaczenie);
     }

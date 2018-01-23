@@ -27,6 +27,8 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajDodajSzkole";
     }else if(content == "edytujpkt"){
         var tryb = "wczytajEdytujPkt";
+    }else if(content == "edytujdruz"){
+        var tryb = "wczytajEdytujDruz";
     }
 
     response(tryb);
@@ -232,4 +234,37 @@ function wyslijUP(){
     var tryb = "UsunPkt";
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDrundy="+nrRundy+"&IDzaw="+idZaw, true);
     xmlhttp.send();
+}
+function refreshED(){
+    var druzyna = $('#druzyna').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "refreshED";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&druzyna="+druzyna, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('formularz').innerHTML = this.responseText;
+        }
+    }
+}
+function wyslijED(){
+    var nazwa = $('#Nazwa').val();
+    var konkurs = Number($('#konkurs').val());
+    var szkola = $('#szkola').val();
+    var druzyna = $('#druzyna').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "EdytujDruz";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&druzyna="+druzyna+"&nazwa="+nazwa+"&konkurs="+konkurs+"&szkola="+szkola, true);
+    xmlhttp.send();
+}
+function wyslijUD(){
+    var druzyna = $('#druzyna').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "UsunDruz";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&druzyna="+druzyna, true);
+    xmlhttp.send();
+
 }
