@@ -7,25 +7,27 @@ if($polaczenie->connect_errno!=0){
     echo "Error: ".$polaczenie->connect_errno;
 } else {
     @$IdSezonu = @$_GET['id'];
-    @$IDRundy = @$_GET['runda'];
-    if(@$IdSezonu != null || @$IDRundy != null){
+    if(@$IdSezonu != null){
         $lp=1;
-        $pktdruzyny = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_rundy`='".$IDRundy."' ORDER BY `SumaPkt` DESC");
-        for($i=0;$i<$pktdruzyny->num_rows;$i++){
-            $wiersz = $pktdruzyny->fetch_assoc();
+        //Wybiera druzyne
+        $druzyna = $polaczenie->query("SELECT * FROM `druzyny` WHERE `konkurs`!=0");
+        for($i=0;$i<$druzyna->num_rows;$i++){
+            $wiersz = $druzyna->fetch_assoc();
                 $IDD = $wiersz['ID_druzyny'];
-                $SumaPkt = $wiersz['SumaPkt'];
-            $druzyny = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny`='".$IDD."' AND `konkurs` != 0;");
-            $wierszDruz = $druzyny->fetch_assoc();
-                $nazwa = $wierszDruz['NazwaDruzyny'];
-                $ID_shl = $wierszDruz['ID_szkoly'];
+                $nazwa = $wiersz['NazwaDruzyny'];
+                $ID_shl = $wiersz['ID_szkoly'];
+            $punkty = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_druzyny`='".$IDD."'");
+            $SumaPkt = 0;
+            for($x=0;$x<$punkty->num_rows;$x++){
+                $wierszPKT = $punkty->fetch_assoc();
+                    $pkt = $wierszPKT['SumaPkt'];
+                $SumaPkt += $pkt;
+            }
             $szkola = $polaczenie->query("SELECT * FROM `szkoly` WHERE `ID`='".$ID_shl."';");
             $wierszShl = $szkola->fetch_assoc();
                 $nazwaSHL = $wierszShl['NazwaSzkoly'];
-            if($nazwa != null){
-                echo "<tr><td>".$lp."</td><td>".$nazwa."</td><td>".$SumaPkt."</td><td>".$nazwaSHL."</td></tr>";
-                $lp++;
-            }
+            echo "<tr><td>".$lp."</td><td>".$nazwa."</td><td>".$SumaPkt."</td><td>".$nazwaSHL."</td></tr>";
+            $lp++;
         }
     }else{
         $runda = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC LIMIT 1");
@@ -34,7 +36,7 @@ if($polaczenie->connect_errno!=0){
         $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `Zakonczony` = 0;");
         $wiersz = $aktywny->fetch_assoc();
             $ID = $wiersz['ID'];
-        header('Location: kd.php?id='.$ID);
+        header('Location: kdg.php?id='.$ID);
     }
 }
 ?>

@@ -24,23 +24,23 @@ if($polaczenie->connect_errno!=0){
                 echo '<a href="kid.php?id='.$ID.'&runda='.$IDR.'">'.$KID." ".$Nazwa.'</a>';
             echo '</div>';
             echo '<div class="four columns window" style="line-height: 2em !important; font-size: 1.2em !important;">';
-                echo '<a href="kd.php?id='.$ID.'">'.$KD." ".$Nazwa.'</a>';
+                echo '<a href="kd.php?id='.$ID.'&runda='.$IDR.'">'.$KD." ".$Nazwa.'</a>';
             echo '</div>';
         echo '</div>';
         echo '<div class="row">';
             echo '<div class="four columns window" style="line-height: 1.7em !important; font-size: 1.2em !important;">';
-                echo '<a href="">'.$KDPK." ".$Nazwa.'</a>';
+                echo '<a href="kdpk.php?id='.$ID.'&runda='.$IDR.'">'.$KDPK." ".$Nazwa.'</a>';
             echo '</div>';
             echo '<div class="four columns window" style="line-height: 2em !important; font-size: 1.2em !important;">';
-                echo '<a href="">'.$KDG." ".$Nazwa.'</a>';
+                echo '<a href="kdg.php?id='.$ID.'">'.$KDG." ".$Nazwa.'</a>';
             echo '</div>';
             echo '<div class="four columns window" style="line-height: 1.7em !important; font-size: 1.2em !important;">';
-                echo '<a href="">'.$KGIC." ".$Nazwa.'</a></li>';
+                echo '<a href="kgic.php?id='.$ID.'">'.$KGIC." ".$Nazwa.'</a></li>';
             echo '</div>';
         echo '</div>';
         echo '<div class="row">';
             echo '<div class="four columns window" style="line-height: 1.7em !important; font-size: 1.2em !important;">';
-                echo '<a href="">'.$KGID." ".$Nazwa.'</a>';
+                echo '<a href="kgid.php?id='.$ID.'">'.$KGID." ".$Nazwa.'</a>';
             echo '</div>';
         echo '</div>';
     }

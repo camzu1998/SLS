@@ -29,18 +29,18 @@ if($polaczenie->connect_errno!=0){
         echo '</div>';
         echo '<div class="row">';
             echo '<div class="four columns window">';
-                echo '<a href="">'.$KDPK." ".$Nazwa.'</a>';
+                echo '<a href="kdpk.php?id='.$ID.'&runda='.$IDR.'">'.$KDPK." ".$Nazwa.'</a>';
             echo '</div>';
             echo '<div class="four columns window">';
-                echo '<a href="">'.$KDG." ".$Nazwa.'</a>';
+                echo '<a href="kdg.php?id='.$ID.'&runda='.$IDR.'">'.$KDG." ".$Nazwa.'</a>';
             echo '</div>';
             echo '<div class="four columns window" style="line-height: 50px;">';
-                echo '<a href="">'.$KGIC." ".$Nazwa.'</a></li>';
+                echo '<a href="kgic.php?id='.$ID.'">'.$KGIC." ".$Nazwa.'</a></li>';
             echo '</div>';
         echo '</div>';
         echo '<div class="row">';
             echo '<div class="four columns window" style="line-height: 50px;">';
-                echo '<a href="">'.$KGID." ".$Nazwa.'</a>';
+                echo '<a href="kgid.php?id='.$ID.'">'.$KGID." ".$Nazwa.'</a>';
             echo '</div>';
         echo '</div>';
     }

@@ -15,7 +15,7 @@ if($polaczenie->connect_errno!=0){
             $wiersz = $pktdruzyny->fetch_assoc();
                 $IDD = $wiersz['ID_druzyny'];
                 $SumaPkt = $wiersz['SumaPkt'];
-            $druzyny = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny`='".$IDD."' AND `konkurs` != 0;");
+            $druzyny = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny`='".$IDD."' AND `konkurs` != 1;");
             $wierszDruz = $druzyny->fetch_assoc();
                 $nazwa = $wierszDruz['NazwaDruzyny'];
                 $ID_shl = $wierszDruz['ID_szkoly'];
@@ -34,7 +34,7 @@ if($polaczenie->connect_errno!=0){
         $aktywny = $polaczenie->query("SELECT * FROM `sezony` WHERE `Zakonczony` = 0;");
         $wiersz = $aktywny->fetch_assoc();
             $ID = $wiersz['ID'];
-        header('Location: kd.php?id='.$ID);
+        header('Location: kdpk.php?id='.$ID);
     }
 }
 ?>
