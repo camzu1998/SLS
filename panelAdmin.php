@@ -118,6 +118,8 @@
             ?> <script>openSnackbar('TeamCreator');</script> <?php
         }else if(isset($_SESSION['PlayerEdit'])){
             ?> <script>openSnackbar('PlayerEdit');</script> <?php
+        }else if(isset($_SESSION['PtsDelete'])){
+            ?> <script>openSnackbar('PtsDelete');</script> <?php
         }
         unset($_SESSION['ErrorPtsExist']);
         unset($_SESSION['PtsDone']);
@@ -132,6 +134,7 @@
         unset($_SESSION['SchoolDone']);
         unset($_SESSION['TeamCreator']);
         unset($_SESSION['PlayerEdit']);
+        unset($_SESSION['PtsDelete']);
         ?>
     </body>
 </html>

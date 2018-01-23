@@ -1,7 +1,7 @@
 <form method="get"><br>
     <?php
     //AKTUALNA RUNDA
-    $rezultat = $polaczenie->query("SELECT * FROM `rundy` LIMIT 1 ");
+    $rezultat = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC");
     $wiersz = $rezultat->fetch_assoc();
      echo "Aktualny nr rundy: ".$wiersz['ID'];
     ?>
@@ -43,4 +43,5 @@
     <span id="wynik"></span><br>
     <span id="wynikDruzyny"></span>
     <button onclick="wyslijEP();">Wyślij</button>
+    <button onclick="wyslijUP();" style="background-color: red;">Usuń punkty</button>
 </form>

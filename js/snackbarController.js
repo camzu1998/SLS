@@ -13,6 +13,7 @@ function openSnackbar(tekst){
     if(tekst == "NowaRunda"){var content = "Nowa runda dodana pomyślnie!";}
     if(tekst == "PlayerDelete"){var content = "Zawodnik usunięty!";}
     if(tekst == "EdycjaPkt"){var content = "Punkty uaktualnione!";}
+    if(tekst == "PtsDelete"){var content = "Punkty usunięte!";}
     if(tekst == "PlayerEdit"){var content = "Dane zawodnika uaktualnione!";}
     if(tekst == "SchoolExist"){var content = "Taka szkoła już istnieje!";}
     if(tekst == "SchoolDone"){var content = "Szkoła dodana!";}

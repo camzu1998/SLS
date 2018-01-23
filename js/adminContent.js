@@ -70,7 +70,7 @@ function wyslijDP(){
     var zawodnik = $('#zawodnik').val();
     var xmlhttp = new XMLHttpRequest();
     var tryb = "DodajPkt";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Suma="+suma+"&ilosc10="+ilosc10+"&nrRundy="+nrRundy+"&zawodnik="+zawodnik, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Suma="+suma+"&pkt1="+pkt[0]+"&pkt2="+pkt[1]+"&pkt3="+pkt[2]+"&pkt4="+pkt[3]+"&pkt5="+pkt[4]+"&pkt6="+pkt[5]+"&pkt7="+pkt[6]+"&pkt8="+pkt[7]+"&pkt9="+pkt[8]+"&pkt10="+pkt[9]+"&ilosc10="+ilosc10+"&nrRundy="+nrRundy+"&zawodnik="+zawodnik, true);
     xmlhttp.send();
 }
 function updateDP(){
@@ -203,13 +203,33 @@ function refreshEP(){
     }
 }
 function wyslijEP(){
+    var ilosc10 = 0;
     var idZaw = $('#zawodnik').val();
     var nrRundy = $('#runda').val();
-    var suma = $('#SumaPkt').val();
-    var ilosc10 = $('#ilosc10').val();
+
+    var pkt = new Array(10);
+    for(var i=0; i<10;i++){
+        pkt[i] = $('#pkt'+i).val();
+    }
+    var suma = 0;
+    for(var x=0;x<10;x++){
+        suma += Number(pkt[x]);
+        if(pkt[x] == 10){
+            ilosc10++;
+        }
+    }
 
     var xmlhttp = new XMLHttpRequest();
     var tryb = "EdytujPkt";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Suma="+suma+"&ilosc10="+ilosc10+"&nrRundy="+nrRundy+"&zawodnik="+idZaw, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Suma="+suma+"&pkt1="+pkt[0]+"&pkt2="+pkt[1]+"&pkt3="+pkt[2]+"&pkt4="+pkt[3]+"&pkt5="+pkt[4]+"&pkt6="+pkt[5]+"&pkt7="+pkt[6]+"&pkt8="+pkt[7]+"&pkt9="+pkt[8]+"&pkt10="+pkt[9]+"&ilosc10="+ilosc10+"&nrRundy="+nrRundy+"&zawodnik="+idZaw, true);
+    xmlhttp.send();
+}
+function wyslijUP(){
+    var idZaw = $('#zawodnik').val();
+    var nrRundy = $('#runda').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "UsunPkt";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDrundy="+nrRundy+"&IDzaw="+idZaw, true);
     xmlhttp.send();
 }

@@ -72,6 +72,11 @@
             echo $SumaPkt;
         }else if($tryb == "DodajPkt"){
             //POBIERANIE ZMIENNYCH
+            $x=1;
+            for($i=0;$i<10;$i++){
+                $pkt[$i] = $_GET['pkt'.$x];
+                $x++;
+            }
             $idZawodnika = $_GET['zawodnik'];
             $Suma = $_GET['Suma'];
             $Ilosc10 = $_GET['ilosc10'];
@@ -86,7 +91,7 @@
                 $_SESSION['ErrorPtsExist'] = 1;
             }else{
                 $_SESSION['PtsDone'] = 1;
-                mysqli_query($polaczenie, "INSERT INTO `punkty` (`ID_zaw`, `Suma`, `Ilosc_10`, `ID_Rundy`) VALUES('".$idZawodnika."', '".$Suma."', '".$Ilosc10."', '".$nrRundy."');");
+                mysqli_query($polaczenie, "INSERT INTO `punkty` (`ID_zaw`, `Suma`, `pkt1`, `pkt2`, `pkt3`, `pkt4`, `pkt5`, `pkt6`, `pkt7`, `pkt8`, `pkt9`, `pkt10`, `Ilosc_10`, `ID_Rundy`) VALUES('".$idZawodnika."', '".$Suma."', '".$pkt[0]."', '".$pkt[1]."', '".$pkt[2]."', '".$pkt[3]."', '".$pkt[4]."', '".$pkt[5]."', '".$pkt[6]."', '".$pkt[7]."', '".$pkt[8]."', '".$pkt[9]."', '".$Ilosc10."', '".$nrRundy."');");
                 $rezultatDruz = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_druzyny`='".$idDruzyny."' AND `ID_rundy`='".$nrRundy."';");
                 if($rezultatDruz->num_rows != 0){
                     $wierszDruz = $rezultatDruz->fetch_assoc();
@@ -181,14 +186,26 @@
             echo include"editPoints.php";
         }else if($tryb == "EdytujPkt"){
             $Suma = $_GET['Suma'];
+            $x=1;
+            for($i=0;$i<10;$i++){
+                $pkt[$i] = $_GET['pkt'.$x];
+                $x++;
+            }
             $ilosc10 = $_GET['ilosc10'];
             $nrRundy = $_GET['nrRundy'];
             $zawodnik = $_GET['zawodnik'];
 
-            mysqli_query($polaczenie, "UPDATE `punkty` SET `Suma`='".$Suma."', `Ilosc_10`='".$ilosc10."' WHERE `ID_zaw`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."';");
+            mysqli_query($polaczenie, "UPDATE `punkty` SET `Suma`='".$Suma."', `pkt1`='".$pkt[0]."', `pkt2`='".$pkt[1]."', `pkt3`='".$pkt[2]."', `pkt4`='".$pkt[3]."', `pkt5`='".$pkt[4]."', `pkt6`='".$pkt[5]."', `pkt7`='".$pkt[6]."', `pkt8`='".$pkt[7]."', `pkt9`='".$pkt[8]."', `pkt10`='".$pkt[9]."', `Ilosc_10`='".$ilosc10."' WHERE `ID_zaw`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."';");
 
             $czynnosc = "Edycja punktów zawodnika: ".$zawodnik;
             $_SESSION['EdycjaPkt']=1;
+        }else if($tryb == "UsunPkt"){
+            $IdRun = $_GET['IDrundy'];
+            $IdZaw = $_GET['IDzaw'];
+
+            mysqli_query($polaczenie, "DELETE FROM `punkty` WHERE `ID_zaw` ='".$IdZaw."' AND `ID_Rundy`='".$IdRun."'");
+            $_SESSION['PtsDelete'] = 1;
+            $czynnosc = "Usuwanie pkt zawodnika: ".$zawodnik;
         }
         @logi($czynnosc, $polaczenie);
     }
