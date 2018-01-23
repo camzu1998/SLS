@@ -106,8 +106,9 @@
             $_SESSION['NowaRunda']=1;
             $nazwaShl = mb_convert_case($_GET['NazwaShl'], MB_CASE_TITLE, "UTF-8");
             $idSez = $_GET['NazwaSez'];
+            $Data = $_GET['Data'];
             //DODAWANIE DO TABELI
-            mysqli_query($polaczenie, "INSERT INTO `rundy` (`IdSezonu`, `NazwaShl`) VALUES('".$idSez."', '".$nazwaShl."');");
+            mysqli_query($polaczenie, "INSERT INTO `rundy` (`IdSezonu`, `NazwaShl`, `Data`) VALUES('".$idSez."', '".$nazwaShl."', '".$Data."');");
             $czynnosc = "Dodawanie rundy";
         }else if($tryb == "wczytajEdytujZawodnika"){
             echo include"edytujZawodnika1.php";

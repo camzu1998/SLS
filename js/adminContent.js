@@ -106,10 +106,11 @@ function updateDP(){
 function wyslijNR(){
     var nazwaSez = $('#sezon').val();
     var nazwaShl = $('#nazwaShl').val();
+    var Data = $('#Data').val();
 
     var xmlhttp = new XMLHttpRequest();
     var tryb = "NowaRunda";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&NazwaSez="+nazwaSez+"&NazwaShl="+nazwaShl, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Data="+Data+"&NazwaSez="+nazwaSez+"&NazwaShl="+nazwaShl, true);
     xmlhttp.send();
 }
 function wyslijEZ(){

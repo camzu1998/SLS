@@ -22,6 +22,8 @@
             echo '<option value="'.$nazwa.'">'.$nazwa.'</option>';
         }
         ?>
-    </select>
+    </select><br>
+    <span>Data:</span>
+    <input type="date" name="Data" id="Data"/>
     <button onclick="wyslijNR();">Rozpocznij nową rundę</button>
 </form>
