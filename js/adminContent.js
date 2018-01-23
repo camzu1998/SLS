@@ -46,7 +46,7 @@ function wyslijDZ(){
 }
 function wyslijDD(){
     var nazwa = $('#Nazwa').val();
-    var konkurs = Number($('#konkurs').val());
+    var konkurs = Number($('input[name=konkurs]:checked').val());
     var szkola = $('#szkola').val();
 
     var xmlhttp = new XMLHttpRequest();
@@ -250,7 +250,7 @@ function refreshED(){
 }
 function wyslijED(){
     var nazwa = $('#Nazwa').val();
-    var konkurs = Number($('#konkurs').val());
+    var konkurs = Number($('input[name=konkurs]:checked').val());
     var szkola = $('#szkola').val();
     var druzyna = $('#druzyna').val();
 

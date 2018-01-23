@@ -6,7 +6,7 @@
         $konkurs = $wiersz['konkurs'];
         $IDS = $wiersz['ID_szkoly'];
 ?>
-<form method="get"><br>
+<form method="get" id="ETForm"><br>
     <span>Wybierz szkołę:</span>
     <select id="szkola" name="szkola">
     <?php
@@ -33,8 +33,8 @@
     <input type="text" name="Nazwa" id="Nazwa" style="width: auto !important;" value="<?php echo $Nazwa; ?>" required/> <br>
     <span>Bierze udział w konkursie:</span><br>
     <p>Tak</p>
-    <input type="radio" name="konkurs" id="konkurs" value="1" <?php if($konkurs == 1){ echo 'checked';} ?>/> <br>
+    <input type="radio" name="konkurs" value="1" <?php if($konkurs == 1){ echo 'checked';} ?>/> <br>
     <p>Nie</p>
-    <input type="radio" name="konkurs" id="konkurs" value="0" <?php if($konkurs == 0){ echo 'checked';} ?>/> <br>
+    <input type="radio" name="konkurs" value="0" <?php if($konkurs == 0){ echo 'checked';} ?>/> <br>
 </form>
 
