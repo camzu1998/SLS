@@ -12,7 +12,7 @@
     <span>Imię i Nazwisko</span>
     <input type="text" name="ImieNazwisko" id="ImieNazwisko" value="<?php echo $imieNazwisko; ?>"style="width: auto !important;" required/> <br>
     <span>Drużyna:</span>
-    <select name="druzyna" id="druzyna">
+    <select name="druzyna" id="druzyna" style="width: -webkit-fill-available;">
         <?php
             $rezultatDruz = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny`='".$druzyna."';");
             $wiersz = $rezultatDruz->fetch_assoc();

@@ -26,7 +26,7 @@ $wiersz = $rezultat->fetch_assoc();
     ?>
     </select><br>
     <span>Nazwa szkoły w której odbywa się runda:</span>
-    <select name="nazwaShl" id="nazwaShl">
+    <select name="nazwaShl" id="nazwaShl" style="width: -webkit-fill-available;">
         <?php
         $first = $polaczenie->query("SELECT * FROM `szkoly` WHERE `NazwaSzkoly`='".$NazwaShl."';");
         $wierszFirst = $first->fetch_assoc();

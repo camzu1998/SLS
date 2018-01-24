@@ -1,6 +1,6 @@
 <form method="get"><br>
     <span>Wybierz szkołę:</span>
-    <select id="szkola" name="szkola">
+    <select id="szkola" name="szkola" style="width: -webkit-fill-available;">
     <option style="display: hidden;"></option>
     <?php
         $rezultat = $polaczenie->query("SELECT * FROM `szkoly` WHERE 1");

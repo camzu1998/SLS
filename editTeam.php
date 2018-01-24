@@ -8,7 +8,7 @@
 ?>
 <form method="get" id="ETForm"><br>
     <span>Wybierz szkołę:</span>
-    <select id="szkola" name="szkola">
+    <select id="szkola" name="szkola" style="width: -webkit-fill-available;">
     <?php
         $first = $polaczenie->query("SELECT * FROM `szkoly` WHERE `ID` = '".$IDS."';");
         if($first->num_rows != 0){

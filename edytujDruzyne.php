@@ -1,7 +1,7 @@
 <form method="GET"><br>
     <div class="four columns" style="margin-left: auto !important;">
         <input type="text" placeholder="Wyszukaj zawodnika" oninput="w3.filterHTML('#zawodnik', 'option', this.value)" style="width: auto !important;"/> <br>
-        <select name="druzyna" id="druzyna" onchange="refreshED();">
+        <select name="druzyna" id="druzyna" onchange="refreshED();" style="width: -webkit-fill-available;">
             <option></option>
             <?php
             $rezultat = $polaczenie->query("SELECT * FROM `druzyny` WHERE 1");

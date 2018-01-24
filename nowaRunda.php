@@ -13,7 +13,7 @@
     </select><br>
     <span>Nazwa szkoły w której odbywa się runda:</span>
     <!-- <input type="text" name="nazwaShl" id="nazwaShl" style="width= 200px !important;" required/> -->
-    <select name="nazwaShl" id="nazwaShl">
+    <select name="nazwaShl" id="nazwaShl" style="width: -webkit-fill-available;">
         <?php
         $szkoly = $polaczenie->query("SELECT * FROM `szkoly` WHERE 1");
         for($i=0;$i<$szkoly->num_rows;$i++){
