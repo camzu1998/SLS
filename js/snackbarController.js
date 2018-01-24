@@ -26,6 +26,8 @@ function openSnackbar(tekst){
     if(tekst == "UpdateSezon"){var content = "Sezon zaktualizowany!";}
     if(tekst == "SezonExist"){var content = "Sezon już istnieje!";}
     if(tekst == "DeleteSeason"){var content = "Sezon usunięty!";}
+    if(tekst == "UpdateRound"){var content = "Runda zaktualizowana!";}
+    if(tekst == "DeleteRound"){var content = "Runda usunięta!";}
     $("#tekst").text(content);
     snackbar();
 }

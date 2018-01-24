@@ -310,6 +310,25 @@
             //USUWANIE SEZONU
             mysqli_query($polaczenie, "DELETE FROM `sezony` WHERE `ID`='".$IDS."';");
             $_SESSION['DeleteSeason']=1;
+        }else if($tryb == "wczytajEdytujRunde"){
+            echo include "edytujRunde.php";
+        }else if($tryb == "refreshER"){
+            $IDR = $_GET['runda'];
+            echo include "editRound.php";
+        }else if($tryb == "EdytujRunde"){
+            $IDR = $_GET['runda'];
+            $nazwaShl = mb_convert_case($_GET['NazwaShl'], MB_CASE_TITLE, "UTF-8");
+            $idSez = $_GET['NazwaSez'];
+            $Data = $_GET['Data'];
+
+            mysqli_query($polaczenie, "UPDATE `rundy` SET `IdSezonu`='".$idSez."', `NazwaShl`='".$nazwaShl."', `Data`='".$Data."' WHERE `ID`='".$IDR."';");
+            $_SESSION['UpdateRound']=1;
+        }else if($tryb == "UsunRunde"){
+            $IDR = $_GET['runda'];
+            //KASOWANIE PKT Z RUND
+            mysqli_query($polaczenie, "DELETE FROM `punkty` WHERE `ID_Rundy`='".$IDR."';");
+            mysqli_query($polaczenie, "DELETE FROM `pktdruzyny` WHERE `ID_rundy`='".$IDR."';");
+            $_SESSION['DeleteRound']=1;
         }
         @logi($czynnosc, $polaczenie);
     }

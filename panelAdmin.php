@@ -66,7 +66,7 @@
                 </div>
                 <div class="four columns window">
                     <a onclick="wyswietlaj('Nowa runda', `nowarunda`);">Rozpocznij rundę</a> <br>
-                    <a onclick="zakonczRunde();">Zakończ rundę</a>
+                    <a onclick="wyswietlaj('Edytuj rundę', `edytujrunde`);">Edytuj rundę</a>
                 </div>
                 <div class="four columns window">
                     <a onclick="wyswietlaj('Dodaj szkołe', `dodajSzkole`);">Dodaj szkołe</a> <br>
@@ -136,6 +136,10 @@
             ?> <script>openSnackbar('DeleteSeason');</script> <?php
         }else if(isset($_SESSION['UpdateSezon'])){
             ?> <script>openSnackbar('UpdateSezon');</script> <?php
+        }else if(isset($_SESSION['UpdateRound'])){
+            ?> <script>openSnackbar('UpdateRound');</script> <?php
+        }else if(isset($_SESSION['DeleteRound'])){
+            ?> <script>openSnackbar('DeleteRound');</script> <?php
         }
         unset($_SESSION['ErrorPtsExist']);
         unset($_SESSION['PtsDone']);
@@ -159,6 +163,8 @@
         unset($_SESSION['SezonExist']);
         unset($_SESSION['UpdateSezon']);
         unset($_SESSION['DeleteSeason']);
+        unset($_SESSION['UpdateRound']);
+        unset($_SESSION['DeleteRound']);
         ?>
     </body>
 </html>

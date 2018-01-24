@@ -35,6 +35,8 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajDodajSez";
     }else if(content == "edytujsez"){
         var tryb = "wczytajEdytujSez";
+    }else if(content == "edytujrunde"){
+        var tryb = "wczytajEdytujRunde";
     }
 
     response(tryb);
@@ -344,5 +346,37 @@ function wyslijUSEZ(){
     var xmlhttp = new XMLHttpRequest();
     var tryb = "UsunSezon";
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&nazwa="+nazwa+"&sezon="+sezon, true);
+    xmlhttp.send();
+}
+function refreshER(){
+    var runda = $('#runda').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "refreshER";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&runda="+runda, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('formularz').innerHTML = this.responseText;
+        }
+    }
+}
+function wyslijER(){
+    var runda = $('#runda').val();
+    var nazwaSez = $('#sezon').val();
+    var nazwaShl = $('#nazwaShl').val();
+    var Data = $('#Data').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "EdytujRunde";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&runda="+runda+"&Data="+Data+"&NazwaSez="+nazwaSez+"&NazwaShl="+nazwaShl, true);
+    xmlhttp.send();
+}
+function wyslijUR(){
+     var runda = $('#runda').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "UsunRunde";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&runda="+runda, true);
     xmlhttp.send();
 }
