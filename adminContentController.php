@@ -184,7 +184,6 @@
         }else if($tryb == "refreshEP"){
             $IDZaw = $_GET['IDZaw'];
             $NrRundy = $_GET['NrRundy'];
-            $IDD = $_GET['idd'];
             echo include"editPoints.php";
         }else if($tryb == "EdytujPkt"){
             $Suma = $_GET['Suma'];
