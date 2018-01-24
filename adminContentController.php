@@ -96,6 +96,7 @@
             }else{
                 $_SESSION['PtsDone'] = 1;
                 mysqli_query($polaczenie, "INSERT INTO `punkty` (`ID_zaw`, `Suma`, `pkt1`, `pkt2`, `pkt3`, `pkt4`, `pkt5`, `pkt6`, `pkt7`, `pkt8`, `pkt9`, `pkt10`, `Ilosc_10`, `ID_Rundy`) VALUES('".$idZawodnika."', '".$Suma."', '".$pkt[0]."', '".$pkt[1]."', '".$pkt[2]."', '".$pkt[3]."', '".$pkt[4]."', '".$pkt[5]."', '".$pkt[6]."', '".$pkt[7]."', '".$pkt[8]."', '".$pkt[9]."', '".$Ilosc10."', '".$nrRundy."');");
+                //SPRAWDZANIE CZY DRUZYNA MA JUZ WPIS W TEJ RUNDZIE
                 $rezultatDruz = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_druzyny`='".$idDruzyny."' AND `ID_rundy`='".$nrRundy."';");
                 if($rezultatDruz->num_rows != 0){
                     $wierszDruz = $rezultatDruz->fetch_assoc();
@@ -105,6 +106,20 @@
                     mysqli_query($polaczenie, "UPDATE `pktdruzyny` SET `SumaPkt`='".$sumadruz."' WHERE `ID`='".$id."';");
                 }else{
                     mysqli_query($polaczenie, "INSERT INTO `pktdruzyny` (`ID_druzyny`, `SumaPkt`, `ID_rundy`) VALUES ('".$idDruzyny."', '".$Suma."', '".$nrRundy."');");
+                }
+                //UZYSKANIE ID SEZONU
+                $sezony = $polaczenie->query("SELECT * FROM `rundy` WHERE `ID`='".$nrRundy."';");
+                $wierszRunda = $sezony->fetch_assoc();
+                    $IDS = $wierszRunda['IdSezonu'];
+                //SPRAWDZANIE CZY DRUŻYNA MA JUŻ WPIS W GPD
+                $checkGPD = $polaczenie->query("SELECT * FROM `gpd` WHERE `ID_druzyny`='".$idDruzyny."' AND `ID_sez`='".$IDS."';");
+                if($checkGPD->num_rows != 0){
+                    $wierszGPD = $checkGPD->fetch_assoc();
+                        $sumaGPD = $wierszGPD['SumaPkt'];
+                    $sumaGPD += $Suma;
+                    mysqli_query($polaczenie, "UPDATE `gpd` SET `SumaPkt`='".$sumaGPD."' WHERE `ID_druzyny`='".$idDruzyny."' AND `ID_sez`='".$IDS."';");
+                }else{
+                    mysqli_query($polaczenie, "INSERT INTO `gpd` (`ID_druzyny`, `ID_sez`, `SumaPkt`) VALUES('".$idDruzyny."', '".$IDS."' ,'".$Suma."');");
                 }
             }
             echo "Done";
