@@ -20,7 +20,6 @@
             $rezultat2 = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny`='".$idDruzyny."';");
             $wiersz2 = $rezultat2->fetch_assoc();
                 $nazwa = $wiersz2['NazwaDruzyny'];
-                $sumaPkt = $wiersz2['SumaPkt'];
             echo '<option value="'.$id.'">'.$imieNazwisko.'('.$nazwa.')</option>';
         }
         ?>
@@ -28,7 +27,7 @@
     <span>Nr rundy:</span>
     <select name="runda" id="runda" required onchange="refreshEP();">
         <?php
-            $rezultat = $polaczenie->query("SELECT * FROM `rundy` WHERE 1");
+            $rezultat = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC");
             for($i=0;$i<$rezultat->num_rows;$i++){
                 $wiersz = $rezultat->fetch_assoc();
                     $nazwa = $wiersz['ID'];
@@ -39,7 +38,6 @@
     <div id="formularz">
 
     </div>
-    <input type="text" name="SumaPktDruz" id="SumaPktDruz" value="<?php echo $sumaPkt; ?>" style="display: none;"/> <br>
     <span id="wynik"></span><br>
     <span id="wynikDruzyny"></span>
     <button onclick="wyslijEP();">Wyślij</button>

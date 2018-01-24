@@ -201,10 +201,11 @@ function wyslijDS(){
 function refreshEP(){
     var idZaw = $('#zawodnik').val();
     var nrRundy = $('#runda').val();
+    var idd = $('#IDD').val();
 
     var xmlhttp = new XMLHttpRequest();
     var tryb = "refreshEP";
-    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDZaw="+idZaw+"&NrRundy="+nrRundy, true);
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDZaw="+idZaw+"&NrRundy="+nrRundy+"&idd="+idd, true);
     xmlhttp.send();
     xmlhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){

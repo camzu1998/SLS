@@ -62,10 +62,14 @@
             $zawodnikInf = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$zawodnik."';");
             $wiersz = $zawodnikInf->fetch_assoc();
                 $IDD = $wiersz['ID_druzyny'];
+            $pktZawodnika = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."';");
+            $wierszPkt = $pktZawodnika->fetch_assoc();
+                $punkty = $wierszPkt['Suma'];
             $druzyna = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_druzyny`='".$IDD."' AND `ID_rundy`='".$nrRundy."';");
             if($druzyna->num_rows != 0){
                 $wiersz = $druzyna->fetch_assoc();
                     $SumaPkt = $wiersz['SumaPkt'];
+                $SumaPkt -= $punkty;
             }else{
                 $SumaPkt = 0;
             }
@@ -180,6 +184,7 @@
         }else if($tryb == "refreshEP"){
             $IDZaw = $_GET['IDZaw'];
             $NrRundy = $_GET['NrRundy'];
+            $IDD = $_GET['idd'];
             echo include"editPoints.php";
         }else if($tryb == "EdytujPkt"){
             $Suma = $_GET['Suma'];
