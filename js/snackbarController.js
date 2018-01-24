@@ -20,6 +20,8 @@ function openSnackbar(tekst){
     if(tekst == "TeamCreator"){var content = "Skład drużyny zapisany!";}
     if(tekst == "TeamUpdate"){var content = "Zaktualizowano informacje o drużynie!";}
     if(tekst == "TeamDelete"){var content = "Usunięto drużyne!";}
+    if(tekst == "DeleteShl"){var content = "Usunięto szkołe!";}
+    if(tekst == "UpdateShl"){var content = "Zaktualizowano informacje o szkole!";}
     $("#tekst").text(content);
     snackbar();
 }

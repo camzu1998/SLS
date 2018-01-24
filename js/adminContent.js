@@ -29,6 +29,8 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajEdytujPkt";
     }else if(content == "edytujdruz"){
         var tryb = "wczytajEdytujDruz";
+    }else if(content == "edytujSzkole"){
+        var tryb = "wczytajEdytujSzkole";
     }
 
     response(tryb);
@@ -267,4 +269,37 @@ function wyslijUD(){
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&druzyna="+druzyna, true);
     xmlhttp.send();
 
+}
+function refreshSZ(){
+    var szkola = $('#szkola').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "refreshES";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('formularz').innerHTML = this.responseText;
+        }
+    }
+}
+function wyslijUS(){
+    var szkola = $('#szkola').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "UsunShl";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola, true);
+    xmlhttp.send();
+
+}
+function wyslijES(){
+    var szkola = $('#szkola').val();
+    var nazwaSzkola = $('#nazwaSzkola').val();
+    var www = $('#WWW').val();
+    var adres = $('#Adres').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "EdytujShl";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola+"&nazwaSzkola="+nazwaSzkola+"&www="+www+"&adres="+adres, true);
+    xmlhttp.send();
 }

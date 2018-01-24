@@ -224,6 +224,44 @@
             mysqli_query($polaczenie, "DELETE FROM `gpd` WHERE `ID_druzyny` ='".$druzyna."'; ");
             mysqli_query($polaczenie, "UPDATE `zawodnicy` SET `ID_druzyny` ='0' WHERE `ID_druzyny` ='".$druzyna."';");
             $_SESSION['TeamDelete'] = 1;
+        }else if($tryb == "wczytajEdytujSzkole"){
+            echo include"edytujSzkole.php";
+        }else if($tryb == "refreshES"){
+            $szkola = $_GET["szkola"];
+            echo include"editSchool.php";
+        }else if($tryb == "EdytujShl"){
+            $szkola = $_GET["szkola"];
+            $nazwaSzkola = $_GET["nazwaSzkola"];
+            $WWW = $_GET["www"];
+            $Adres = $_GET["adres"];
+
+            mysqli_query($polaczenie, "UPDATE `szkoly` SET `NazwaSzkoly`='".$nazwaSzkola."', `Adres`='".$Adres."', `WWW`='".$WWW."' WHERE `ID`='".$szkola."';");
+            //FLAGA
+            $_SESSION['UpdateShl']=1;
+        }else if($tryb == "UsunShl"){
+            $szkola = $_GET["szkola"];
+
+            //USUWANIE Z TABELI SZKOLA
+            mysqli_query($polaczenie, "DELETE FROM `szkoly` WHERE `ID`='".$szkola."';");
+            //USUWANIE DRUZYN I ICH DANYCH
+            $rezultatDruz = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_szkoly`='".$szkola."';");
+            for($i=0;$i<$rezultatDruz->num_rows;$i++){
+                $wierszDruz = $rezultatDruz->fetch_assoc();
+                    $IDD = $wierszDruz['ID_druzyny'];
+                mysqli_query($polaczenie, "DELETE FROM `pktdruzyny` WHERE `ID_druzyny` ='".$IDD."';");
+                mysqli_query($polaczenie, "DELETE FROM `gpd` WHERE `ID_druzyny` ='".$IDD."'; ");
+            }
+            mysqli_query($polaczenie, "DELETE FROM `druzyny` WHERE `ID_szkoly`='".$szkola."';");
+            //USUWANIE ZAWODNIKÓW
+            $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_szkoly`='".$szkola."';");
+            for($x=0;$x<$rezultat->num_rows;$x++){
+                $wiersz = $rezultat->fetch_assoc();
+                    $ID = $wiersz['ID_zawodnika'];
+                mysqli_query($polaczenie, "DELETE FROM `punkty` WHERE `ID_zaw` ='".$ID."';");
+            }
+            mysqli_query($polaczenie, "DELETE FROM `zawodnicy` WHERE `ID_szkoly`='".$szkola."';");
+            //FLAGA
+            $_SESSION['DeleteShl']=1;
         }
         @logi($czynnosc, $polaczenie);
     }

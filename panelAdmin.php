@@ -70,7 +70,7 @@
                 </div>
                 <div class="four columns window">
                     <a onclick="wyswietlaj('Dodaj szkołe', `dodajSzkole`);">Dodaj szkołe</a> <br>
-                    <span>Edytuj szkołe</span>
+                    <a onclick="wyswietlaj('Edytuj szkołe', `edytujSzkole`);">Edytuj szkołe</a>
                 </div>
             </div>
             <div class="row">
@@ -124,6 +124,10 @@
             ?> <script>openSnackbar('TeamUpdate');</script> <?php
         }else if(isset($_SESSION['TeamDelete'])){
             ?> <script>openSnackbar('TeamDelete');</script> <?php
+        }else if(isset($_SESSION['UpdateShl'])){
+            ?> <script>openSnackbar('UpdateShl');</script> <?php
+        }else if(isset($_SESSION['DeleteShl'])){
+            ?> <script>openSnackbar('DeleteShl');</script> <?php
         }
         unset($_SESSION['ErrorPtsExist']);
         unset($_SESSION['PtsDone']);
@@ -141,6 +145,8 @@
         unset($_SESSION['PtsDelete']);
         unset($_SESSION['TeamUpdate']);
         unset($_SESSION['TeamDelete']);
+        unset($_SESSION['UpdateShl']);
+        unset($_SESSION['DeleteShl']);
         ?>
     </body>
 </html>
