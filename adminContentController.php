@@ -191,15 +191,47 @@
             $ilosc10 = $_GET['ilosc10'];
             $nrRundy = $_GET['nrRundy'];
             $zawodnik = $_GET['zawodnik'];
+            //Druzyna Zawodnika
+            $druzyna = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$zawodnik."';");
+            $wierszD = $druzyna->fetch_assoc();
+                $IDD = $wierszD['ID_druzyna'];
+            //Poprzednia suma pkt
+            $BefPkt = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."';");
+            $wierszBP = $BefPkt->fetch_assoc();
+                $BeforeSuma = $wierszBP['Suma'];
+            //Aktualna wartość sumy druz
+            $PtsTeam = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_druzyny`='".$IDD."' AND `ID_rundy`='".$nrRundy."';");
+            $wierszPT = $PtsTeam->fetch_assoc();
+                $SumaPkt = $wierszPT['SumaPkt'];
+            //Odejmujemy stare pkt
+            $SumaPkt -= $BeforeSuma;
+            //Dodajemy nowe pkt
+            $SumaPkt += $Suma;
 
             mysqli_query($polaczenie, "UPDATE `punkty` SET `Suma`='".$Suma."', `pkt1`='".$pkt[0]."', `pkt2`='".$pkt[1]."', `pkt3`='".$pkt[2]."', `pkt4`='".$pkt[3]."', `pkt5`='".$pkt[4]."', `pkt6`='".$pkt[5]."', `pkt7`='".$pkt[6]."', `pkt8`='".$pkt[7]."', `pkt9`='".$pkt[8]."', `pkt10`='".$pkt[9]."', `Ilosc_10`='".$ilosc10."' WHERE `ID_zaw`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."';");
+
+            mysqli_query($polaczenie, "UPDATE `pktdruzyny` SET `SumaPkt`='".$SumaPkt."' WHERE `ID_druzyny`='".$IDD."' AND `ID_runda`='".$nrRundy."';");
 
             $czynnosc = "Edycja punktów zawodnika: ".$zawodnik;
             $_SESSION['EdycjaPkt']=1;
         }else if($tryb == "UsunPkt"){
             $IdRun = $_GET['IDrundy'];
             $IdZaw = $_GET['IDzaw'];
-
+            //Druzyna Zawodnika
+            $druzyna = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$IdZaw."';");
+            $wierszD = $druzyna->fetch_assoc();
+                $IDD = $wierszD['ID_druzyna'];
+            //Punkty do usuniecia
+            $BefPkt = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw`='".$IdZaw."' AND `ID_Rundy`='".$IdRun."';");
+            $wierszBP = $BefPkt->fetch_assoc();
+                $BeforeSuma = $wierszBP['Suma'];
+            //Punkty druzyny
+            $PtsTeam = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_druzyny`='".$IDD."' AND `ID_rundy`='".$IdRun."';");
+            $wierszPT = $PtsTeam->fetch_assoc();
+                $SumaPkt = $wierszPT['SumaPkt'];
+            $SumaPkt -= $BeforeSuma;
+            //AKTUALIZACJA W BAZIE
+            mysqli_query($polaczenie, "UPDATE `pktdruzyny` SET `SumaPkt`='".$SumaPkt."' WHERE `ID_druzyny`='".$IDD."' AND `ID_runda`='".$IdRun."';");
             mysqli_query($polaczenie, "DELETE FROM `punkty` WHERE `ID_zaw` ='".$IdZaw."' AND `ID_Rundy`='".$IdRun."'");
             $_SESSION['PtsDelete'] = 1;
             $czynnosc = "Usuwanie pkt zawodnika: ".$zawodnik;
