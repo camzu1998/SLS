@@ -26,7 +26,7 @@
         ?>
     </select><br>
     <span>Nr rundy:</span>
-    <select name="runda" id="runda" required>
+    <select name="runda" id="runda" required onchange="refreshEP();">
         <?php
             $rezultat = $polaczenie->query("SELECT * FROM `rundy` WHERE 1");
             for($i=0;$i<$rezultat->num_rows;$i++){

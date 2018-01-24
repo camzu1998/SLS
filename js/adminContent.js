@@ -31,6 +31,10 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajEdytujDruz";
     }else if(content == "edytujSzkole"){
         var tryb = "wczytajEdytujSzkole";
+    }else if(content == "dodajsez"){
+        var tryb = "wczytajDodajSez";
+    }else if(content == "edytujsez"){
+        var tryb = "wczytajEdytujSez";
     }
 
     response(tryb);
@@ -301,5 +305,44 @@ function wyslijES(){
     var xmlhttp = new XMLHttpRequest();
     var tryb = "EdytujShl";
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&szkola="+szkola+"&nazwaSzkola="+nazwaSzkola+"&www="+www+"&adres="+adres, true);
+    xmlhttp.send();
+}
+function wyslijDSEZ(){
+    var nazwa = $('#nazwa').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "DodajSezon";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&nazwa="+nazwa, true);
+    xmlhttp.send();
+}
+function refreshESEZ(){
+    var sezon = $('#sezon').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "refreshESEZ";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&sezon="+sezon, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('formularz').innerHTML = this.responseText;
+        }
+    }
+}
+function wyslijESEZ(){
+    var nazwa = $('#nazwa').val();
+    var sezon = $('#sezon').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "EdytujSezon";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&nazwa="+nazwa+"&sezon="+sezon, true);
+    xmlhttp.send();
+}
+function wyslijUSEZ(){
+    var nazwa = $('#nazwa').val();
+    var sezon = $('#sezon').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "UsunSezon";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&nazwa="+nazwa+"&sezon="+sezon, true);
     xmlhttp.send();
 }

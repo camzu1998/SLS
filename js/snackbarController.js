@@ -22,6 +22,10 @@ function openSnackbar(tekst){
     if(tekst == "TeamDelete"){var content = "Usunięto drużyne!";}
     if(tekst == "DeleteShl"){var content = "Usunięto szkołe!";}
     if(tekst == "UpdateShl"){var content = "Zaktualizowano informacje o szkole!";}
+    if(tekst == "DodajSezon"){var content = "Dodano nowy sezon!";}
+    if(tekst == "UpdateSezon"){var content = "Sezon zaktualizowany!";}
+    if(tekst == "SezonExist"){var content = "Sezon już istnieje!";}
+    if(tekst == "DeleteSeason"){var content = "Sezon usunięty!";}
     $("#tekst").text(content);
     snackbar();
 }

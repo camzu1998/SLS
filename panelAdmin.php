@@ -55,8 +55,8 @@
                     <a onclick="wyswietlaj('Edytuj drużynę', `edytujdruz`);">  Edytuj drużynę </a>
                 </div>
                 <div class="four columns window">
-                    <span>Rozpocznij sezon</span> <br>
-                    <span>Zakończ sezon</span>
+                    <a onclick="wyswietlaj('Dodaj sezon', `dodajsez`);">  Dodaj sezon </a> <br>
+                    <a onclick="wyswietlaj('Edytuj sezon', `edytujsez`);">  Edytuj sezon </a>
                 </div>
             </div>
             <div class="row">
@@ -128,6 +128,14 @@
             ?> <script>openSnackbar('UpdateShl');</script> <?php
         }else if(isset($_SESSION['DeleteShl'])){
             ?> <script>openSnackbar('DeleteShl');</script> <?php
+        }else if(isset($_SESSION['DodajSezon'])){
+            ?> <script>openSnackbar('DodajSezon');</script> <?php
+        }else if(isset($_SESSION['SezonExist'])){
+            ?> <script>openSnackbar('SezonExist');</script> <?php
+        }else if(isset($_SESSION['DeleteSeason'])){
+            ?> <script>openSnackbar('DeleteSeason');</script> <?php
+        }else if(isset($_SESSION['UpdateSezon'])){
+            ?> <script>openSnackbar('UpdateSezon');</script> <?php
         }
         unset($_SESSION['ErrorPtsExist']);
         unset($_SESSION['PtsDone']);
@@ -147,6 +155,10 @@
         unset($_SESSION['TeamDelete']);
         unset($_SESSION['UpdateShl']);
         unset($_SESSION['DeleteShl']);
+        unset($_SESSION['DodajSezon']);
+        unset($_SESSION['SezonExist']);
+        unset($_SESSION['UpdateSezon']);
+        unset($_SESSION['DeleteSeason']);
         ?>
     </body>
 </html>

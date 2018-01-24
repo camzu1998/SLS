@@ -262,6 +262,54 @@
             mysqli_query($polaczenie, "DELETE FROM `zawodnicy` WHERE `ID_szkoly`='".$szkola."';");
             //FLAGA
             $_SESSION['DeleteShl']=1;
+        }else if($tryb == "wczytajDodajSez"){
+            echo include "dodajSezon.php";
+        }else if($tryb == "DodajSezon"){
+            $nazwa = $_GET['nazwa'];
+            //ZABEZPIECZENIE PRZED TAKA SAMA NAZWA
+            $rezultat = $polaczenie->query("SELECT * FROM `seozny` WHERE `Data`='".$nazwa."';");
+            if($rezultat->num_rows != 0){
+                //ERROR
+                $_SESSION['SezonExist'] = 1;
+            }else{
+                mysqli_query($polaczenie, "UPDATE `sezony` SET `Zakonczony`='1' WHERE 1");
+                mysqli_query($polaczenie, "INSERT INTO `sezony` (`Data`, `Zakonczony`) VALUES ('".$nazwa."', '0');");
+                $_SESSION['DodajSezon'] = 1;
+            }
+        }else if($tryb == "wczytajEdytujSez"){
+            echo include "edytujSezon.php";
+        }else if($tryb == "refreshESEZ"){
+            $sezon = $_GET['sezon'];
+            echo include "editSeason.php";
+        }else if($tryb == "EdytujSezon"){
+            $nazwa = $_GET['nazwa'];
+            $sezon = $_GET['sezon'];
+            //ZABEZPIECZENIE PRZED TAKA SAMA NAZWA
+            $rezultat = $polaczenie->query("SELECT * FROM `seozny` WHERE `Data`='".$nazwa."';");
+            if($rezultat->num_rows != 0){
+                //ERROR
+                $_SESSION['SezonExist'] = 1;
+            }else{
+                mysqli_query($polaczenie, "UPDATE `sezony` SET `Data` = '".$nazwa."' WHERE `ID`='".$sezon."';");
+                $_SESSION['UpdateSezon'] = 1;
+            }
+        }else if($tryb == "UsunSezon"){
+            //DANE
+            $IDS = $_GET['sezon'];
+            //USUWANIE PKT
+            mysqli_query($polaczenie, "DELETE FROM `gpd` WHERE `ID_sez`='".$IDS."';");
+            $rundy = $polaczenie->query("SELECT * FROM `rundy` WHERE `IdSezonu`='".$IDS."';");
+            for($i=0;$i<$rundy->num_rows;$i++){
+                $wiersz = $rundy->fetch_assoc();
+                    $IDR = $wiersz['ID'];
+                mysqli_query($polaczenie, "DELETE FROM `pktdruzyny` WHERE `ID_rundy`='".$IDR."';");
+                mysqli_query($polaczenie, "DELETE FROM `punkty` WHERE `ID_Rundy`='".$IDR."';");
+            }
+            //USUWANIE RUND
+            mysqli_query($polaczenie, "DELETE FROM `rundy` WHERE `IdSezonu`='".$IDS."';");
+            //USUWANIE SEZONU
+            mysqli_query($polaczenie, "DELETE FROM `sezony` WHERE `ID`='".$IDS."';");
+            $_SESSION['DeleteSeason']=1;
         }
         @logi($czynnosc, $polaczenie);
     }
