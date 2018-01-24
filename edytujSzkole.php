@@ -1,5 +1,5 @@
 <form method="GET"><br>
-    <div class="four columns">
+    <div class="four columns" style="margin-left: auto !important;">
         <input type="text" placeholder="Wyszukaj szkołe" oninput="w3.filterHTML('#szkola', 'option', this.value)" style="width: auto !important;"/> <br>
         <select name="szkola" id="szkola" onchange="refreshSZ();">
             <option></option>
