@@ -37,6 +37,12 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajEdytujSez";
     }else if(content == "edytujrunde"){
         var tryb = "wczytajEdytujRunde";
+    }else if(content == "logi"){
+        var tryb = "wczytajLogi";
+    }else if(content == "checkposition"){
+        var tryb = "wczytajCheckPosition";
+    }else if(content == "zaawansowane"){
+        var tryb = "wczytajZaawansowane";
     }
 
     response(tryb);

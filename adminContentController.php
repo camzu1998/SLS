@@ -380,6 +380,8 @@
             mysqli_query($polaczenie, "DELETE FROM `punkty` WHERE `ID_Rundy`='".$IDR."';");
             mysqli_query($polaczenie, "DELETE FROM `pktdruzyny` WHERE `ID_rundy`='".$IDR."';");
             $_SESSION['DeleteRound']=1;
+        }else if($tryb == "wczytajCheckPosition"){
+            echo include "checkposition.php";
         }
         @logi($czynnosc, $polaczenie);
     }
