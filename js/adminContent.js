@@ -43,6 +43,8 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajCheckPosition";
     }else if(content == "zaawansowane"){
         var tryb = "wczytajZaawansowane";
+    }else if(content == "pojedynki"){
+        var tryb = "wczytajPojedynki";
     }
 
     response(tryb);
@@ -384,5 +386,40 @@ function wyslijUR(){
     var xmlhttp = new XMLHttpRequest();
     var tryb = "UsunRunde";
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&runda="+runda, true);
+    xmlhttp.send();
+}
+function wyslijSM(){
+    var runda = $('#runda').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "CheckPosition";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&runda="+runda, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('wynik').innerHTML = this.responseText;
+        }
+    }
+}
+function refreshP(){
+    var IDP = $('#pojedynek').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "Pojedynek";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDP="+IDP, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('Pojedynek').innerHTML = this.responseText;
+        }
+    }
+}
+function wyslijP(){
+    var IDP = $('#pojedynek').val();
+    var IDZ = Number($('input[name=Winner]:checked').val());
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "Wyniki";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDP="+IDP+"&Winner="+IDZ, true);
     xmlhttp.send();
 }

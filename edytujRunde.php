@@ -4,7 +4,7 @@
         <select name="runda" id="runda" onchange="refreshER();">
             <option></option>
             <?php
-            $rezultat = $polaczenie->query("SELECT * FROM `rundy` WHERE 1");
+            $rezultat = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC");
             for($i=0;$i<$rezultat->num_rows;$i++){
                 $wiersz = $rezultat->fetch_assoc();
                     $ID = $wiersz['ID'];

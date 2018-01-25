@@ -381,7 +381,53 @@
             mysqli_query($polaczenie, "DELETE FROM `pktdruzyny` WHERE `ID_rundy`='".$IDR."';");
             $_SESSION['DeleteRound']=1;
         }else if($tryb == "wczytajCheckPosition"){
+            echo include "sprawdzanieMiejsca.php";
+        }else if($tryb == "CheckPosition"){
+            $runda = $_GET['runda'];
             echo include "checkposition.php";
+        }else if($tryb == "wczytajPojedynki"){
+            echo include "wczytajPojedynki.php";
+        }else if($tryb == "Pojedynek"){
+            $IDP = $_GET['IDP'];
+            echo include "pojedynek.php";
+        }else if($tryb == "Wyniki"){
+            $IDP = $_GET['IDP'];
+            $IDZ = $_GET['Winner'];
+            //POBRANIE INFORMACJI O POJEDYNKU
+            $pojedynek = $polaczenie->query("SELECT * FROM `pojedynki` WHERE `ID`='".$IDP."';");
+            $wierszP = $pojedynek->fetch_assoc();
+                $IDZ1 = $wierszP['IDZ1'];
+                $IDZ2 = $wierszP['IDZ2'];
+                $IDR = $wierszP['ID_rundy'];
+            //MIEJSCA ZAWODNIKÓW
+            $miejsce1 = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ1."';");
+            $wiersz1 = $miejsce1->fetch_assoc();
+                $pos1 = $wiersz1['Miejsce'];
+            $miejsce2 = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ2."';");
+            $wiersz2 = $miejsce2->fetch_assoc();
+                $pos2 = $wiersz2['Miejsce'];
+            if($IDZ == $IDZ1){
+                //wygrał gracz 1
+                if($pos1 < $pos2){
+                    //gracz oboronił miejsce
+                }else{
+                    //gracz awansuje
+                    mysqli_query($polaczenie, "UPDATE `punkty` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ1."';");
+                    //degradacja
+                    mysqli_query($polaczenie, "UPDATE `punkty` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ2."';");
+                }
+            }else{
+                //wygrał gracz 2
+                if($pos2 < $pos1){
+                    //gracz oobronił pozycje
+                }else{
+                    //gracz awansuje
+                    mysqli_query($polaczenie, "UPDATE `punkty` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ2."';");
+                    //degradacja
+                    mysqli_query($polaczenie, "UPDATE `punkty` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ1."';");
+                }
+            }
+            mysqli_query($polaczenie, "DELETE FROM `pojedynki` WHERE `ID`='".$IDP."';");
         }
         @logi($czynnosc, $polaczenie);
     }

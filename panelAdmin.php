@@ -80,6 +80,10 @@
                 </div>
                 <div class="four columns window">
                     <a onclick="wyswietlaj('Sprawdzanie miejsca', `checkposition`);">Sprawdzanie miejsca</a> <br>
+                    <a onclick="wyswietlaj('Pojedynki', `pojedynki`);">Pojedynki</a>
+                </div>
+                <div class="four columns window">
+                    <a onclick="wyswietlaj('COSTAM ', `COSTAM`);">cOSTAM</a> <br>
                     <a onclick="wyswietlaj('Zaawansowane', `zaawansowane`);">Zaawansowane</a>
                 </div>
             </div>
