@@ -148,6 +148,8 @@
             ?> <script>openSnackbar('UpdateRound');</script> <?php
         }else if(isset($_SESSION['DeleteRound'])){
             ?> <script>openSnackbar('DeleteRound');</script> <?php
+        }else if(isset($_SESSION['SprawdzanieError'])){
+            ?> <script>openSnackbar('SprawdzanieError');</script> <?php
         }
         unset($_SESSION['ErrorPtsExist']);
         unset($_SESSION['PtsDone']);
@@ -173,6 +175,7 @@
         unset($_SESSION['DeleteSeason']);
         unset($_SESSION['UpdateRound']);
         unset($_SESSION['DeleteRound']);
+        unset($_SESSION['SprawdzanieError']);
         ?>
     </body>
 </html>

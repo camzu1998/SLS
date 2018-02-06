@@ -384,7 +384,13 @@
             echo include "sprawdzanieMiejsca.php";
         }else if($tryb == "CheckPosition"){
             $runda = $_GET['runda'];
-            echo include "checkposition.php";
+            $SecuCheck = $polaczenie->query("SELECT * FROM `pojedynki` WHERE `ID_Rundy`='".$runda."';");
+            if($SecuCheck->num_rows != 0){
+                echo "Wciśnij przycisk Zamknij Okno!";
+                $_SESSION['SprawdzanieError'] = 1;
+            }else{
+                echo include "checkposition.php";
+            }
         }else if($tryb == "wczytajPojedynki"){
             echo include "wczytajPojedynki.php";
         }else if($tryb == "Pojedynek"){

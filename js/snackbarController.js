@@ -27,6 +27,7 @@ function openSnackbar(tekst){
     if(tekst == "DeleteSeason"){var content = "Sezon usunięty!";}
     if(tekst == "UpdateRound"){var content = "Runda zaktualizowana!";}
     if(tekst == "DeleteRound"){var content = "Runda usunięta!";}
+    if(tekst == "SprawdzanieError"){var content = "Sprawdzanie miejsca już było dla tej rundy!";}
     $("#tekst").text(content);
     snackbar();
 }
