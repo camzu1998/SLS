@@ -88,6 +88,7 @@
             $rezultat = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika` = '".$idZawodnika."';");
             $wiersz = $rezultat->fetch_assoc();
                 $idDruzyny = $wiersz['ID_druzyny'];
+                $Plec = $wiersz['Plec'];
             //SPRAWDZANIE CZY USER MA PKT W TEJ RUNDZIE
             $rezultatSecurityCheck = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw` = '".$idZawodnika."' AND `ID_Rundy` = '".$nrRundy."';");
             if($rezultatSecurityCheck->num_rows != 0){
@@ -95,7 +96,18 @@
                 $_SESSION['ErrorPtsExist'] = 1;
             }else{
                 $_SESSION['PtsDone'] = 1;
-                mysqli_query($polaczenie, "INSERT INTO `punkty` (`ID_zaw`, `Suma`, `pkt1`, `pkt2`, `pkt3`, `pkt4`, `pkt5`, `pkt6`, `pkt7`, `pkt8`, `pkt9`, `pkt10`, `Ilosc_10`, `ID_Rundy`) VALUES('".$idZawodnika."', '".$Suma."', '".$pkt[0]."', '".$pkt[1]."', '".$pkt[2]."', '".$pkt[3]."', '".$pkt[4]."', '".$pkt[5]."', '".$pkt[6]."', '".$pkt[7]."', '".$pkt[8]."', '".$pkt[9]."', '".$Ilosc10."', '".$nrRundy."');");
+                mysqli_query($polaczenie, "INSERT INTO `punkty` (`ID_zaw`, `Suma`, `pkt1`, `pkt2`, `pkt3`, `pkt4`, `pkt5`, `pkt6`, `pkt7`, `pkt8`, `pkt9`, `pkt10`, `Ilosc_10`, `ID_Rundy`, `Plec`) VALUES('".$idZawodnika."', '".$Suma."', '".$pkt[0]."', '".$pkt[1]."', '".$pkt[2]."', '".$pkt[3]."', '".$pkt[4]."', '".$pkt[5]."', '".$pkt[6]."', '".$pkt[7]."', '".$pkt[8]."', '".$pkt[9]."', '".$Ilosc10."', '".$nrRundy."', '".$Plec."');");
+                //WPIS DO PKT_M || PKT_K
+                $rezultatIDP = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw`='".$idZawodnika."' AND `ID_Rundy`='".$nrRundy."' ");
+                $wierszIDP = $rezultatIDP->fetch_assoc();
+                    $IDP = $wierszIDP['ID'];
+                if($Plec == 'M'){
+                    mysqli_query($polaczenie, "INSERT INTO `pkt_m` (`IDP`, `IDZ`, `Suma`, `Ilosc_10`, `Miejsce`, `ID_Rundy`) VALUES ('".$IDP."', '".$idZawodnika."', '".$Suma."', '".$Ilosc10."', '0', '".$nrRundy."');");
+                }else if($Plec == 'K'){
+                    mysqli_query($polaczenie, "INSERT INTO `pkt_k` (`IDP`, `IDZ`, `Suma`, `Ilosc_10`, `Miejsce`, `ID_Rundy`) VALUES ('".$IDP."', '".$idZawodnika."', '".$Suma."', '".$Ilosc10."', '0', '".$nrRundy."');");
+                }else{
+                    $_SESSION['SEXERROR']=1;
+                }
                 //SPRAWDZANIE CZY DRUZYNA MA JUZ WPIS W TEJ RUNDZIE
                 $rezultatDruz = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_druzyny`='".$idDruzyny."' AND `ID_rundy`='".$nrRundy."';");
                 if($rezultatDruz->num_rows != 0){
@@ -120,6 +132,22 @@
                     mysqli_query($polaczenie, "UPDATE `gpd` SET `SumaPkt`='".$sumaGPD."' WHERE `ID_druzyny`='".$idDruzyny."' AND `ID_sez`='".$IDS."';");
                 }else{
                     mysqli_query($polaczenie, "INSERT INTO `gpd` (`ID_druzyny`, `ID_sez`, `SumaPkt`) VALUES('".$idDruzyny."', '".$IDS."' ,'".$Suma."');");
+                }
+                //WPIS DO PKT GEN
+                //SPRAWDZANIE CZY TRZEBA UTWORZYC WPIS
+                $rezultatCR = $polaczenie->query("SELECT * FROM `pkt_gen` WHERE `ID_zaw`='".$idZawodnika."' AND `ID_sez`='".$IDS."';");
+                if($rezultatCR->num_rows != 0){
+                    //DOPISANIE PKT
+                    //POBRANIE AKTUALNEJ SUMY
+                    $wierszGP = $rezultatCR->fetch_assoc();
+                        $SumaGP = $wierszGP['Suma'];
+                    //DODANIE
+                    $SumaGP += $Suma;
+                    //AKTUALIZACJA
+                    mysqli_query($polaczenie, "UPDATE `pkt_gen` SET `Suma`='".$SumaGP."' WHERE `ID_zaw`='".$idZawodnika."' AND `ID_sez`='".$IDS."';");
+                }else{
+                    //TWORZENIE WPISU
+                    mysqli_query($polaczenie, "INSERT INTO `pkt_gen` (`ID_zaw`, `Suma`, `ID_sez`) VALUES ('".$idZawodnika."', '".$Suma."', '".$IDS."');");
                 }
             }
             echo "Done";
@@ -384,7 +412,7 @@
             echo include "sprawdzanieMiejsca.php";
         }else if($tryb == "CheckPosition"){
             $runda = $_GET['runda'];
-            $SecuCheck = $polaczenie->query("SELECT * FROM `pojedynki` WHERE `ID_Rundy`='".$runda."';");
+            $SecuCheck = $polaczenie->query("SELECT * FROM `pojedynki` WHERE `ID_rundy`='".$runda."';");
             if($SecuCheck->num_rows != 0){
                 echo "Wciśnij przycisk Zamknij Okno!";
                 $_SESSION['SprawdzanieError'] = 1;
@@ -405,32 +433,81 @@
                 $IDZ1 = $wierszP['IDZ1'];
                 $IDZ2 = $wierszP['IDZ2'];
                 $IDR = $wierszP['ID_rundy'];
+            //POBIERANIE INFORMACJI O ZAWODNIKACH
+            $info1 = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$IDZ1."'");
+            $wiersz = $info1->fetch_assoc();
+                $Plec = $wiersz['Plec'];
             //MIEJSCA ZAWODNIKÓW
-            $miejsce1 = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ1."';");
-            $wiersz1 = $miejsce1->fetch_assoc();
-                $pos1 = $wiersz1['Miejsce'];
-            $miejsce2 = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ2."';");
-            $wiersz2 = $miejsce2->fetch_assoc();
-                $pos2 = $wiersz2['Miejsce'];
+            if($Plec=='M'){
+                $miejsce1 = $polaczenie->query("SELECT * FROM `pkt_m` WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ1."';");
+                $wiersz1 = $miejsce1->fetch_assoc();
+                    $pos1 = $wiersz1['Miejsce'];
+                $miejsce2 = $polaczenie->query("SELECT * FROM `pkt_m` WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ2."';");
+                $wiersz2 = $miejsce2->fetch_assoc();
+                    $pos2 = $wiersz2['Miejsce'];
+            }else{
+                $miejsce1 = $polaczenie->query("SELECT * FROM `pkt_k` WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ1."';");
+                $wiersz1 = $miejsce1->fetch_assoc();
+                    $pos1 = $wiersz1['Miejsce'];
+                $miejsce2 = $polaczenie->query("SELECT * FROM `pkt_k` WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ2."';");
+                $wiersz2 = $miejsce2->fetch_assoc();
+                    $pos2 = $wiersz2['Miejsce'];
+            }
             if($IDZ == $IDZ1){
                 //wygrał gracz 1
                 if($pos1 < $pos2){
                     //gracz oboronił miejsce
-                }else{
+                }else if($pos1 > $pos2){
                     //gracz awansuje
-                    mysqli_query($polaczenie, "UPDATE `punkty` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ1."';");
-                    //degradacja
-                    mysqli_query($polaczenie, "UPDATE `punkty` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ2."';");
+                    if($Plec=='M'){
+                        mysqli_query($polaczenie, "UPDATE `pkt_m` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ1."';");
+                        //degradacja
+                        mysqli_query($polaczenie, "UPDATE `pkt_m` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ2."';");
+                    }else{
+                        mysqli_query($polaczenie, "UPDATE `pkt_k` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ1."';");
+                        //degradacja
+                        mysqli_query($polaczenie, "UPDATE `pkt_k` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ2."';");
+                    }
+                }else{
+                    if($Plec=='M'){
+                        mysqli_query($polaczenie, "UPDATE `pkt_m` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ1."';");
+                        //degradacja
+                        $pos1++;
+                        mysqli_query($polaczenie, "UPDATE `pkt_m` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ2."';");
+                    }else{
+                        mysqli_query($polaczenie, "UPDATE `pkt_k` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ1."';");
+                        //degradacja
+                        $pos1++;
+                        mysqli_query($polaczenie, "UPDATE `pkt_k` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ2."';");
+                    }
                 }
             }else{
                 //wygrał gracz 2
                 if($pos2 < $pos1){
                     //gracz oobronił pozycje
-                }else{
+                }else if($pos2 > $pos1){
                     //gracz awansuje
-                    mysqli_query($polaczenie, "UPDATE `punkty` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ2."';");
-                    //degradacja
-                    mysqli_query($polaczenie, "UPDATE `punkty` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `ID_zaw`='".$IDZ1."';");
+                    if($Plec=='M'){
+                        mysqli_query($polaczenie, "UPDATE `pkt_m` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ2."';");
+                        //degradacja
+                        mysqli_query($polaczenie, "UPDATE `pkt_m` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ1."';");
+                    }else{
+                        mysqli_query($polaczenie, "UPDATE `pkt_k` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ2."';");
+                        //degradacja
+                        mysqli_query($polaczenie, "UPDATE `pkt_k` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ1."';");
+                    }
+                }else{
+                    if($Plec=='M'){
+                        mysqli_query($polaczenie, "UPDATE `pkt_m` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ2."';");
+                        //degradacja
+                        $pos2++;
+                        mysqli_query($polaczenie, "UPDATE `pkt_m` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ1."';");
+                    }else{
+                        mysqli_query($polaczenie, "UPDATE `pkt_k` SET `Miejsce`='".$pos1."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ2."';");
+                        //degradacja
+                        $pos2++;
+                        mysqli_query($polaczenie, "UPDATE `pkt_k` SET `Miejsce`='".$pos2."' WHERE `ID_Rundy`='".$IDR."' AND `IDZ`='".$IDZ1."';");
+                    }
                 }
             }
             mysqli_query($polaczenie, "DELETE FROM `pojedynki` WHERE `ID`='".$IDP."';");

@@ -28,6 +28,7 @@ function openSnackbar(tekst){
     if(tekst == "UpdateRound"){var content = "Runda zaktualizowana!";}
     if(tekst == "DeleteRound"){var content = "Runda usunięta!";}
     if(tekst == "SprawdzanieError"){var content = "Sprawdzanie miejsca już było dla tej rundy!";}
+    if(tekst == "SEXERROR"){var content = "Błąd płci!";}
     $("#tekst").text(content);
     snackbar();
 }

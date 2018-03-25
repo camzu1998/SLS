@@ -15,7 +15,7 @@ if($polaczenie->connect_errno!=0){
             $wiersz = $rezultatPkt->fetch_assoc();
                 $IDZ = $wiersz['ID_zaw'];
                 $Suma = $wiersz['Suma'];
-            $rezultatPlec = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$IDZ."' AND `Plec`='M';");
+            $rezultatPlec = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$IDZ."' AND `Plec`='K';");
             if($rezultatPlec->num_rows != 0){
                 $wiersz1 = $rezultatPlec->fetch_assoc();
                     $ImieNazwisko = $wiersz1['Imie Nazwisko'];

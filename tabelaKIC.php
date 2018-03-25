@@ -9,13 +9,13 @@ if($polaczenie->connect_errno!=0){
     @$IdSezonu = @$_GET['id'];
     @$IDRundy = @$_GET['runda'];
     if(@$IdSezonu != null || @$IDRundy != null){
-        $lp=1;
-        $punkty = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_Rundy`='".$IDRundy."' ORDER BY `Suma` DESC;");
+        $punkty = $polaczenie->query("SELECT * FROM `pkt_m` WHERE `ID_Rundy`='".$IDRundy."' ORDER BY `Miejsce` ASC;");
         for($i=0;$i<$punkty->num_rows;$i++){
             $wiersz = $punkty->fetch_assoc();
-                $IDZaw = $wiersz['ID_zaw'];
+                $IDZaw = $wiersz['IDZ'];
                 $Suma = $wiersz['Suma'];
                 $Ilosc10 = $wiersz['Ilosc_10'];
+                $Miejsce = $wiersz['Miejsce'];
             $zawodnik = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$IDZaw."' AND `Plec`='M';");
             $wiersz = $zawodnik->fetch_assoc();
                 $nazwa = $wiersz['Imie Nazwisko'];
@@ -24,8 +24,7 @@ if($polaczenie->connect_errno!=0){
             $wiersz = $szkoly->fetch_assoc();
                 $nazwaSHL = $wiersz['NazwaSzkoly'];
             if($nazwa != null){
-                echo "<tr><td>".$lp."</td><td>".$nazwa."</td><td>".$Suma."</td><td>".$nazwaSHL."</td></tr>";
-                $lp++;
+                echo "<tr><td>".$Miejsce."</td><td>".$nazwa."</td><td>".$Suma."</td><td>".$nazwaSHL."</td></tr>";
             }
         }
     }else{

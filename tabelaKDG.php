@@ -6,28 +6,26 @@ require_once "connect.php";
 if($polaczenie->connect_errno!=0){
     echo "Error: ".$polaczenie->connect_errno;
 } else {
+    $lp=1;
     @$IdSezonu = @$_GET['id'];
     if(@$IdSezonu != null){
-        $lp=1;
-        //Wybiera druzyne
-        $druzyna = $polaczenie->query("SELECT * FROM `druzyny` WHERE `konkurs`!=0");
-        for($i=0;$i<$druzyna->num_rows;$i++){
-            $wiersz = $druzyna->fetch_assoc();
+        $rezultat = $polaczenie->query("SELECT * FROM `gpd` WHERE `ID_sez`='".$IdSezonu."' ORDER BY `SumaPkt` DESC");
+        for($i=0;$i<$rezultat->num_rows;$i++){
+            $wiersz = $rezultat->fetch_assoc();
                 $IDD = $wiersz['ID_druzyny'];
-                $nazwa = $wiersz['NazwaDruzyny'];
-                $ID_shl = $wiersz['ID_szkoly'];
-            $punkty = $polaczenie->query("SELECT * FROM `pktdruzyny` WHERE `ID_druzyny`='".$IDD."'");
-            $SumaPkt = 0;
-            for($x=0;$x<$punkty->num_rows;$x++){
-                $wierszPKT = $punkty->fetch_assoc();
-                    $pkt = $wierszPKT['SumaPkt'];
-                $SumaPkt += $pkt;
+                $Suma = $wiersz['SumaPkt'];
+            $rezultatD = $polaczenie->query("SELECT * FROM `druzyny` WHERE `ID_druzyny`='".$IDD."' AND `konkurs`='1';");
+            if($rezultatD->num_rows != 0){
+                $wiersz1 = $rezultatD->fetch_assoc();
+                    $Nazwa = $wiersz1['NazwaDruzyny'];
+                    $SHL = $wiersz1['ID_szkoly'];
+                $rezultatShl = $polaczenie->query("SELECT * FROM `szkoly` WHERE `ID`='".$SHL."';");
+                $wiersz2 = $rezultatShl->fetch_assoc();
+                    $NazwaShl = $wiersz2['NazwaSzkoly'];
+                echo "<tr><td>".$lp."</td><td>".$Nazwa."</td><td>".$Suma."</td><td>".$NazwaShl."</td></tr>";
+                $lp++;
             }
-            $szkola = $polaczenie->query("SELECT * FROM `szkoly` WHERE `ID`='".$ID_shl."';");
-            $wierszShl = $szkola->fetch_assoc();
-                $nazwaSHL = $wierszShl['NazwaSzkoly'];
-            echo "<tr><td>".$lp."</td><td>".$nazwa."</td><td>".$SumaPkt."</td><td>".$nazwaSHL."</td></tr>";
-            $lp++;
+
         }
     }else{
         $runda = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC LIMIT 1");
