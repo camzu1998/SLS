@@ -242,6 +242,7 @@
             $druzyna = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$zawodnik."';");
             $wierszD = $druzyna->fetch_assoc();
                 $IDD = $wierszD['ID_druzyna'];
+                $Plec = $wierszD['Plec'];
             //Poprzednia suma pkt
             $BefPkt = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."';");
             $wierszBP = $BefPkt->fetch_assoc();
@@ -257,7 +258,36 @@
 
             mysqli_query($polaczenie, "UPDATE `punkty` SET `Suma`='".$Suma."', `pkt1`='".$pkt[0]."', `pkt2`='".$pkt[1]."', `pkt3`='".$pkt[2]."', `pkt4`='".$pkt[3]."', `pkt5`='".$pkt[4]."', `pkt6`='".$pkt[5]."', `pkt7`='".$pkt[6]."', `pkt8`='".$pkt[7]."', `pkt9`='".$pkt[8]."', `pkt10`='".$pkt[9]."', `Ilosc_10`='".$ilosc10."' WHERE `ID_zaw`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."';");
 
+            if($Plec == 'M'){
+                mysqli_query($polaczenie, "UPDATE `pkt_m` SET `Suma`='".$Suma."', `Ilosc_10`='".$ilosc10."' WHERE `IDZ`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."' ");
+            }else if($Plec == 'K'){
+                mysqli_query($polaczenie, "UPDATE `pkt_k` SET `Suma`='".$Suma."', `Ilosc_10`='".$ilosc10."' WHERE `IDZ`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."' ");
+            }else{
+                $_SESSION['SEXERROR']=1;
+            }
+
             mysqli_query($polaczenie, "UPDATE `pktdruzyny` SET `SumaPkt`='".$SumaPkt."' WHERE `ID_druzyny`='".$IDD."' AND `ID_runda`='".$nrRundy."';");
+            //EDYCJA GPD
+            $sezony = $polaczenie->query("SELECT * FROM `rundy` WHERE `ID`='".$nrRundy."';");
+            $wierszSez = $sezony->fetch_assoc();
+                $Sezon = $wierszSez['IdSezonu'];
+            $gpd = $polaczenie->query("SELECT * FROM `gpd` WHERE `ID_Sez`='".$Sezon."' AND `ID_druzyny`='".$IDD."'");
+            $wierszgpd = $gpd->fetch_assoc();
+                $SumaGPD = $wierszgpd['SumaPkt'];
+                $IDGPD = $wierszgpd['ID'];
+            $SumaGPD -= $BeforeSuma;
+            $SumaGPD += $Suma;
+            mysqli_query($polaczenie, "UPDATE `gpd` SET `SumaPkt`='".$SumaGPD."' WHERE `ID`='".$IDGPD."';");
+            //EDYCJA GPZ
+            $gpz = $polaczenie->query("SELECT * FROM `pkt_gen` WHERE `ID_sez`='".$Sezon."' AND `ID_zaw`='".$zawodnik."'");
+            $wierszgpz = $gpz->fetch_assoc();
+                $SumaGPZ = $wierszgpz['Suma'];
+                $IDGPZ = $wierszgpz['ID'];
+            $SumaGPZ -= $BeforeSuma;
+            $SumaGPZ += $Suma;
+            mysqli_query($polaczenie, "UPDATE `pkt_gen` SET `Suma`='".$SumaGPZ."' WHERE `ID`='".$SumaGPZ."';");
+
+
 
             $czynnosc = "Edycja punktów zawodnika: ".$zawodnik;
             $_SESSION['EdycjaPkt']=1;
@@ -268,6 +298,7 @@
             $druzyna = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$IdZaw."';");
             $wierszD = $druzyna->fetch_assoc();
                 $IDD = $wierszD['ID_druzyna'];
+                $Plec = $wierszD['Plec'];
             //Punkty do usuniecia
             $BefPkt = $polaczenie->query("SELECT * FROM `punkty` WHERE `ID_zaw`='".$IdZaw."' AND `ID_Rundy`='".$IdRun."';");
             $wierszBP = $BefPkt->fetch_assoc();
@@ -280,6 +311,33 @@
             //AKTUALIZACJA W BAZIE
             mysqli_query($polaczenie, "UPDATE `pktdruzyny` SET `SumaPkt`='".$SumaPkt."' WHERE `ID_druzyny`='".$IDD."' AND `ID_runda`='".$IdRun."';");
             mysqli_query($polaczenie, "DELETE FROM `punkty` WHERE `ID_zaw` ='".$IdZaw."' AND `ID_Rundy`='".$IdRun."'");
+
+            if($Plec == 'M'){
+                mysqli_query($polaczenie, "DELETE FROM `pkt_m` WHERE `IDZ`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."' ");
+            }else if($Plec == 'K'){
+                mysqli_query($polaczenie, "DELETE FROM `pkt_k` WHERE `IDZ`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."' ");
+            }else{
+                $_SESSION['SEXERROR']=1;
+            }
+
+            //EDYCJA GPD
+            $sezony = $polaczenie->query("SELECT * FROM `rundy` WHERE `ID`='".$nrRundy."';");
+            $wierszSez = $sezony->fetch_assoc();
+                $Sezon = $wierszSez['IdSezonu'];
+            $gpd = $polaczenie->query("SELECT * FROM `gpd` WHERE `ID_Sez`='".$Sezon."' AND `ID_druzyny`='".$IDD."'");
+            $wierszgpd = $gpd->fetch_assoc();
+                $SumaGPD = $wierszgpd['SumaPkt'];
+                $IDGPD = $wierszgpd['ID'];
+            $SumaGPD -= $BeforeSuma;
+            mysqli_query($polaczenie, "UPDATE `gpd` SET `SumaPkt`='".$SumaGPD."' WHERE `ID`='".$IDGPD."';");
+            //EDYCJA GPZ
+            $gpz = $polaczenie->query("SELECT * FROM `pkt_gen` WHERE `ID_sez`='".$Sezon."' AND `ID_zaw`='".$zawodnik."'");
+            $wierszgpz = $gpz->fetch_assoc();
+                $SumaGPZ = $wierszgpz['Suma'];
+                $IDGPZ = $wierszgpz['ID'];
+            $SumaGPZ -= $BeforeSuma;
+            mysqli_query($polaczenie, "UPDATE `pkt_gen` SET `Suma`='".$SumaGPZ."' WHERE `ID`='".$SumaGPZ."';");
+
             $_SESSION['PtsDelete'] = 1;
             $czynnosc = "Usuwanie pkt zawodnika: ".$zawodnik;
         }else if($tryb == "wczytajEdytujDruz"){
