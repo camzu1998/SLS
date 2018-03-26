@@ -579,6 +579,28 @@
             mysqli_query($polaczenie, "DELETE FROM `pojedynki` WHERE `ID`='".$IDP."';");
         }else if($tryb == "wczytajEdytujMiejsce"){
             echo include"EdytujMiejsce.php";
+        }else if($tryb == "refreshEM"){
+            $IDZaw = $_GET['IDZaw'];
+            $NrRundy = $_GET['NrRundy'];
+            echo include"editPlaces.php";
+        }else if($tryb == "EdytujMiejsce"){
+            $IDZaw = $_GET['zawodnik'];
+            $NrRundy = $_GET['runda'];
+            $Miejsce = $_GET['Miejsce'];
+
+            $info1 = $polaczenie->query("SELECT * FROM `zawodnicy` WHERE `ID_zawodnika`='".$IDZaw."'");
+            $wiersz = $info1->fetch_assoc();
+                $Plec1 = $wiersz['Plec'];
+
+            if($Plec1 == "M"){
+                mysqli_query($polaczenie, "UPDATE `pkt_m` SET `Miejsce`='".$Miejsce."' WHERE `ID_Rundy`='".$NrRundy."' AND `IDZ`='".$IDZaw."';");
+                $_SESSION['PlaceChanged']=$NrRundy;
+            }else if($Plec1 == "K"){
+                mysqli_query($polaczenie, "UPDATE `pkt_k` SET `Miejsce`='".$Miejsce."' WHERE `IDZ`='".$IDZaw."' AND `ID_Rundy`='".$NrRundy."'");
+                $_SESSION['PlaceChanged']=1;
+            }else{
+                $_SESSION['SEXERROR']=1;
+            }
         }
         @logi($czynnosc, $polaczenie);
     }

@@ -45,6 +45,8 @@ function wyswietlaj(tytul, content){
         var tryb = "wczytajZaawansowane";
     }else if(content == "pojedynki"){
         var tryb = "wczytajPojedynki";
+    }else if(content == "edytujmiejsce"){
+        var tryb = "wczytajEdytujMiejsce";
     }
 
     response(tryb);
@@ -421,5 +423,29 @@ function wyslijP(){
     var xmlhttp = new XMLHttpRequest();
     var tryb = "Wyniki";
     xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDP="+IDP+"&Winner="+IDZ, true);
+    xmlhttp.send();
+}
+function refreshEM(){
+    var idZaw = $('#zawodnik').val();
+    var nrRundy = $('#runda').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "refreshEM";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&IDZaw="+idZaw+"&NrRundy="+nrRundy, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('formularz').innerHTML = this.responseText;
+        }
+    }
+}
+function wyslijEM(){
+    var Miejsce = $('#Miejsce').val();
+    var idZaw = $('#zawodnik').val();
+    var nrRundy = $('#runda').val();
+
+    var xmlhttp = new XMLHttpRequest();
+    var tryb = "EdytujMiejsce";
+    xmlhttp.open("GET", "adminContentController.php?Tryb="+tryb+"&Miejsce="+Miejsce+"&runda="+nrRundy+"&zawodnik="+idZaw, true);
     xmlhttp.send();
 }

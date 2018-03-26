@@ -98,6 +98,7 @@
         <footer>
             Kamil Langer 2017 Wszelkie prawa zastrzeżone &copy; kamillanger4@gmail.com
         </footer>
+        <script>console.log("Plec: "<?php echo $_SESSION['PlaceChanged']; ?>);</script>
         <div id="snackbar"><span id="tekst"></span></div>
         <?php
         if(isset($_SESSION['ErrorPtsExist'])){
@@ -152,6 +153,8 @@
             ?> <script>openSnackbar('SprawdzanieError');</script> <?php
         }else if(isset($_SESSION['SEXERROR'])){
             ?> <script>openSnackbar('SEXERROR');</script> <?php
+        }else if(isset($_SESSION['PlaceChanged'])){
+            ?> <script>openSnackbar('PlaceChanged');</script> <?php
         }
         unset($_SESSION['ErrorPtsExist']);
         unset($_SESSION['PtsDone']);
@@ -179,6 +182,7 @@
         unset($_SESSION['DeleteRound']);
         unset($_SESSION['SprawdzanieError']);
         unset($_SESSION['SEXERROR']);
+        unset($_SESSION['PlaceChanged']);
         ?>
     </body>
 </html>
