@@ -83,7 +83,7 @@
                     <a onclick="wyswietlaj('Pojedynki', `pojedynki`);">Pojedynki</a>
                 </div>
                 <div class="four columns window">
-                    <a onclick="wyswietlaj('COSTAM ', `COSTAM`);">cOSTAM</a> <br>
+                    <a onclick="wyswietlaj('Edycja miejsca ', `edytujmiejsce`);">Edycja miejsca</a> <br>
                     <a onclick="wyswietlaj('Zaawansowane', `zaawansowane`);">Zaawansowane</a>
                 </div>
             </div>

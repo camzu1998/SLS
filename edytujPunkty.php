@@ -30,8 +30,13 @@
             $rezultat = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC");
             for($i=0;$i<$rezultat->num_rows;$i++){
                 $wiersz = $rezultat->fetch_assoc();
-                    $nazwa = $wiersz['ID'];
-                echo '<option value="'.$nazwa.'">'.$nazwa.'</option>';
+                    $ID = $wiersz['ID'];
+                    $Numer = $wiersz['Numer'];
+                    $Sezon = $wiersz['IdSezonu'];
+                $lata = $polaczenie->query("SELECT * FROM `sezony` WHERE `ID`='".$Sezon."';");
+                $wierszSez = $lata->fetch_assoc();
+                    $nazwa = $wierszSez['Data'];
+                echo '<option value='.$ID.'>'.$Numer.'('.$nazwa.')</option>';
             }
         ?>
     </select>

@@ -159,8 +159,16 @@
             $nazwaShl = mb_convert_case($_GET['NazwaShl'], MB_CASE_TITLE, "UTF-8");
             $idSez = $_GET['NazwaSez'];
             $Data = $_GET['Data'];
+            $LastRound = $polaczenie->query("SELECT * FROM `rundy` WHERE `IdSezonu`='".$idSez."' ORDER BY `Numer` DESC");
+            if($LastRound->num_rows == 0){
+                $Numer = 1;
+            }else{
+                $wierszLR = $LastRound->fetch_assoc();
+                    $Numer = $wierszLR['Numer'];
+                $Numer++;
+            }
             //DODAWANIE DO TABELI
-            mysqli_query($polaczenie, "INSERT INTO `rundy` (`IdSezonu`, `NazwaShl`, `Data`) VALUES('".$idSez."', '".$nazwaShl."', '".$Data."');");
+            mysqli_query($polaczenie, "INSERT INTO `rundy` (`Numer`, `IdSezonu`, `NazwaShl`, `Data`) VALUES('".$Numer."', '".$idSez."', '".$nazwaShl."', '".$Data."');");
             $czynnosc = "Dodawanie rundy";
         }else if($tryb == "wczytajEdytujZawodnika"){
             echo include"edytujZawodnika1.php";
@@ -569,6 +577,8 @@
                 }
             }
             mysqli_query($polaczenie, "DELETE FROM `pojedynki` WHERE `ID`='".$IDP."';");
+        }else if($tryb == "wczytajEdytujMiejsce"){
+            echo include"EdytujMiejsce.php";
         }
         @logi($czynnosc, $polaczenie);
     }

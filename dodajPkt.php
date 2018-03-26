@@ -3,7 +3,7 @@
     //AKTUALNA RUNDA
     $rezultat = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC");
     $wiersz = $rezultat->fetch_assoc();
-        $aktualnaRunda = $wiersz['ID'];
+        $aktualnaRunda = $wiersz['Numer'];
      echo "Aktualny nr rundy: ".$aktualnaRunda;
     ?>
     <br>
@@ -30,8 +30,13 @@
             $rezultat = $polaczenie->query("SELECT * FROM `rundy` ORDER BY `ID` DESC");
             for($i=0;$i<$rezultat->num_rows;$i++){
                 $wiersz = $rezultat->fetch_assoc();
-                    $nazwa = $wiersz['ID'];
-                echo '<option value="'.$nazwa.'">'.$nazwa.'</option>';
+                    $ID = $wiersz['ID'];
+                    $nazwa = $wiersz['Numer'];
+                    $Sezon = $wiersz['IdSezonu'];
+                $sezony = $polaczenie->query("SELECT * FROM `sezony` WHERE `ID`='".$Sezon."'");
+                $wierszSezon = $sezony->fetch_assoc();
+                    $Data = $wierszSezon['Data'];
+                echo '<option value="'.$ID.'">'.$nazwa.'('.$Data.')</option>';
             }
         ?>
     </select> <br>

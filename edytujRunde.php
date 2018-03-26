@@ -8,11 +8,12 @@
             for($i=0;$i<$rezultat->num_rows;$i++){
                 $wiersz = $rezultat->fetch_assoc();
                     $ID = $wiersz['ID'];
+                    $Numer = $wiersz['Numer'];
                     $Sezon = $wiersz['IdSezonu'];
                 $lata = $polaczenie->query("SELECT * FROM `sezony` WHERE `ID`='".$Sezon."';");
                 $wierszSez = $lata->fetch_assoc();
                     $nazwa = $wierszSez['Data'];
-                echo '<option value='.$ID.'>'.$ID.'('.$nazwa.')</option>';
+                echo '<option value='.$ID.'>'.$Numer.'('.$nazwa.')</option>';
             }
             ?>
         </select><br>
