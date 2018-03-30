@@ -321,15 +321,15 @@
             mysqli_query($polaczenie, "DELETE FROM `punkty` WHERE `ID_zaw` ='".$IdZaw."' AND `ID_Rundy`='".$IdRun."'");
 
             if($Plec == 'M'){
-                mysqli_query($polaczenie, "DELETE FROM `pkt_m` WHERE `IDZ`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."' ");
+                mysqli_query($polaczenie, "DELETE FROM `pkt_m` WHERE `IDZ`='".$IdZaw."' AND `ID_Rundy`='".$IdRun."' ");
             }else if($Plec == 'K'){
-                mysqli_query($polaczenie, "DELETE FROM `pkt_k` WHERE `IDZ`='".$zawodnik."' AND `ID_Rundy`='".$nrRundy."' ");
+                mysqli_query($polaczenie, "DELETE FROM `pkt_k` WHERE `IDZ`='".$IdZaw."' AND `ID_Rundy`='".$IdRun."' ");
             }else{
                 $_SESSION['SEXERROR']=1;
             }
 
             //EDYCJA GPD
-            $sezony = $polaczenie->query("SELECT * FROM `rundy` WHERE `ID`='".$nrRundy."';");
+            $sezony = $polaczenie->query("SELECT * FROM `rundy` WHERE `ID`='".$IdRun."';");
             $wierszSez = $sezony->fetch_assoc();
                 $Sezon = $wierszSez['IdSezonu'];
             $gpd = $polaczenie->query("SELECT * FROM `gpd` WHERE `ID_Sez`='".$Sezon."' AND `ID_druzyny`='".$IDD."'");
@@ -347,7 +347,7 @@
             mysqli_query($polaczenie, "UPDATE `pkt_gen` SET `Suma`='".$SumaGPZ."' WHERE `ID`='".$SumaGPZ."';");
 
             $_SESSION['PtsDelete'] = 1;
-            $czynnosc = "Usuwanie pkt zawodnika: ".$zawodnik;
+            $czynnosc = "Usuwanie pkt zawodnika: ".$IdZaw;
         }else if($tryb == "wczytajEdytujDruz"){
             echo include"edytujDruzyne.php";
         }else if($tryb == "refreshED"){
