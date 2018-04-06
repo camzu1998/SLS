@@ -51,7 +51,7 @@
                     <?php include"tabelkaSmall.php"; ?>
                     </ul>
                 </div>
-                <div class="seven columns">
+                <div class="seven columns" style="overflow-y: scroll; height: 300px;">
                     <table id="kgid">
                         <thead><tr><th>Miejsce</th><th>Imię i nazwisko</th><th>Punkty</th><th>Nazwa szkoły</th><th></th></tr></thead>
                         <tbody id="tabeleczka">

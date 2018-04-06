@@ -63,7 +63,7 @@
                     <?php include"tabelkaSmall.php"; ?>
                     </ul>
                 </div>
-                <div class="seven columns">
+                <div class="seven columns" style="overflow-y: scroll; height: 300px;">
                     <table>
                         <thead><tr><th>Miejsce</th><th>Nazwa drużyny</th><th>Punkty</th><th>Nazwa szkoły</th><th></th></tr></thead>
                         <tbody id="tabeleczka">

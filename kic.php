@@ -11,8 +11,12 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/skeleton.css">
         <link rel="stylesheet" href="css/index.css">
-        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/w3.js"></script>
         <script src="js/tables.js"></script>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+        <script src="https://www.w3schools.com/lib/w3.js"></script>
+        <script src="js/jquery-paginate.js"></script>
     </head>
     <body>
         <div class="container">
@@ -50,11 +54,12 @@
                     $zapytanie = $polaczenie->query("SELECT * FROM `rundy` WHERE `IdSezonu` = '".$IDS."' ORDER BY `ID` DESC");
                     $wiersz = $zapytanie->fetch_assoc();
                         $ID = $wiersz['ID'];
+                        $Numer = $wiersz['Numer'];
                     if($ID == null){$ID = 0;}
                     echo '<input type="number" name="runda" id="runda" min="0" max="'.$ID.'" value="'.$ID.'"/>';
 
                     ?>
-                    <a onclick="reload(<?php echo $IDS; ?>,'KIC')">Wczytaj</a>
+                    <a onclick="reload(<?php echo $IDS; ?>,'KIC');">Wczytaj</a>
                 </div>
             </div>
             <div class="row">
@@ -63,13 +68,18 @@
                     <?php include"tabelkaSmall.php"; ?>
                     </ul>
                 </div>
-                <div class="seven columns">
-                    <table>
-                        <thead><tr><th>Miejsce</th><th>Imię i Nazwisko</th><th>Punkty</th><th>Nazwa szkoły</th><th></th></tr></thead>
+                <div class="seven columns" style="overflow-y: scroll; height: 300px;">
+                    <table id="kic">
+                        <thead><tr><th>Miejsce</th><th>Imię i nazwisko</th><th>Punkty</th><th>Nazwa szkoły</th><th></th></tr></thead>
                         <tbody id="tabeleczka">
                             <?php include"tabelaKIC.php"; ?>
                         </tbody>
                     </table>
+                    <script>
+                        $(function () {
+                            $('#kic').paginate({ limit: 10 });
+                        });
+                    </script>
                 </div>
             </div>
         </div>

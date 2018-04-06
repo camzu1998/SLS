@@ -11,9 +11,12 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/skeleton.css">
         <link rel="stylesheet" href="css/index.css">
-        <script src="js/jquery-3.2.1.min.js"></script>
         <script src="js/w3.js"></script>
         <script src="js/tables.js"></script>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+        <script src="https://www.w3schools.com/lib/w3.js"></script>
+        <script src="js/jquery-paginate.js"></script>
     </head>
     <body>
         <div class="container">
@@ -51,13 +54,18 @@
                     <?php include"tabelkaSmall.php"; ?>
                     </ul>
                 </div>
-                <div class="seven columns">
+                <div class="seven columns" style="overflow-y: scroll; height: 300px;">
                     <table id="kgic">
                         <thead><tr><th>Miejsce</th><th>Imię i nazwisko</th><th>Punkty</th><th>Nazwa szkoły</th><th></th></tr></thead>
                         <tbody id="tabeleczka">
                             <?php include"tabelaKGIC.php"; ?>
                         </tbody>
                     </table>
+                    <script>
+                        $(function () {
+                            $('#kgic').paginate({ limit: 10 });
+                        });
+                    </script>
                 </div>
             </div>
         </div>
